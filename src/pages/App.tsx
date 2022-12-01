@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import TestPage from "./TestPage";
 
 const router = createBrowserRouter([
 	{
@@ -8,6 +9,10 @@ const router = createBrowserRouter([
 	{
 		path: "*",
 		element: <p>404 Not found</p>,
+	},
+	{
+		path: "/test",
+		element: <TestPage />,
 	},
 ]);
 
