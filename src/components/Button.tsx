@@ -27,9 +27,9 @@ export default function Button({
 	return (
 		<button
 			onClick={onClick}
-			className={`flex gap-1 items-center justify-center text-white font-semibold py-3.5 px-5 rounded-lg ${
+			className={`flex gap-1 items-center justify-center py-3.5 px-5 rounded-lg ${
 				filled
-					? `text-white ${getBackgroundStyle(color)}`
+					? `text-white ${getBackgroundStyle(color)} font-semibold`
 					: `border-[1.5px] ${getBorderStyle(color)} ${getTextStyle(
 							color
 					  )}`
