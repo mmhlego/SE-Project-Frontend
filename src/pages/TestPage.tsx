@@ -1,6 +1,7 @@
 import Button from "../components/Button";
 import { Login, ShoppingCart } from "iconsax-react";
 import TestSection from "../components/TestSection";
+import CheckBox from "components/CheckBox";
 
 export default function TestPage() {
 	return (
@@ -50,6 +51,10 @@ export default function TestPage() {
 					filled
 					color="cyan"
 				/>
+			</TestSection>
+			<TestSection>
+				<CheckBox text="این یک متن تست است" />
+				<CheckBox text="این یک متن تست است" initial />
 			</TestSection>
 		</div>
 	);
