@@ -3,10 +3,16 @@ import { useState } from "react";
 interface Props {
 	text: string;
 	initial?: boolean;
+	disabled?: boolean;
 	onClick?: (newVal: boolean) => void;
 }
 
-export default function CheckBox({ text, initial = false, onClick }: Props) {
+export default function CheckBox({
+	text,
+	initial = false,
+	disabled = false,
+	onClick,
+}: Props) {
 	const [checked, setChecked] = useState(initial);
 
 	const toggle = () => {
@@ -18,15 +24,19 @@ export default function CheckBox({ text, initial = false, onClick }: Props) {
 
 	return (
 		<div
-			className="flex flex-row gap-2.5 items-center cursor-pointer"
-			onClick={toggle}
+			className={`flex flex-row gap-2.5 items-center ${
+				disabled ? "grayscale cursor-not-allowed" : "cursor-pointer"
+			}`}
+			onClick={disabled ? undefined : toggle}
 		>
-			{text}
+			<p className={disabled ? "text-gray-400" : ""}>{text}</p>
 			<div
 				className={`w-6 h-6 rounded-lg duration-300 ${
 					checked
 						? `bg-cyan border-cyan`
-						: `border-[2px] border-black`
+						: `border-[2px] ${
+								disabled ? "border-gray-300" : "border-black"
+						  }`
 				} flex justify-center items-center`}
 			>
 				<svg

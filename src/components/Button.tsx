@@ -11,6 +11,7 @@ interface Props {
 	filled?: boolean;
 	color?: color;
 	accent?: color;
+	disabled?: boolean;
 	notification?: number;
 	onClick: () => void;
 }
@@ -21,33 +22,38 @@ export default function Button({
 	filled = false,
 	color = "blue",
 	accent = "white",
+	disabled = false,
 	notification,
 	onClick,
 }: Props) {
 	return (
-		<button
-			onClick={onClick}
-			className={`flex gap-1 items-center justify-center py-3.5 px-5 rounded-lg ${
-				filled
-					? `text-white ${getBackgroundStyle(color)} font-semibold`
-					: `border-[1.5px] ${getBorderStyle(color)} ${getTextStyle(
-							color
-					  )}`
-			}`}
-		>
-			{notification !== undefined && (
-				<p
-					className={`${
-						filled
-							? "bg-white text-black"
-							: `${getBackgroundStyle(accent)} text-white`
-					} text-sm px-1.5 rounded-full mr-2`}
-				>
-					{notification}
-				</p>
-			)}
-			{text}
-			{icon}
-		</button>
+		<div className={disabled ? "grayscale" : ""}>
+			<button
+				onClick={disabled ? undefined : onClick}
+				className={`flex gap-1 items-center justify-center py-3.5 px-5 rounded-lg ${
+					filled
+						? `text-white ${getBackgroundStyle(
+								color
+						  )} font-semibold`
+						: `border-[1.5px] ${getBorderStyle(
+								color
+						  )} ${getTextStyle(color)}`
+				} ${disabled ? "cursor-not-allowed" : ""}`}
+			>
+				{notification !== undefined && (
+					<p
+						className={`${
+							filled
+								? "bg-white text-black"
+								: `${getBackgroundStyle(accent)} text-white`
+						} text-sm px-1.5 rounded-full mr-2`}
+					>
+						{notification}
+					</p>
+				)}
+				{text}
+				{icon}
+			</button>
+		</div>
 	);
 }
