@@ -1,10 +1,15 @@
 import Button from "../components/Button";
-import { Login, ShoppingCart } from "iconsax-react";
+import { Framer, Login, Profile, ShoppingCart } from "iconsax-react";
 import TestSection from "../components/TestSection";
 import CheckBox from "components/CheckBox";
 import Toggle from "components/Toggle";
+import InputField from "components/InputField";
+import SearchField from "components/SearchField";
+import { useState } from "react";
 
 export default function TestPage() {
+	const [search, setSearch] = useState("");
+
 	return (
 		<div className="w-full flex min-h-screen items-center gap-4 flex-col">
 			<TestSection>
@@ -70,6 +75,28 @@ export default function TestPage() {
 				<Toggle text="این یک متن تست است" />
 				<Toggle text="این یک متن تست است" initial />
 				<Toggle text="این یک متن تست است" disabled />
+			</TestSection>
+
+			<TestSection>
+				<InputField
+					name="نام فیلد"
+					placeholder="لطفا فیلد مورد نظر را وارد نمایید"
+					icon={<Profile size={20} variant="Bold" />}
+				/>
+
+				<InputField
+					name="نام فیلد"
+					placeholder="لطفا فیلد مورد نظر را وارد نمایید"
+				/>
+
+				<InputField
+					name="نام فیلد"
+					placeholder="لطفا فیلد مورد نظر را وارد نمایید"
+					icon={<Profile size={20} variant="Bold" />}
+					disabled
+				/>
+
+				<SearchField text={search} setText={setSearch} />
 			</TestSection>
 		</div>
 	);
