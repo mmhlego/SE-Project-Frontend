@@ -7,6 +7,7 @@ import InputField from "components/InputField";
 import SearchField from "components/SearchField";
 import { useState } from "react";
 import Header from "components/Header";
+import Footer from "components/Footer";
 
 export default function TestPage() {
 	const [search, setSearch] = useState("");
@@ -101,6 +102,7 @@ export default function TestPage() {
 			</TestSection>
 
 			<Header />
+			<Footer />
 		</div>
 	);
 }
