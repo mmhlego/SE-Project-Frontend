@@ -3,14 +3,15 @@ import { SearchNormal1 } from "iconsax-react";
 interface Props {
 	text: string;
 	setText?: (newText: string) => void;
+	className?: string;
 }
 
-export default function SearchField({ text, setText }: Props) {
+export default function SearchField({ text, setText, className }: Props) {
 	return (
-		<div className="relative">
+		<div className="relative h-fit">
 			<input
 				type="text"
-				className="duration-300 min-w-[300px] p-3 pr-11 mt-1 rounded-lg text-right outline-none bg-gray-200 placeholder:text-black"
+				className={`duration-300 min-w-[300px] p-3 pr-11 rounded-lg text-right outline-none bg-gray-200 placeholder:text-black ${className}`}
 				placeholder="جستجو"
 				value={text}
 				onChange={(e) => {
@@ -18,7 +19,7 @@ export default function SearchField({ text, setText }: Props) {
 				}}
 			/>
 
-			<div className="absolute bottom-3.5 right-5">
+			<div className="h-full absolute right-5 top-0 flex items-center">
 				<SearchNormal1 size={20} />
 			</div>
 		</div>
