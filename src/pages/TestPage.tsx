@@ -6,6 +6,7 @@ import Toggle from "components/Toggle";
 import InputField from "components/InputField";
 import SearchField from "components/SearchField";
 import { useState } from "react";
+import Footer from "components/Footer";
 
 export default function TestPage() {
 	const [search, setSearch] = useState("");
@@ -98,6 +99,8 @@ export default function TestPage() {
 
 				<SearchField text={search} setText={setSearch} />
 			</TestSection>
+
+			<Footer />
 		</div>
 	);
 }
