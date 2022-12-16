@@ -75,6 +75,9 @@ export default function Header() {
 		},
 	];
 
+	const currentRoute = useLocation();
+	const navigate = useNavigate();
+
 	return (
 		<div className="w-full h-fit flex flex-col">
 			<div className="flex flex-row justify-between items-center px-20 h-16">
@@ -90,7 +93,11 @@ export default function Header() {
 
 				<div className="h-full flex flex-row-reverse gap-6">
 					{menuPages.map((page, _) => (
-						<HeaderPage text={page.text} pathname={page.pathname} />
+						<HeaderPage
+							key={_}
+							text={page.text}
+							pathname={page.pathname}
+						/>
 					))}
 				</div>
 			</div>
@@ -123,8 +130,9 @@ export default function Header() {
 
 			<div className="relative bg-gray-100 px-10 flex flex-row-reverse justify-between items-center">
 				<div className="flex flex-row-reverse gap-1">
-					{menuDropdowns.map((dropdown) => (
+					{menuDropdowns.map((dropdown, _) => (
 						<Dropdown
+							key={_}
 							text={dropdown.text}
 							icon={dropdown.icon}
 							children={dropdown.children}

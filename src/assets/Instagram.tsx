@@ -29,8 +29,8 @@ export default function Instagram({ className }: Props) {
 					gradientUnits="userSpaceOnUse"
 					gradientTransform="translate(3.97049 27.7808) scale(35.6644 35.643)"
 				>
-					<stop offset="0.09" stop-color="#FA8F21" />
-					<stop offset="0.78" stop-color="#D82D7E" />
+					<stop offset="0.09" stopColor="#FA8F21" />
+					<stop offset="0.78" stopColor="#D82D7E" />
 				</radialGradient>
 				<radialGradient
 					id="paint1_radial_24_2"
@@ -40,8 +40,8 @@ export default function Instagram({ className }: Props) {
 					gradientUnits="userSpaceOnUse"
 					gradientTransform="translate(16.9094 29.0041) scale(28.1085 28.0916)"
 				>
-					<stop offset="0.64" stop-color="#8C3AAA" stop-opacity="0" />
-					<stop offset="1" stop-color="#8C3AAA" />
+					<stop offset="0.64" stopColor="#8C3AAA" stopOpacity="0" />
+					<stop offset="1" stopColor="#8C3AAA" />
 				</radialGradient>
 			</defs>
 		</svg>

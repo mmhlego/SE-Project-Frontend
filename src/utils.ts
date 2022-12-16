@@ -8,11 +8,11 @@ export type color =
 	| "yellow"
 	| "red"
 	| "cyan"
-	| "gray1"
-	| "gray2"
-	| "gray3"
-	| "gray4"
-	| "gray5";
+	| "gray-100"
+	| "gray-200"
+	| "gray-300"
+	| "gray-400"
+	| "gray-500";
 
 export const getBorderStyle = (color: color) => {
 	if (color === "orange") return "border-orange";
@@ -23,11 +23,11 @@ export const getBorderStyle = (color: color) => {
 	if (color === "yellow") return "border-yellow";
 	if (color === "red") return "border-red";
 	if (color === "cyan") return "border-cyan";
-	if (color === "gray1") return "border-gray1";
-	if (color === "gray2") return "border-gray2";
-	if (color === "gray3") return "border-gray3";
-	if (color === "gray4") return "border-gray4";
-	if (color === "gray5") return "border-gray5";
+	if (color === "gray-100") return "border-gray-100";
+	if (color === "gray-200") return "border-gray-200";
+	if (color === "gray-300") return "border-gray-300";
+	if (color === "gray-400") return "border-gray-400";
+	if (color === "gray-500") return "border-gray-500";
 	return "border-blue";
 };
 
@@ -40,11 +40,11 @@ export const getTextStyle = (color: color) => {
 	if (color === "yellow") return "text-yellow";
 	if (color === "red") return "text-red";
 	if (color === "cyan") return "text-cyan";
-	if (color === "gray1") return "text-gray1";
-	if (color === "gray2") return "text-gray2";
-	if (color === "gray3") return "text-gray3";
-	if (color === "gray4") return "text-gray4";
-	if (color === "gray5") return "text-gray5";
+	if (color === "gray-100") return "text-gray-100";
+	if (color === "gray-200") return "text-gray-200";
+	if (color === "gray-300") return "text-gray-300";
+	if (color === "gray-400") return "text-gray-400";
+	if (color === "gray-500") return "text-gray-500";
 	return "text-blue";
 };
 
@@ -57,10 +57,10 @@ export const getBackgroundStyle = (color: color) => {
 	if (color === "yellow") return "bg-yellow";
 	if (color === "red") return "bg-red";
 	if (color === "cyan") return "bg-cyan";
-	if (color === "gray1") return "bg-gray1";
-	if (color === "gray2") return "bg-gray2";
-	if (color === "gray3") return "bg-gray3";
-	if (color === "gray4") return "bg-gray4";
-	if (color === "gray5") return "bg-gray5";
+	if (color === "gray-100") return "bg-gray-100";
+	if (color === "gray-200") return "bg-gray-200";
+	if (color === "gray-300") return "bg-gray-300";
+	if (color === "gray-400") return "bg-gray-400";
+	if (color === "gray-500") return "bg-gray-500";
 	return "bg-blue";
 };

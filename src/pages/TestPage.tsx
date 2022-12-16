@@ -8,12 +8,13 @@ import SearchField from "components/SearchField";
 import { useState } from "react";
 import Header from "components/Header";
 import Footer from "components/Footer";
+import CollapsiblePanel from "components/CollapsiblePanel";
 
 export default function TestPage() {
 	const [search, setSearch] = useState("");
 
 	return (
-		<div className="w-full flex min-h-screen items-center gap-4 flex-col pb-56">
+		<div className="w-full flex min-h-screen items-center gap-4 flex-col py-10">
 			<TestSection>
 				<Button
 					text="ورود / ثبت نام"
@@ -99,6 +100,24 @@ export default function TestPage() {
 				/>
 
 				<SearchField text={search} setText={setSearch} />
+			</TestSection>
+
+			<TestSection>
+				<CollapsiblePanel text="لطفا دسته بندی مورد نظر را انتخاب کنید">
+					<CheckBox initial text="آیتم یک" />
+					<CheckBox initial text="آیتم دو" />
+					<CheckBox initial text="آیتم سه" />
+					<CheckBox initial text="آیتم چهار" />
+				</CollapsiblePanel>
+				<CollapsiblePanel
+					text="لطفا دسته بندی مورد نظر را انتخاب کنید"
+					disabled
+				>
+					<CheckBox initial text="آیتم یک" />
+					<CheckBox initial text="آیتم دو" />
+					<CheckBox initial text="آیتم سه" />
+					<CheckBox initial text="آیتم چهار" />
+				</CollapsiblePanel>
 			</TestSection>
 
 			<Header />

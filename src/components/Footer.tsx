@@ -34,10 +34,10 @@ export default function Footer() {
 					</div>
 				</div>
 				<div>
-					<p className="relative w-full mb-4 border-b-[1px] border-black pb-2 ">
+					<div className="relative w-full mb-4 border-b-[1px] border-black pb-2 ">
 						خدمات مشتریان
-						<hr className="absolute h-1.5 w-20 bg-blue bottom-0 right-0" />
-					</p>
+						<hr className="absolute h-1 w-20 bg-blue bottom-0 right-0" />
+					</div>
 
 					<div className="flex flex-col gap-4">
 						<a href="#">تخفیف ها و جنشواره</a>
@@ -47,10 +47,10 @@ export default function Footer() {
 					</div>
 				</div>
 				<div>
-					<p className="relative w-full mb-4 border-b-[1px] border-black pb-2 ">
+					<div className="relative w-full mb-4 border-b-[1px] border-black pb-2 ">
 						میانبر
-						<hr className="absolute h-1.5 w-20 bg-blue bottom-0 right-0" />
-					</p>
+						<hr className="absolute h-1 w-20 bg-blue bottom-0 right-0" />
+					</div>
 					<div className="flex flex-col gap-4">
 						<a href="#">صفحه اصلی</a>
 						<a href="#">پشتیبانی</a>
@@ -59,10 +59,10 @@ export default function Footer() {
 					</div>
 				</div>
 				<div>
-					<p className="relative w-full mb-4 border-b-[1px] border-black pb-2 ">
+					<div className="relative w-full mb-4 border-b-[1px] border-black pb-2 ">
 						تماس با ما
-						<hr className="absolute h-1.5 w-20 bg-blue bottom-0 right-0" />
-					</p>
+						<hr className="absolute h-1 w-20 bg-blue bottom-0 right-0" />
+					</div>
 					<div className="relative">
 						<div className="pr-24 flex flex-col gap-4 text-left text-gray-500 font-normal">
 							<p>تبریز،بلوار 29 بهمن،دانشگاه تبریز</p>
