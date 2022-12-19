@@ -1,7 +1,7 @@
-import seller from "./Seller";
+import Seller from "./Seller";
 
-export default interface sellers {
+export default interface Sellers {
 	sellersPerPages: number;
 	page: number;
-	sellers: seller[];
+	sellers: Seller[];
 }

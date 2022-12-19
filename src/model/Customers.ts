@@ -1,7 +1,7 @@
-import customer from "./Customer";
+import Customer from "./Customer";
 
-export default interface customers {
+export default interface Customers {
 	customerPerPage: number;
 	page: number;
-	customers: customer[];
+	customers: Customer[];
 }

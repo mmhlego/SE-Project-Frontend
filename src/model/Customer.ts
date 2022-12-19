@@ -1,13 +1,13 @@
-export default interface customer {
+export default interface Customer {
 	id: string;
 	username: string;
 	firstName: string;
 	lastName: string;
 	phoneNumber: String;
 	email: string;
-	profileImage: string;
+	profileImage?: string;
 	birthDate: string;
-	restricted: boolean;
+	restricted?: boolean;
 	address: string;
 	balance: number;
 }

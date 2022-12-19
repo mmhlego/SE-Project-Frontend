@@ -9,6 +9,7 @@ import { useState } from "react";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import CollapsiblePanel from "components/CollapsiblePanel";
+import ProductItem from "components/ProductItem";
 
 export default function TestPage() {
 	const [search, setSearch] = useState("");
@@ -122,6 +123,20 @@ export default function TestPage() {
 
 			<Header />
 			<Footer />
+
+			<TestSection>
+				<ProductItem
+					product={{
+						id: "sample",
+						name: "گوشی شیائومی نوت 11",
+						category: "Phone",
+						image: "https://www.technolife.ir/image/color_image_TLP-3554_a7dae8_ca79bb9c-a389-45df-a811-6fedaf224c2e.png",
+						description: "Yek gooshi khoob",
+						likes: 10,
+						dislikes: 5,
+					}}
+				/>
+			</TestSection>
 		</div>
 	);
 }
