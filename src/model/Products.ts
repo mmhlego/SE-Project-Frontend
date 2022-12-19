@@ -1,6 +1,6 @@
 import Product from "./Product";
 
-export interface Products {
+export default interface Products {
 	productsPerPage: number;
 	page: number;
 	products: Product[];
