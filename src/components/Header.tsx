@@ -104,7 +104,7 @@ export default function Header() {
 
 			<hr className="bg-gray-200" />
 
-			<div className="flex flex-row justify-between items-center px-10 py-7">
+			<div className="grid grid-flow-col items-center px-10 py-7">
 				<div className="flex gap-2">
 					{/* // TODO */}
 					<Button
@@ -123,9 +123,9 @@ export default function Header() {
 					/>
 				</div>
 
-				<SearchField text={""} className="" />
+				<SearchField text={""} />
 
-				<Logo className="h-12" />
+				<Logo className="h-12 justify-self-end" />
 			</div>
 
 			<div className="relative bg-gray-100 px-10 flex flex-row-reverse justify-between items-center">

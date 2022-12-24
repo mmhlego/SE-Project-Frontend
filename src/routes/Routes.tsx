@@ -1,25 +1,53 @@
-import { createBrowserRouter } from "react-router-dom";
+import Footer from "components/Footer";
+import Header from "components/Header";
+import NotFound from "pages/NotFound";
+import ProductPage from "pages/ProductPage";
+import ProductsPage from "pages/ProductsPage";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import TestPage from "../pages/TestPage";
 
 export const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <p>Home Page</p>
-	},
-	{
-		path: "/products",
-		element: <p>Products</p>
-	},
-	{
-		path: "/products/:id",
-		element: <p>Products with id</p>
+		element: (
+			<>
+				<Header />
+				<Outlet />
+				<Footer />
+			</>
+		),
+		children: [
+			{
+				index: true,
+				element: <p>Home Page</p>,
+			},
+			{
+				path: "/products",
+				element: <ProductsPage />,
+			},
+			{
+				path: "/products/:id",
+				element: <ProductPage />,
+			},
+		],
 	},
 	{
 		path: "*",
-		element: <p>404 Not found</p>
+		element: (
+			<>
+				<Header />
+				<NotFound />
+				<Footer />
+			</>
+		),
 	},
 	{
 		path: "/test",
-		element: <TestPage />
-	}
+		element: <TestPage />,
+		children: [
+			{
+				path: "products",
+			},
+		],
+	},
 ]);

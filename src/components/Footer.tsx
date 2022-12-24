@@ -10,17 +10,20 @@ import {
 	Signpost,
 	Sms,
 } from "iconsax-react";
+import { useNavigate } from "react-router";
 
 export default function Footer() {
+	const navigate = useNavigate();
+
 	return (
 		<div className="bg-gray-200 pt-16 pb-8 w-full flex flex-col gap-8 items-center text-right font-bold">
 			<div className="w-full flex pl-10 pr-24 justify-between items-center mb-4">
 				<div className="flex items-end flex-col">
-					<Logo className="h-24 pb-8" />
+					<a href="/">
+						<Logo className="h-24 pb-8" />
+					</a>
 
-					<p className="">
-						: مارا در شبکه های اجتماعی نیز دنبال کنید
-					</p>
+					<p>: ما را در شبکه های اجتماعی نیز دنبال کنید</p>
 					<div className="flex flex-row-reverse gap-5 pt-3">
 						<a href="#">
 							<Telegram className="w-6" />

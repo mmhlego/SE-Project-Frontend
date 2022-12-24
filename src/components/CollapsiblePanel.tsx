@@ -18,12 +18,14 @@ export default function CollapsiblePanel({
 	const toggleClosed = () => setClosed((prev) => !prev);
 
 	return (
-		<div className="w-full">
+		<>
 			<div
-				className={`w-full py-5 px-4 border-2 rounded-lg flex gap-2 ${
+				className={`w-full py-5 px-4 border-2 rounded-lg flex justify-between duration-300 ${
 					disabled
 						? "border-gray-300 text-gray-300 cursor-not-allowed"
-						: "border-blue/80 cursor-pointer"
+						: `border-black cursor-pointer hover:border-blue/80 ${
+								closed ? "" : "border-blue/80"
+						  }`
 				}`}
 				onClick={disabled ? undefined : toggleClosed}
 			>
@@ -56,6 +58,6 @@ export default function CollapsiblePanel({
 					);
 				})}
 			</div>
-		</div>
+		</>
 	);
 }

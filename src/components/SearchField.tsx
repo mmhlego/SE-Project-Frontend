@@ -8,10 +8,10 @@ interface Props {
 
 export default function SearchField({ text, setText, className }: Props) {
 	return (
-		<div className="relative h-fit">
+		<div className={`relative min-w-[300px] ${className}`}>
 			<input
 				type="text"
-				className={`duration-300 min-w-[300px] p-3 pr-11 rounded-lg text-right outline-none bg-gray-200 placeholder:text-black ${className}`}
+				className="duration-300 w-full p-3 pr-11 rounded-lg text-right outline-none bg-gray-200 placeholder:text-black"
 				placeholder="جستجو"
 				value={text}
 				onChange={(e) => {
