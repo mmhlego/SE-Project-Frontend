@@ -10,6 +10,7 @@ import Header from "components/Header";
 import Footer from "components/Footer";
 import CollapsiblePanel from "components/CollapsiblePanel";
 import ProductItem from "components/ProductItem";
+import Loading from "components/Loading";
 
 export default function TestPage() {
 	const [search, setSearch] = useState("");
@@ -136,6 +137,11 @@ export default function TestPage() {
 						dislikes: 5,
 					}}
 				/>
+			</TestSection>
+
+			<TestSection>
+				<Loading />
+				<Loading size={5} />
 			</TestSection>
 		</div>
 	);
