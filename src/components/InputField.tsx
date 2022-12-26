@@ -5,7 +5,9 @@ interface Props {
 	name: string;
 	placeholder: string;
 	disabled?: boolean;
+	isPassword?: boolean;
 	icon?: JSX.Element;
+	className?: string;
 	setText?: (newText: string) => void;
 	validator?: () => boolean;
 }
@@ -14,7 +16,9 @@ export default function InputField({
 	name,
 	placeholder,
 	disabled = false,
+	isPassword = false,
 	icon,
+	className,
 	setText,
 }: Props) {
 	type fieldStatus = "ok" | "fail" | "idle";
@@ -38,11 +42,13 @@ export default function InputField({
 	};
 
 	return (
-		<div className="flex flex-col items-end relative">
+		<div
+			className={`min-w-[300px] flex flex-col items-end relative ${className}`}
+		>
 			<p> {name}</p>
 			<input
-				type="text"
-				className={`duration-300 min-w-[300px] border-2 p-3 mt-1 rounded-lg text-right outline-none bg-white ${
+				type={isPassword ? "password" : "text"}
+				className={`w-full duration-300 border-2 p-3 mt-1 rounded-lg text-right outline-none bg-white ${
 					status === "idle" && !disabled
 						? `hover:border-blue focus:border-blue`
 						: ""

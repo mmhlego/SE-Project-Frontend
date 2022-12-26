@@ -13,6 +13,7 @@ interface Props {
 	accent?: color;
 	disabled?: boolean;
 	notification?: number;
+	className?: string;
 	onClick: () => void;
 }
 
@@ -24,13 +25,14 @@ export default function Button({
 	accent = "white",
 	disabled = false,
 	notification,
+	className,
 	onClick,
 }: Props) {
 	return (
 		<div className={disabled ? "grayscale" : ""}>
 			<button
 				onClick={disabled ? undefined : onClick}
-				className={`flex gap-1 items-center justify-center py-3.5 px-5 rounded-lg ${
+				className={`flex gap-1 items-center justify-center py-3.5 px-5 rounded-lg ${className} ${
 					filled
 						? `text-white ${getBackgroundStyle(
 								color

@@ -1,8 +1,11 @@
 import Footer from "components/Footer";
 import Header from "components/Header";
+import ForgotPassword from "pages/ForgotPassword";
+import Login from "pages/Login";
 import NotFound from "pages/NotFound";
 import ProductPage from "pages/ProductPage";
 import ProductsPage from "pages/ProductsPage";
+import Register from "pages/Register";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import TestPage from "../pages/TestPage";
 
@@ -30,6 +33,18 @@ export const router = createBrowserRouter([
 				element: <ProductPage />,
 			},
 		],
+	},
+	{
+		path: "/auth/login",
+		element: <Login />,
+	},
+	{
+		path: "/auth/register",
+		element: <Register />,
+	},
+	{
+		path: "/auth/forgot",
+		element: <ForgotPassword />,
 	},
 	{
 		path: "*",
