@@ -18,7 +18,7 @@ export default function NotFound() {
 				<Button
 					text="مشاهده محصولات"
 					color="orange"
-					onClick={() => navigate("/")}
+					onClick={() => navigate("/products")}
 				/>
 			</div>
 		</div>
