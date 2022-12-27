@@ -5,6 +5,7 @@ import ProductPage from "pages/ProductPage";
 import ProductsPage from "pages/ProductsPage";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import TestPage from "../pages/TestPage";
+import HomePage from "pages/HomePage";
 
 export const router = createBrowserRouter([
 	{
@@ -19,7 +20,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <p>Home Page</p>,
+				element: <HomePage />,
 			},
 			{
 				path: "/products",
