@@ -3,6 +3,7 @@ import Header from "components/Header";
 import ForgotPassword from "pages/ForgotPassword";
 import Login from "pages/Login";
 import NotFound from "pages/NotFound";
+import Payment from "pages/Payment";
 import ProductPage from "pages/ProductPage";
 import ProductsPage from "pages/ProductsPage";
 import Register from "pages/Register";
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
 	{
 		path: "/auth/forgot",
 		element: <ForgotPassword />,
+	},
+	{
+		path: "/payment",
+		element: <Payment />,
 	},
 	{
 		path: "*",

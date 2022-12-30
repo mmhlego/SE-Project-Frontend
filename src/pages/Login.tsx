@@ -3,20 +3,26 @@ import Button from "components/Button";
 import InputField from "components/InputField";
 import {
 	ArrowCircleRight2,
-	LoginCurve,
+	EyeSlash,
+	Login as LoginIcon,
 	NoteFavorite,
 	Profile,
-	Login as LoginIcon,
-	EyeSlash,
 } from "iconsax-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { z } from "zod";
 
 export default function Login() {
 	const navigate = useNavigate();
 
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	// const validator = z
+	// 	.object({
+	// 		username: z.string(),
+	// 		password: z.string(),
+	// 	})
+	// 	.refine((data) => data.username === password);
 
 	return (
 		<div className="w-screen h-screen bg-blue/50 flex justify-center items-center">
@@ -50,6 +56,9 @@ export default function Login() {
 							<Profile variant="Bold" size={20} color="#2388ff" />
 						}
 						className="w-full min-w-0"
+						validator={(newVal) =>
+							z.string().min(8).safeParse(newVal).success
+						}
 					/>
 
 					<InputField
@@ -65,6 +74,9 @@ export default function Login() {
 						}
 						isPassword
 						className="w-full min-w-0"
+						validator={(newVal) =>
+							z.string().min(8).safeParse(newVal).success
+						}
 					/>
 
 					<a dir="rtl" href="/auth/forgot">
