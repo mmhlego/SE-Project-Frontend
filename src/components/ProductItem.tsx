@@ -19,8 +19,8 @@ export default function ProductItem({ product }: Props) {
 	}, []);
 
 	return (
-		<div className="grid grid-cols-2 justify-end border-2 border-gray-300 rounded-md p-4 gap-y-4">
-			<p className="col-span-2"></p>
+		<div className="grid grid-cols-2 justify-end border-2 border-gray-300 rounded-md p-4 gap-y-3 bg-white">
+			<p className="col-span-2 text-end text-red font-bold">فروش ویژه</p>
 			<img
 				className="col-span-2 max-w-[160px] aspect-square m-5"
 				src={product.image}

@@ -9,6 +9,7 @@ import ProductsPage from "pages/ProductsPage";
 import Register from "pages/Register";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import TestPage from "../pages/TestPage";
+import HomePage from "pages/HomePage";
 
 export const router = createBrowserRouter([
 	{
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <p>Home Page</p>,
+				element: <HomePage />,
 			},
 			{
 				path: "/products",
@@ -48,7 +49,7 @@ export const router = createBrowserRouter([
 		element: <ForgotPassword />,
 	},
 	{
-		path: "/auth/payment",
+		path: "/payment",
 		element: <Payment />,
 	},
 	{
