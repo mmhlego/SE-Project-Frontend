@@ -9,7 +9,7 @@ interface Props {
 	icon?: JSX.Element;
 	className?: string;
 	setText?: (newText: string) => void;
-	validator?: () => boolean;
+	validator?: (newVal: string) => boolean;
 }
 
 export default function InputField({
@@ -20,6 +20,7 @@ export default function InputField({
 	icon,
 	className,
 	setText,
+	validator,
 }: Props) {
 	type fieldStatus = "ok" | "fail" | "idle";
 
@@ -59,6 +60,13 @@ export default function InputField({
 				disabled={disabled}
 				onChange={(e) => {
 					if (setText) setText(e.target.value);
+					setStatus(
+						validator
+							? validator(e.target.value)
+								? "ok"
+								: "fail"
+							: "idle"
+					);
 				}}
 			/>
 

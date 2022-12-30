@@ -1,5 +1,6 @@
 import Logo from "assets/Logo";
 import Button from "components/Button";
+import CheckBox from "components/CheckBox";
 import InputField from "components/InputField";
 import {
 	ArrowCircleRight2,
@@ -25,7 +26,7 @@ export default function Register() {
 
 	return (
 		<div className="w-full sm:h-screen bg-blue/50 flex justify-center items-center">
-			<div className="bg-white rounded-lg overflow-hidden grid sm:grid-cols-2 w-full sm:w-4/5 md:w-3/4 xl:w-1/2 sm:h-4/5">
+			<div className="bg-white rounded-2xl overflow-hidden grid sm:grid-cols-2 w-full sm:w-4/5 md:w-3/4 xl:w-1/2 sm:h-4/5">
 				<div className="p-5 flex flex-col items-center gap-8 text-center justify-center">
 					<Logo />
 					<p>
@@ -121,12 +122,13 @@ export default function Register() {
 							className="w-full min-w-0"
 						/>
 
-						<a dir="rtl" href="/auth/forgot">
-							رمز عبور خود را فراموش کرده ام!
-						</a>
+						<CheckBox
+							text="شرایط و قوانین سون شاپ را مطالعه نموده و با ان موافقم"
+							className="text-right"
+						/>
 
 						<Button
-							text="ورود"
+							text="ثبت نام"
 							onClick={() => {}}
 							filled
 							icon={<NoteFavorite variant="Bold" />}

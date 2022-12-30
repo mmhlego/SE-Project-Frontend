@@ -117,7 +117,9 @@ export default function Header() {
 					/>
 					<Button
 						text="ورود / ثبت نام"
-						onClick={() => {}}
+						onClick={() => {
+							navigate("/auth/login");
+						}}
 						icon={<Login />}
 						color="blue"
 					/>
