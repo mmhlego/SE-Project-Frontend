@@ -1,6 +1,8 @@
 import Footer from "components/Footer";
 import Header from "components/Header";
+import Dashboard from "pages/Dashboard";
 import ForgotPassword from "pages/ForgotPassword";
+import HomePage from "pages/HomePage";
 import Login from "pages/Login";
 import NotFound from "pages/NotFound";
 import Payment from "pages/Payment";
@@ -9,7 +11,6 @@ import ProductsPage from "pages/ProductsPage";
 import Register from "pages/Register";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import TestPage from "../pages/TestPage";
-import HomePage from "pages/HomePage";
 
 export const router = createBrowserRouter([
 	{
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
 			{
 				path: "/products/:id",
 				element: <ProductPage />,
+			},
+			{
+				path: "/dashboard",
+				element: <Dashboard />,
 			},
 		],
 	},
