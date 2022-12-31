@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-
 import Logo from "assets/Logo";
 import { CallCalling, Login, Mobile, ShoppingCart } from "iconsax-react";
 import { useLocation, useNavigate } from "react-router";
@@ -26,12 +24,9 @@ function HeaderPage({ text, pathname }: PageProps) {
 			}`}
 			onClick={() => navigate(pathname)}
 		>
-			<p key={text}>{text} </p>
+			<p>{text}</p>
 			{currentRoute.pathname == pathname && (
-				<div
-					key={text}
-					className="w-5/6 h-1 bg-blue absolute bottom-0 left-1/2 -translate-x-1/2 rounded-sm"
-				/>
+				<div className="w-5/6 h-1 bg-blue absolute bottom-0 left-1/2 -translate-x-1/2 rounded-sm" />
 			)}
 		</div>
 	);
@@ -106,7 +101,6 @@ export default function Header() {
 
 			<div className="grid grid-flow-col items-center px-10 py-7">
 				<div className="flex gap-2">
-					{/* // TODO */}
 					<Button
 						text="سبد خرید"
 						onClick={() => {}}
@@ -130,7 +124,7 @@ export default function Header() {
 				<Logo className="h-12 justify-self-end" />
 			</div>
 
-			<div className="relative bg-gray-100 px-10 flex flex-row-reverse justify-between items-center">
+			<div className="relative bg-gray-100 px-10 flex flex-row-reverse justify-between items-center z-10">
 				<div className="flex flex-row-reverse gap-1">
 					{menuDropdowns.map((dropdown, _) => (
 						<Dropdown
