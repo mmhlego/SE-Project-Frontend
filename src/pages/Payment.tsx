@@ -1,87 +1,201 @@
 import Button from "components/Button";
-import { ShoppingCart } from "iconsax-react";
+import {
+	Add,
+	DiscountShape,
+	DollarSquare,
+	Message,
+	Shop,
+	ShoppingCart,
+	TruckFast,
+} from "iconsax-react";
+import { useState } from "react";
 import Logo from "../assets/Logo";
-import Num1 from "../images/Num1.png";
-import Num2 from "../images/Num2.png";
-import Num3 from "../images/Num3.png";
 
-export default function Payment() {
+function NumberCircle({ num }: { num: number }) {
 	return (
+		<div className="border-[1.5px] border-black rounded-full h-8 w-8 flex items-center justify-center">
+			{num}
+		</div>
+	);
+}
+
+function Stage1() {
+	const [changeAddress, setChangeAddress] = useState(false);
+	return changeAddress ? (
+		<div className="p-6 border-[1.5px] border-gray-300 rounded-3xl">
+			<p>change address</p>
+		</div>
+	) : (
 		<>
-			<div className="bg-gradient-to-b from-blue to-white h-40">
-				<a className="flex justify-center" href="">
-					<Logo className="mt-7" />
-				</a>
-				<div className="flex justify-between mx-20 mt-6 font-semibold">
-					<div>
-						اتمام فرایند خرید <img src={Num3} />
-					</div>
-
-					<div>
-						بازبینی و پرداخت
-						<img src={Num2} />
-					</div>
-
-					<div>
-						انتخاب آدرس و شیوه ارسال <img src={Num1} />
-					</div>
-				</div>
-			</div>
-			<div className="mx-10 overflow-hidden grid grid-cols-4 grid-rows-5 gap-3 aspect-[3/1] mt-7">
-				<div
-					className="flex flex-col gap-y-8 float-right text-right mr-12 font-bold mt-6 col-span-1 row-end-5 row-span-4 border-2 border-gray-300 rounded-3xl"
-					dir="rtl"
+			<div className="p-6 grid grid-cols-2 gap-5 border-[1.5px] border-gray-300 rounded-3xl">
+				<a
+					className="text-blue flex gap-1"
+					href="#"
+					onClick={() => setChangeAddress(true)}
 				>
-					<p>تعداد کالا :</p>
-					<p>جمع مبلغ کالاها :</p>
-					<p>تخفیف :</p>
-					<p>هزینه ارسال سفارش :</p>
-					<p>جمع سبد خرید :</p>
-					<Button
-						filled
-						icon={<ShoppingCart />}
-						text={"تکمیل فرایند خرید"}
-						onClick={function (): void {
-							throw new Error("Function not implemented.");
-						}}
+					ثبت آدرس جدید
+					<Add />
+				</a>
+				<p className="w-full text-right font-semibold">آدرس</p>
+				<hr className="bg-gray-300 h-[1.5px] col-span-2" />
+			</div>
+
+			<div
+				className="border-[1.5px] border-gray-300 rounded-3xl flex flex-col gap-6 p-6"
+				dir="rtl"
+			>
+				<p className="font-semibold">انتخاب شیوه آدرس</p>
+				<hr className="bg-gray-300 h-[1.5px] w-full" />
+				<div className="flex gap-4 items-center">
+					<input
+						checked
+						onChange={() => {}}
+						id="default-radio-2"
+						type="radio"
+						className="w-5 h-5 focus:ring-blue-500 outline-none"
 					/>
-				</div>
-				<div className="col-span-3 row-span-2 border-2 border-gray-300 rounded-3xl">
-					<p className="float-right my-4 mx-5 font-semibold">آدرس</p>
-					<p className="text-blue my-4 mx-5">ثبت آدرس جدید</p>
-					<hr className="bg-gray-300 h-0.5 mx-6" />
-				</div>
-				<div className="col-span-3 row-span-3 border-2 border-gray-300 rounded-3xl">
-					<p className="float-right my-4 mx-5 font-semibold">
-						انتخاب شیوه آدرس
-					</p>
-					<hr className="bg-gray-300 h-0.5 mt-16 mx-5" />
-					<div className="float-right mr-3 mt-20">
-						<input
-							checked
-							id="default-radio-2"
-							type="radio"
-							value=""
-							name="default-radio"
-							className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-						/>
-						<label
-							htmlFor="default-radio-2"
-							className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-						></label>
-					</div>
+					<label
+						htmlFor="default-radio-2"
+						className="flex items-center gap-2 w-1/5"
+					>
+						<Message />
+						<p className="text-center">پست پیشتاز</p>
+					</label>
+
+					<hr className="bg-gray-300 w-[1.5px] h-full" />
+
 					<div
-						className="grid grid-cols-1 gap-y-2 float-right text-right mr-36 font-bold mt-6 text-sm"
+						className="flex flex-col gap-2 text-right font-medium my-2"
 						dir="rtl"
 					>
 						<p className="text-red">
 							مشترک گرامی، بازه زمانی ارسال سفارشات به شرح زیل می
 							باشد
 						</p>
-						<p></p>
+						<p>
+							1- بازه ارسال سفارشات از طریق پست پیشتاز 3 تا 5 روز
+							کاری (غیر از روزهای تعطیل رسمی) می‌باشد.
+						</p>
+						<p>
+							2-هزینه ارسال بر اساس مسافت و وزن بسته محاسبه خواهد
+							شد.
+						</p>
+						<p>
+							3-پس از پرداخت مبلغ، سفارش شما با «کد رهگیری مرسوله»
+							که پس از بسته‌بندی و تحویل به پست از طریق پیامک
+							دریافت می‌کنید در سایت سامانه رهگیری مرسولات پستی
+							قابل پیگیری است.
+						</p>
 					</div>
 				</div>
 			</div>
 		</>
+	);
+}
+
+function Stage2() {
+	return (
+		<>
+			<p>2</p>
+		</>
+	);
+}
+
+function Stage3() {
+	return (
+		<>
+			<p>3</p>
+		</>
+	);
+}
+
+export default function Payment() {
+	const [status, setStatus] = useState(1); // 1 2 3
+
+	return (
+		<div className="w-screen h-screen">
+			<div className="bg-gradient-to-b from-blue to-white h-1/4 flex flex-col items-center gap-4">
+				<Logo className="mt-7" />
+				<div className="w-full flex justify-around font-semibold">
+					<div className="flex gap-2 items-center">
+						اتمام فرایند خرید <NumberCircle num={3} />
+					</div>
+					<div className="flex gap-2 items-center">
+						بازبینی و پرداخت
+						<NumberCircle num={2} />
+					</div>
+					<div className="flex gap-2 items-center">
+						انتخاب آدرس و شیوه ارسال <NumberCircle num={1} />
+					</div>
+				</div>
+				<div className="w-full h-1 bg-gray-200 flex items-center flex-row-reverse">
+					<hr
+						className={`h-1 bg-green ${
+							status == 3
+								? "w-full"
+								: status == 2
+								? "w-2/3"
+								: "w-1/3"
+						}`}
+					/>
+					<div className="bg-green h-5 w-5 border-white border-4 rounded-full" />
+				</div>
+			</div>
+			<div className="h-3/4 grid grid-cols-[25%_auto] gap-5 p-8">
+				<div className="flex flex-col gap-y-4 border-[1.5px] border-gray-300 rounded-3xl h-fit items-center p-4">
+					<div className="w-full flex justify-between">
+						<p>1</p>
+						<p className="font-bold flex gap-2" dir="rtl">
+							<Shop variant="Bold" color="#2388FF" />
+							تعداد کالا :
+						</p>
+					</div>
+					<hr className="bg-gray-300 h-[1.5px] w-full" />
+					<div className="w-full flex justify-between">
+						<p>1</p>
+						<p className="font-bold flex gap-2" dir="rtl">
+							<DollarSquare variant="Bold" color="#FF9A23" />
+							جمع مبلغ کالاها :
+						</p>
+					</div>
+					<hr className="bg-gray-300 h-[1.5px] w-full" />
+					<div className="w-full flex justify-between">
+						<p>1</p>
+						<p className="font-bold flex gap-2" dir="rtl">
+							<DiscountShape color="#FF9A23" /> تخفیف :
+						</p>
+					</div>
+					<hr className="bg-gray-300 h-[1.5px] w-full" />
+					<div className="w-full flex justify-between">
+						<p>1</p>
+						<p className="font-bold flex gap-2" dir="rtl">
+							<TruckFast variant="Bold" color="#06C574" />
+							هزینه ارسال سفارش :
+						</p>
+					</div>
+					<hr className="bg-gray-300 h-[1.5px] w-full" />
+					<div className="w-full flex justify-between">
+						<p>1</p>
+						<p className="font-bold" dir="rtl">
+							جمع سبد خرید :
+						</p>
+					</div>
+					<Button
+						filled
+						icon={<ShoppingCart variant="Bold" />}
+						text="تکمیل فرایند خرید"
+						onClick={() =>
+							setStatus((prev) => Math.min(3, prev + 1))
+						}
+						className="w-full gap-2"
+					/>
+				</div>
+				<div className="max-h-full flex flex-col gap-5">
+					{status === 1 && <Stage1 />}
+					{status === 2 && <Stage2 />}
+					{status === 3 && <Stage3 />}
+				</div>
+			</div>
+		</div>
 	);
 }

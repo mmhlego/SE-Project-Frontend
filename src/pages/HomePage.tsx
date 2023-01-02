@@ -5,10 +5,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
-import MiniPoster1 from "../images/Miniposter1.png";
-import MiniPoster2 from "../images/Miniposter2.png";
-import MiniPoster3 from "../images/Miniposter3.png";
-import MiniPoster4 from "../images/Miniposter4.png";
+import MiniPoster1 from "../images/MiniPoster1.png";
+import MiniPoster2 from "../images/MiniPoster2.png";
+import MiniPoster3 from "../images/MiniPoster3.png";
+import MiniPoster4 from "../images/MiniPoster4.png";
 import Poster from "../images/Poster.png";
 import Sale from "../images/Sale.png";
 

@@ -29,33 +29,31 @@ export default function Button({
 	onClick,
 }: Props) {
 	return (
-		<div className={disabled ? "grayscale" : ""}>
-			<button
-				onClick={disabled ? undefined : onClick}
-				className={`flex gap-1 items-center justify-center py-3.5 px-5 rounded-lg ${className} ${
-					filled
-						? `text-white ${getBackgroundStyle(
-								color
-						  )} font-semibold`
-						: `border-[1.5px] ${getBorderStyle(
-								color
-						  )} ${getTextStyle(color)}`
-				} ${disabled ? "cursor-not-allowed" : ""}`}
-			>
-				{notification !== undefined && (
-					<p
-						className={`${
-							filled
-								? "bg-white text-black"
-								: `${getBackgroundStyle(accent)} text-white`
-						} text-sm px-1.5 rounded-full mr-2`}
-					>
-						{notification}
-					</p>
-				)}
-				{text}
-				{icon}
-			</button>
-		</div>
+		<button
+			onClick={disabled ? undefined : onClick}
+			className={`flex gap-1 items-center justify-center py-3.5 px-5 rounded-lg ${className} ${
+				disabled ? "grayscale" : ""
+			} ${
+				filled
+					? `text-white ${getBackgroundStyle(color)} font-semibold`
+					: `border-[1.5px] ${getBorderStyle(color)} ${getTextStyle(
+							color
+					  )}`
+			} ${disabled ? "cursor-not-allowed" : ""}`}
+		>
+			{notification !== undefined && (
+				<p
+					className={`${
+						filled
+							? "bg-white text-black"
+							: `${getBackgroundStyle(accent)} text-white`
+					} text-sm px-1.5 rounded-full mr-2`}
+				>
+					{notification}
+				</p>
+			)}
+			{text}
+			{icon}
+		</button>
 	);
 }
