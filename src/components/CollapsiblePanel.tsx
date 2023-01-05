@@ -1,6 +1,5 @@
 import { ArrowUp2 } from "iconsax-react";
 import { useState } from "react";
-import CheckBox from "./CheckBox";
 
 interface Props {
 	text: string;

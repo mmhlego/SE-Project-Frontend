@@ -12,6 +12,7 @@ import CollapsiblePanel from "components/CollapsiblePanel";
 import ProductItem from "components/ProductItem";
 import Loading from "components/Loading";
 import ComboBox from "components/ComboBox";
+import CollapsiblePanel2 from "components/CollapsiblePanel2";
 
 export default function TestPage() {
 	const [search, setSearch] = useState("");
@@ -121,6 +122,10 @@ export default function TestPage() {
 					<CheckBox initial text="آیتم سه" />
 					<CheckBox initial text="آیتم چهار" />
 				</CollapsiblePanel>
+
+				<CollapsiblePanel2 text=" دسته بندی مورد نظر را انتخاب کنید">
+					<p>حواب</p>
+				</CollapsiblePanel2>
 			</TestSection>
 
 			<Header />
