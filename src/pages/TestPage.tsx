@@ -11,6 +11,7 @@ import Footer from "components/Footer";
 import CollapsiblePanel from "components/CollapsiblePanel";
 import ProductItem from "components/ProductItem";
 import Loading from "components/Loading";
+import ComboBox from "components/ComboBox";
 
 export default function TestPage() {
 	const [search, setSearch] = useState("");
@@ -142,6 +143,27 @@ export default function TestPage() {
 			<TestSection>
 				<Loading />
 				<Loading size={5} />
+			</TestSection>
+
+			<TestSection>
+				<ComboBox
+					name="Sample Combo"
+					options={["sample1", "sample2"]}
+					placeholder="please select"
+					setSelected={(val: string) => {
+						console.log(val);
+					}}
+				/>
+
+				<ComboBox
+					name="Sample Combo"
+					options={["sample1", "sample2"]}
+					placeholder="please select"
+					setSelected={(val: string) => {
+						console.log(val);
+					}}
+					disabled
+				/>
 			</TestSection>
 		</div>
 	);

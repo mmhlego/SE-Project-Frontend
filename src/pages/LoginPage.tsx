@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { z } from "zod";
 
-export default function Login() {
+export default function LoginPage() {
 	const navigate = useNavigate();
 
 	const [username, setUsername] = useState("");

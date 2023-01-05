@@ -5,9 +5,9 @@ import DashboardPage from "pages/DashboardPage";
 import FaqPage from "pages/FaqPage";
 import ForgotPasswordPage from "pages/ForgotPasswordPage";
 import HomePage from "pages/HomePage";
-import Login from "pages/LoginPage";
+import LoginPage from "pages/LoginPage";
 import NotFoundPage from "pages/NotFoundPage";
-import Payment from "pages/PaymentPage";
+import PaymentPage from "pages/PaymentPage";
 import ProductPage from "pages/ProductPage";
 import ProductsPage from "pages/ProductsPage";
 import RegisterPage from "pages/RegisterPage";
@@ -71,7 +71,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: "/auth/login",
-		element: <Login />,
+		element: <LoginPage />,
 	},
 	{
 		path: "/auth/register",
@@ -83,7 +83,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: "/payment",
-		element: <Payment />,
+		element: <PaymentPage />,
 	},
 	{
 		path: "*",

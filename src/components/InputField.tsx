@@ -8,6 +8,7 @@ interface Props {
 	isPassword?: boolean;
 	icon?: JSX.Element;
 	className?: string;
+	rtl?: boolean;
 	setText?: (newText: string) => void;
 	validator?: (newVal: string) => boolean;
 }
@@ -19,6 +20,7 @@ export default function InputField({
 	isPassword = false,
 	icon,
 	className,
+	rtl = false,
 	setText,
 	validator,
 }: Props) {
@@ -43,10 +45,8 @@ export default function InputField({
 	};
 
 	return (
-		<div
-			className={`min-w-[300px] flex flex-col items-end relative ${className}`}
-		>
-			<p> {name}</p>
+		<div className={`flex flex-col items-end relative ${className}`}>
+			<p className="font-semibold"> {name}</p>
 			<input
 				type={isPassword ? "password" : "text"}
 				className={`w-full duration-300 border-2 p-3 mt-1 rounded-lg text-right outline-none bg-white ${
@@ -68,6 +68,7 @@ export default function InputField({
 							: "idle"
 					);
 				}}
+				dir={rtl ? "rtl" : "ltr"}
 			/>
 
 			<div
