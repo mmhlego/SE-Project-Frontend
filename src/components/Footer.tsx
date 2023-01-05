@@ -44,9 +44,8 @@ export default function Footer() {
 
 					<div className="flex flex-col gap-4">
 						<a href="#">تخفیف ها و جنشواره</a>
-						<a href="#">بازگشت کالا</a>
-						<a href="#">پرسش های متداول</a>
-						<a href="#">قوانین و مقررات</a>
+						<a href="/FAQ">پرسش های متداول</a>
+						<a href="/rules">قوانین و مقررات</a>
 					</div>
 				</div>
 				<div>
@@ -55,10 +54,9 @@ export default function Footer() {
 						<hr className="absolute h-1 w-20 bg-blue bottom-0 right-0" />
 					</div>
 					<div className="flex flex-col gap-4">
-						<a href="#">صفحه اصلی</a>
-						<a href="#">پشتیبانی</a>
-						<a href="#">درباره ما</a>
-						<a href="#">قوانین و مقررات</a>
+						<a href="/">صفحه اصلی</a>
+						<a href="/support">پشتیبانی</a>
+						<a href="/about-us">درباره ما</a>
 					</div>
 				</div>
 				<div>

@@ -13,7 +13,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-export default function Register() {
+export default function RegisterPage() {
 	const navigate = useNavigate();
 
 	const [username, setUsername] = useState("");

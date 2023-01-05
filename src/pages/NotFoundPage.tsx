@@ -1,7 +1,7 @@
 import Button from "components/Button";
 import { useNavigate } from "react-router";
 
-export default function NotFound() {
+export default function NotFoundPage() {
 	const navigate = useNavigate();
 	return (
 		<div className="py-20">

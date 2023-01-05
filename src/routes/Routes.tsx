@@ -1,14 +1,18 @@
 import Footer from "components/Footer";
 import Header from "components/Header";
-import Dashboard from "pages/Dashboard";
-import ForgotPassword from "pages/ForgotPassword";
+import AboutPage from "pages/AboutPage";
+import DashboardPage from "pages/DashboardPage";
+import FaqPage from "pages/FaqPage";
+import ForgotPasswordPage from "pages/ForgotPasswordPage";
 import HomePage from "pages/HomePage";
-import Login from "pages/Login";
-import NotFound from "pages/NotFound";
-import Payment from "pages/Payment";
+import Login from "pages/LoginPage";
+import NotFoundPage from "pages/NotFoundPage";
+import Payment from "pages/PaymentPage";
 import ProductPage from "pages/ProductPage";
 import ProductsPage from "pages/ProductsPage";
-import Register from "pages/Register";
+import RegisterPage from "pages/RegisterPage";
+import RulesPage from "pages/RulesPage";
+import SupportPage from "pages/SupportPage";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import TestPage from "../pages/TestPage";
 
@@ -37,7 +41,31 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: "/dashboard",
-				element: <Dashboard />,
+				element: <DashboardPage />,
+			},
+			{
+				path: "/dashboard",
+				element: <DashboardPage />,
+			},
+			{
+				path: "/rules",
+				element: <RulesPage />,
+			},
+			{
+				path: "/rules",
+				element: <RulesPage />,
+			},
+			{
+				path: "/about-us",
+				element: <AboutPage />,
+			},
+			{
+				path: "/support",
+				element: <SupportPage />,
+			},
+			{
+				path: "/FAQ",
+				element: <FaqPage />,
 			},
 		],
 	},
@@ -47,11 +75,11 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: "/auth/register",
-		element: <Register />,
+		element: <RegisterPage />,
 	},
 	{
 		path: "/auth/forgot",
-		element: <ForgotPassword />,
+		element: <ForgotPasswordPage />,
 	},
 	{
 		path: "/payment",
@@ -62,7 +90,7 @@ export const router = createBrowserRouter([
 		element: (
 			<>
 				<Header />
-				<NotFound />
+				<NotFoundPage />
 				<Footer />
 			</>
 		),

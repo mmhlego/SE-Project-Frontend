@@ -43,10 +43,6 @@ export default function Header() {
 			pathname: "/support",
 		},
 		{
-			text: "تماس با ما",
-			pathname: "/contact-us",
-		},
-		{
 			text: "درباره ما",
 			pathname: "/about-us",
 		},

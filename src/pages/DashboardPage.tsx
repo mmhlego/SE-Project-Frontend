@@ -77,7 +77,7 @@ function MenuItem({
 	);
 }
 
-export default function Dashboard() {
+export default function DashboardPage() {
 	const [element, setElement] = useState(<p>123</p>);
 	const [selected, setSelected] = useState("-");
 
