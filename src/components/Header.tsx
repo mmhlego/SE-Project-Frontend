@@ -50,17 +50,37 @@ export default function Header() {
 
 	const menuDropdowns = [
 		{
-			text: "پشتیبانی",
+			text: "کالای دیجیتال",
 			children: <p>sample</p>,
 			icon: <Mobile size={22} />,
 		},
 		{
-			text: "پشتیبانی",
+			text: "مد وپوشاک",
 			children: <p>sample</p>,
 			icon: <Mobile size={22} />,
 		},
 		{
-			text: "پشتیبانی",
+			text: "خودرو",
+			children: <p>sample</p>,
+			icon: <Mobile size={22} />,
+		},
+		{
+			text: "کودک و نوزاد",
+			children: <p>sample</p>,
+			icon: <Mobile size={22} />,
+		},
+		{
+			text: "زیبایی و سلامت",
+			children: <p>sample</p>,
+			icon: <Mobile size={22} />,
+		},
+		{
+			text: "لوازم خانگی",
+			children: <p>sample</p>,
+			icon: <Mobile size={22} />,
+		},
+		{
+			text: "کتاب",
 			children: <p>sample</p>,
 			icon: <Mobile size={22} />,
 		},
