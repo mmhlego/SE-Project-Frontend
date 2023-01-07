@@ -1,35 +1,78 @@
-import Button from "../components/Button";
-import { Framer, Login, Profile, ShoppingCart } from "iconsax-react";
-import TestSection from "../components/TestSection";
+import axios from "axios";
 import CheckBox from "components/CheckBox";
-import Toggle from "components/Toggle";
-import InputField from "components/InputField";
-import SearchField from "components/SearchField";
-import { useState } from "react";
-import Header from "components/Header";
-import Footer from "components/Footer";
 import CollapsiblePanel from "components/CollapsiblePanel";
-import ProductItem from "components/ProductItem";
-import Loading from "components/Loading";
-import ComboBox from "components/ComboBox";
 import CollapsiblePanel2 from "components/CollapsiblePanel2";
+import ComboBox from "components/ComboBox";
+import Footer from "components/Footer";
+import Header from "components/Header";
+import InputField from "components/InputField";
+import Loading from "components/Loading";
+import ProductItem from "components/ProductItem";
+import SearchField from "components/SearchField";
+import Toggle from "components/Toggle";
+import { Login, Profile, ShoppingCart } from "iconsax-react";
+import { MainContext } from "MainContext";
+import { useContext, useState } from "react";
+import Button from "../components/Button";
+import TestSection from "../components/TestSection";
 
 export default function TestPage() {
 	const [search, setSearch] = useState("");
+
+	const ctx = useContext(MainContext);
 
 	return (
 		<div className="w-full flex min-h-screen items-center gap-4 flex-col py-10">
 			<TestSection>
 				<Button
 					text="ورود / ثبت نام"
-					onClick={() => {}}
+					onClick={() => {
+						// ctx.syncProfile();
+
+						axios
+							.get("/profile/", {
+								withCredentials: true,
+							})
+							.then((res) => {
+								console.log(res);
+								console.log(res.data);
+							})
+							.catch((err) => {
+								console.log(err);
+							});
+					}}
 					icon={<Login />}
 					color="black"
 				/>
 
 				<Button
 					text="ورود / ثبت نام"
-					onClick={() => {}}
+					onClick={() => {
+						const instance = axios.create({
+							withCredentials: true,
+							headers: {
+								"Content-Type": "application/json",
+							},
+						});
+
+						axios
+							.post(
+								"/auth/login/",
+								{
+									username: "admin",
+									password: "admin",
+								},
+								{
+									withCredentials: true,
+								}
+							)
+							.then((res) => {
+								console.log(res);
+							})
+							.catch((err) => {
+								console.log(err);
+							});
+					}}
 					icon={<Login />}
 					filled
 				/>

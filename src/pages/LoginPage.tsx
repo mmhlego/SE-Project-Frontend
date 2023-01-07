@@ -1,4 +1,5 @@
 import Logo from "assets/Logo";
+import axios from "axios";
 import Button from "components/Button";
 import InputField from "components/InputField";
 import {
@@ -56,9 +57,9 @@ export default function LoginPage() {
 							<Profile variant="Bold" size={20} color="#2388ff" />
 						}
 						className="w-full min-w-0"
-						validator={(newVal) =>
-							z.string().min(8).safeParse(newVal).success
-						}
+						// validator={(newVal) =>
+						// 	z.string().min(8).safeParse(newVal).success
+						// }
 					/>
 
 					<InputField
@@ -74,9 +75,9 @@ export default function LoginPage() {
 						}
 						isPassword
 						className="w-full min-w-0"
-						validator={(newVal) =>
-							z.string().min(8).safeParse(newVal).success
-						}
+						// validator={(newVal) =>
+						// 	z.string().min(8).safeParse(newVal).success
+						// }
 					/>
 
 					<a dir="rtl" href="/auth/forgot">
@@ -85,8 +86,46 @@ export default function LoginPage() {
 
 					<Button
 						text="ورود"
-						onClick={() => {
-							console.log(username, password);
+						onClick={async () => {
+							// TODO Check first
+
+							type LoginStatus = {
+								status: "Success" | "Failed" | "Restricted";
+							};
+
+							await axios
+								.post(
+									"/auth/login/",
+									{
+										username: username,
+										password: password,
+									},
+									{
+										withCredentials: true,
+									}
+								)
+								.then((res) => {
+									const status = res.data as LoginStatus;
+
+									console.log(status.status);
+
+									switch (status.status) {
+										case "Success":
+											alert("logged in");
+											navigate("/");
+											break;
+										case "Failed":
+											alert("Wrong username / password");
+											break;
+										case "Restricted":
+											alert("Restricted");
+											break;
+									}
+								})
+								.catch((err) => {
+									console.log(err.response.status);
+									alert("Failed");
+								});
 						}}
 						filled
 						icon={<LoginIcon />}

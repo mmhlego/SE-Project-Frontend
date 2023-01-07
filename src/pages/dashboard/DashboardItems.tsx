@@ -15,6 +15,31 @@ import {
 	TicketDiscount,
 } from "iconsax-react";
 
+import Carts from "./customer/Carts";
+import Subscriptions from "./customer/Subscriptions";
+import Wallet from "./customer/Wallet";
+
+import ManageComments from "./admin/ManageComments";
+import ManageCustomers from "./admin/ManageCustomers";
+import ManageDiscountTokens from "./admin/ManageDiscountTokens";
+import ManageFestival from "./admin/ManageFestival";
+import ManageSellers from "./admin/ManageSellers";
+
+import ManageCarts from "./admin/ManageCarts";
+import ManageAdmins from "./owner/ManageAdmins";
+import ManageStoreKeepers from "./owner/ManageStoreKeepers";
+import SystemLog from "./owner/SystemLog";
+import ManagePrices from "./seller/ManagePrices";
+import StoreInfo from "./seller/StoreInfo";
+import ManageProductAmount from "./storeKeeper/ManageProductAmount";
+import AddProduct from "./admin/AddProduct";
+import EditProduct from "./admin/EditProduct";
+import ManageProducts from "./admin/ManageProducts";
+import DateStats from "./owner/DateStats";
+import ProductsStats from "./owner/ProductsStats";
+import SellersStats from "./owner/SellersStats";
+import SalesStats from "./seller/SalesStats";
+
 export type DashboardItemType = {
 	text: string;
 	icon: JSX.Element;
@@ -25,17 +50,17 @@ export const CustomerItems: DashboardItemType[] = [
 	{
 		text: "سفارشات",
 		icon: <ShoppingCart variant="Bold" />,
-		content: <p>سفارشات</p>,
+		content: <Carts />,
 	},
 	{
 		text: "کیف پول",
 		icon: <DollarSquare variant="Bold" />,
-		content: <p>کیف پول</p>,
+		content: <Wallet />,
 	},
 	{
 		text: "محصولات ذخیره شده",
 		icon: <Save2 variant="Bold" />,
-		content: <p>محصولات ذخیره شده</p>,
+		content: <Subscriptions />,
 	},
 ];
 
@@ -43,7 +68,7 @@ export const SellerItems: DashboardItemType[] = [
 	{
 		text: "اطلاعات فروشگاه",
 		icon: <Shop variant="Bold" />,
-		content: <p>اطلاعات فروشگاه</p>,
+		content: <StoreInfo />,
 	},
 	{
 		text: "محصولات",
@@ -52,12 +77,12 @@ export const SellerItems: DashboardItemType[] = [
 			{
 				text: "افزودن محصول جدید",
 				icon: <AddSquare variant="Bold" />,
-				content: <p>افزودن محصول جدید</p>,
+				content: <AddProduct />,
 			},
 			{
 				text: "ویرایش اطلاعات محصول",
 				icon: <Edit variant="Bold" />,
-				content: <p>ویرایش اطللاعات محصول</p>,
+				content: <ManageProducts />,
 			},
 		],
 	},
@@ -68,12 +93,12 @@ export const SellerItems: DashboardItemType[] = [
 			{
 				text: "فروش محصولات",
 				icon: <DollarSquare variant="Bold" />,
-				content: <p></p>,
+				content: <ManagePrices />,
 			},
 			{
 				text: "آمار فروش",
 				icon: <Graph variant="Bold" />,
-				content: <p></p>,
+				content: <SalesStats />,
 			},
 		],
 	},
@@ -83,12 +108,12 @@ export const StoreKeeperItems: DashboardItemType[] = [
 	{
 		text: "سبد های خرید",
 		icon: <ShoppingCart variant="Bold" />,
-		content: <p></p>,
+		content: <ManageCarts />,
 	},
 	{
 		text: "ویرایش موجودی محصولات",
 		icon: <Edit variant="Bold" />,
-		content: <p>ویرایش اطللاعات محصول</p>,
+		content: <ManageProductAmount />,
 	},
 ];
 
@@ -96,7 +121,7 @@ export const AdminItems: DashboardItemType[] = [
 	{
 		text: "سبد های خرید",
 		icon: <ShoppingCart variant="Bold" />,
-		content: <p></p>,
+		content: <ManageCarts />,
 	},
 	{
 		text: "مدیریت کاربران",
@@ -105,12 +130,12 @@ export const AdminItems: DashboardItemType[] = [
 			{
 				text: "مشتریان",
 				icon: <Profile2User variant="Bold" />,
-				content: <p></p>,
+				content: <ManageCustomers />,
 			},
 			{
 				text: "فروشندگان",
 				icon: <Profile2User variant="Bold" />,
-				content: <p></p>,
+				content: <ManageSellers />,
 			},
 		],
 	},
@@ -121,29 +146,29 @@ export const AdminItems: DashboardItemType[] = [
 			{
 				text: "افزودن محصول جدید",
 				icon: <AddSquare variant="Bold" />,
-				content: <p>افزودن محصول جدید</p>,
+				content: <AddProduct />,
 			},
 			{
 				text: "ویرایش اطلاعات محصول",
 				icon: <Edit variant="Bold" />,
-				content: <p>ویرایش اطللاعات محصول</p>,
+				content: <ManageProducts />,
 			},
 		],
 	},
 	{
 		text: "مدیریت نظرات",
 		icon: <Messages variant="Bold" />,
-		content: <p></p>,
+		content: <ManageComments />,
 	},
 	{
 		text: "کد های تخفیف",
 		icon: <Ticket variant="Bold" />,
-		content: <p></p>,
+		content: <ManageDiscountTokens />,
 	},
 	{
 		text: "جشنواره",
 		icon: <TicketDiscount variant="Bold" />,
-		content: <p></p>,
+		content: <ManageFestival />,
 	},
 ];
 
@@ -155,12 +180,12 @@ export const OwnerItems: DashboardItemType[] = [
 			{
 				text: "ادمین ها",
 				icon: <Profile2User variant="Bold" />,
-				content: <p></p>,
+				content: <ManageAdmins />,
 			},
 			{
 				text: "انبارداران",
 				icon: <Profile2User variant="Bold" />,
-				content: <p></p>,
+				content: <ManageStoreKeepers />,
 			},
 		],
 	},
@@ -171,23 +196,23 @@ export const OwnerItems: DashboardItemType[] = [
 			{
 				text: "برحسب فروشندگان",
 				icon: <Shop variant="Bold" />,
-				content: <p></p>,
+				content: <SellersStats />,
 			},
 			{
 				text: "برحسب محصولات",
 				icon: <Box variant="Bold" />,
-				content: <p></p>,
+				content: <ProductsStats />,
 			},
 			{
 				text: "برحسب تاریخ",
 				icon: <Calendar variant="Bold" />,
-				content: <p></p>,
+				content: <DateStats />,
 			},
 		],
 	},
 	{
 		text: "لاگ سیستم",
 		icon: <MessageText variant="Bold" />,
-		content: <p></p>,
+		content: <SystemLog />,
 	},
 ];

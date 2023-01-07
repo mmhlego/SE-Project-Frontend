@@ -2,11 +2,20 @@ import {
 	ArrowDown2,
 	Element3,
 	Logout,
-	Profile,
 	Profile as ProfileImage,
 } from "iconsax-react";
-import { useEffect, useState } from "react";
-import { DashboardItemType, OwnerItems } from "./dashboard/DashboardItems";
+import { MainContext } from "MainContext";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import {
+	AdminItems,
+	CustomerItems,
+	DashboardItemType,
+	OwnerItems,
+	SellerItems,
+	StoreKeeperItems,
+} from "./dashboard/DashboardItems";
+import Profile from "./dashboard/Profile";
 
 interface MIProps {
 	menuItem: DashboardItemType;
@@ -80,6 +89,26 @@ function MenuItem({
 export default function DashboardPage() {
 	const [element, setElement] = useState(<p>123</p>);
 	const [selected, setSelected] = useState("-");
+	const ctx = useContext(MainContext);
+
+	const navigate = useNavigate();
+
+	const pages: DashboardItemType[] = (() => {
+		if (ctx.profile === undefined) return [];
+
+		switch (ctx.profile.accessLevel) {
+			case "owner":
+				return OwnerItems;
+			case "admin":
+				return AdminItems;
+			case "storeKeeper":
+				return StoreKeeperItems;
+			case "seller":
+				return SellerItems;
+			case "customer":
+				return CustomerItems;
+		}
+	})();
 
 	const menuItems: DashboardItemType[] = [
 		{
@@ -92,13 +121,20 @@ export default function DashboardPage() {
 			icon: <ProfileImage variant="Bold" />,
 			content: <Profile />,
 		},
-		...OwnerItems, // Change this item for different profiles
+		...pages, // Change this item for different profiles
 		{
 			text: "خروج",
 			icon: <Logout variant="Bold" />,
 			content: <p>خروج</p>,
 		},
 	];
+
+	useEffect(() => {
+		if (ctx.loggedIn === false) {
+			alert("not logged in");
+			navigate("/");
+		}
+	}, [ctx.loggedIn]);
 
 	return (
 		<div className="p-8 grid grid-cols-[75%_auto] gap-5">

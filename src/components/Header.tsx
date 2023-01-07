@@ -1,5 +1,21 @@
 import Logo from "assets/Logo";
-import { CallCalling, Login, Mobile, ShoppingCart } from "iconsax-react";
+import {
+	Book,
+	Book1,
+	CallCalling,
+	Car,
+	Health,
+	Heart,
+	HeartCircle,
+	HeartSlash,
+	Home,
+	Login,
+	Mobile,
+	Profile as ProfileIcon,
+	ShoppingCart,
+} from "iconsax-react";
+import { MainContext } from "MainContext";
+import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
@@ -33,6 +49,8 @@ function HeaderPage({ text, pathname }: PageProps) {
 }
 
 export default function Header() {
+	const ctx = useContext(MainContext);
+
 	const menuPages = [
 		{
 			text: "صفحه اصلی",
@@ -57,36 +75,30 @@ export default function Header() {
 		{
 			text: "مد وپوشاک",
 			children: <p>sample</p>,
-			icon: <Mobile size={22} />,
+			icon: <ProfileIcon size={22} />,
 		},
 		{
 			text: "خودرو",
 			children: <p>sample</p>,
-			icon: <Mobile size={22} />,
-		},
-		{
-			text: "کودک و نوزاد",
-			children: <p>sample</p>,
-			icon: <Mobile size={22} />,
+			icon: <Car size={22} />,
 		},
 		{
 			text: "زیبایی و سلامت",
 			children: <p>sample</p>,
-			icon: <Mobile size={22} />,
+			icon: <Heart size={22} />,
 		},
 		{
 			text: "لوازم خانگی",
 			children: <p>sample</p>,
-			icon: <Mobile size={22} />,
+			icon: <Home size={22} />,
 		},
 		{
 			text: "کتاب",
 			children: <p>sample</p>,
-			icon: <Mobile size={22} />,
+			icon: <Book1 size={22} />,
 		},
 	];
 
-	const currentRoute = useLocation();
 	const navigate = useNavigate();
 
 	return (
@@ -117,22 +129,38 @@ export default function Header() {
 
 			<div className="grid grid-flow-col items-center px-10 py-7">
 				<div className="flex gap-2">
-					<Button
-						text="سبد خرید"
-						onClick={() => {}}
-						icon={<ShoppingCart variant="Bold" />}
-						notification={0}
-						color="black"
-						accent="blue"
-					/>
-					<Button
-						text="ورود / ثبت نام"
-						onClick={() => {
-							navigate("/auth/login");
-						}}
-						icon={<Login />}
-						color="blue"
-					/>
+					{ctx.loggedIn ? (
+						<>
+							<Button
+								text="سبد خرید"
+								onClick={() => {}}
+								icon={<ShoppingCart variant="Bold" />}
+								notification={0}
+								color="black"
+								accent="blue"
+							/>
+
+							<Button
+								text="پروفایل کاربری"
+								onClick={() => {
+									navigate("/dashboard");
+								}}
+								icon={<ProfileIcon variant="Bold" />}
+								color="blue"
+							/>
+						</>
+					) : (
+						<>
+							<Button
+								text="ورود / ثبت نام"
+								onClick={() => {
+									navigate("/auth/login");
+								}}
+								icon={<Login />}
+								color="blue"
+							/>
+						</>
+					)}
 				</div>
 
 				<SearchField text={""} />
@@ -151,7 +179,6 @@ export default function Header() {
 						/>
 					))}
 				</div>
-				{/* //TODO */}
 				<Button
 					text="فروش ویژه"
 					onClick={() => {}}

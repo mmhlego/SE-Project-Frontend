@@ -5,12 +5,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
-import MiniPoster1 from "../images/MiniPoster1.png";
-import MiniPoster2 from "../images/MiniPoster2.png";
-import MiniPoster3 from "../images/MiniPoster3.png";
-import MiniPoster4 from "../images/MiniPoster4.png";
-import Poster from "../images/Poster.png";
-import Sale from "../images/Sale.png";
+import MiniPoster1 from "../assets/images/MiniPoster1.png";
+import MiniPoster2 from "../assets/images/MiniPoster2.png";
+import MiniPoster3 from "../assets/images/MiniPoster3.png";
+import MiniPoster4 from "../assets/images/MiniPoster4.png";
+import Poster from "../assets/images/Poster.png";
+import Sale from "../assets/images/Sale.png";
 
 export default function HomePage() {
 	const p = {

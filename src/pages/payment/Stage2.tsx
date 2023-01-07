@@ -2,7 +2,7 @@ import Button from "components/Button";
 import InputField from "components/InputField";
 import { CloseCircle, DiscountShape } from "iconsax-react";
 import { useState } from "react";
-import MellatBank from "../../images/MellatBank.png";
+import MellatBank from "../../assets/images/MellatBank.png";
 
 export default function Stage2() {
 	const [discountToken, setDiscountToken] = useState("");
