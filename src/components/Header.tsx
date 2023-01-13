@@ -131,19 +131,21 @@ export default function Header() {
 				<div className="flex gap-2">
 					{ctx.loggedIn ? (
 						<>
-							<Button
-								text="سبد خرید"
-								onClick={() => {}}
-								icon={<ShoppingCart variant="Bold" />}
-								notification={0}
-								color="black"
-								accent="blue"
-							/>
+							{ctx.profile.data?.accessLevel === "customer" && (
+								<Button
+									text="سبد خرید"
+									onClick={() => {}}
+									icon={<ShoppingCart variant="Bold" />}
+									notification={0}
+									color="black"
+									accent="blue"
+								/>
+							)}
 
 							<Button
 								text="پروفایل کاربری"
 								onClick={() => {
-									navigate("/dashboard");
+									navigate("/dashboard?tab=داشبورد");
 								}}
 								icon={<ProfileIcon variant="Bold" />}
 								color="blue"

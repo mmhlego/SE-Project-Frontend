@@ -1,3 +1,4 @@
+import Loading from "components/Loading";
 import {
 	ArrowDown2,
 	Element3,
@@ -7,6 +8,7 @@ import {
 import { MainContext } from "MainContext";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 import {
 	AdminItems,
 	CustomerItems,
@@ -15,37 +17,37 @@ import {
 	SellerItems,
 	StoreKeeperItems,
 } from "./dashboard/DashboardItems";
+import DefaultDashboard from "./dashboard/DefaultDashboard";
 import Profile from "./dashboard/Profile";
 
 interface MIProps {
 	menuItem: DashboardItemType;
-	id: string;
-	selected: string;
 	setSelected: React.Dispatch<React.SetStateAction<string>>;
 	setElement: React.Dispatch<React.SetStateAction<JSX.Element>>;
 }
 
-function MenuItem({
-	menuItem,
-	id,
-	selected,
-	setSelected,
-	setElement,
-}: MIProps) {
+function MenuItem({ menuItem, setSelected, setElement }: MIProps) {
 	const [opened, setOpened] = useState(false);
 	const [isSelected, setIsSelected] = useState(false);
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	const isList = Array.isArray(menuItem.content);
 
 	const toggleOpen = () => setOpened((prev) => !prev);
 	const setCurrent = () => {
 		setElement(menuItem.content as JSX.Element);
-		setSelected(id);
+		setSelected(menuItem.text);
+		setSearchParams({ tab: menuItem.text });
 	};
 
 	useEffect(() => {
-		setIsSelected(selected === id);
-	}, [selected]);
+		if (searchParams.get("tab") === menuItem.text) {
+			setIsSelected(true);
+			setCurrent();
+		} else {
+			setIsSelected(false);
+		}
+	}, [searchParams]);
 
 	return (
 		<div className="w-full">
@@ -53,7 +55,9 @@ function MenuItem({
 				className={`py-3 border-b-[1px] border-gray-300 flex flex-row-reverse gap-2 cursor-pointer duration-200 ${
 					isSelected ? "text-blue" : ""
 				}`}
-				onClick={isList ? toggleOpen : setCurrent}
+				onClick={() => {
+					isList ? toggleOpen() : setCurrent();
+				}}
 			>
 				{isList ? (
 					<ArrowDown2
@@ -75,8 +79,6 @@ function MenuItem({
 						<MenuItem
 							key={i}
 							menuItem={mi}
-							id={id + i.toString()}
-							selected={selected}
 							setSelected={setSelected}
 							setElement={setElement}
 						/>
@@ -87,16 +89,17 @@ function MenuItem({
 }
 
 export default function DashboardPage() {
-	const [element, setElement] = useState(<p>123</p>);
-	const [selected, setSelected] = useState("-");
+	const [element, setElement] = useState(<></>);
+	const [selected, setSelected] = useState("");
 	const ctx = useContext(MainContext);
 
 	const navigate = useNavigate();
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	const pages: DashboardItemType[] = (() => {
-		if (ctx.profile === undefined) return [];
+		if (ctx.profile.data === undefined) return [];
 
-		switch (ctx.profile.accessLevel) {
+		switch (ctx.profile.data.accessLevel) {
 			case "owner":
 				return OwnerItems;
 			case "admin":
@@ -114,7 +117,7 @@ export default function DashboardPage() {
 		{
 			text: "داشبورد",
 			icon: <Element3 variant="Bold" />,
-			content: <p>داشبورد</p>,
+			content: <DefaultDashboard />,
 		},
 		{
 			text: "پروفایل",
@@ -130,11 +133,25 @@ export default function DashboardPage() {
 	];
 
 	useEffect(() => {
+		const tab = searchParams.get("tab");
+
+		if (tab !== null) setSelected(tab);
+		else setSearchParams({ tab: "داشبورد" });
+	}, []);
+
+	useEffect(() => {
 		if (ctx.loggedIn === false) {
 			alert("not logged in");
 			navigate("/");
 		}
 	}, [ctx.loggedIn]);
+
+	if (ctx.profile.data === undefined)
+		return (
+			<div className="p-32 flex justify-center">
+				<Loading />
+			</div>
+		);
 
 	return (
 		<div className="p-8 grid grid-cols-[75%_auto] gap-5">
@@ -143,8 +160,19 @@ export default function DashboardPage() {
 			</div>
 			<div className="bg-[#E4F0FF] rounded-xl flex flex-col items-center border-gray-300 border-[1px]">
 				<div className="flex items-center gap-3 m-5">
-					MMHLEGO
-					<ProfileImage variant="Bold" size={80} color="black" />
+					<p className="text-center" dir="rtl">
+						{"خوش آمدید "}
+						{ctx.profile.data.firstName}
+					</p>
+
+					{ctx.profile.data.profileImage ? (
+						<img
+							className="w-20 h-20 object-cover rounded-full"
+							src={ctx.profile.data.profileImage}
+						/>
+					) : (
+						<ProfileImage variant="Bold" size={80} color="black" />
+					)}
 				</div>
 				<hr className="bg-gray-300 w-full h-0.5" />
 				<div className="px-3 w-full">
@@ -152,8 +180,6 @@ export default function DashboardPage() {
 						<MenuItem
 							key={i}
 							menuItem={mi}
-							id={i.toString()}
-							selected={selected}
 							setSelected={setSelected}
 							setElement={setElement}
 						/>

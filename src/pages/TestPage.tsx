@@ -10,6 +10,7 @@ import Loading from "components/Loading";
 import ProductItem from "components/ProductItem";
 import SearchField from "components/SearchField";
 import Toggle from "components/Toggle";
+import { usePostApi } from "hooks/useApi";
 import { Login, Profile, ShoppingCart } from "iconsax-react";
 import { MainContext } from "MainContext";
 import { useContext, useState } from "react";
@@ -18,6 +19,22 @@ import TestSection from "../components/TestSection";
 
 export default function TestPage() {
 	const [search, setSearch] = useState("");
+
+	interface Response {
+		result: "Success" | "Error" | "Restricted";
+	}
+
+	const [doe, callApi] = usePostApi<Response>(
+		"/auth/login/",
+		(res) => {
+			console.log("Success");
+
+			console.log(res);
+		},
+		() => {
+			console.log("Error");
+		}
+	);
 
 	const ctx = useContext(MainContext);
 
@@ -48,30 +65,28 @@ export default function TestPage() {
 				<Button
 					text="ورود / ثبت نام"
 					onClick={() => {
-						const instance = axios.create({
-							withCredentials: true,
-							headers: {
-								"Content-Type": "application/json",
-							},
+						callApi({
+							username: "admin",
+							password: "admin",
 						});
 
-						axios
-							.post(
-								"/auth/login/",
-								{
-									username: "admin",
-									password: "admin",
-								},
-								{
-									withCredentials: true,
-								}
-							)
-							.then((res) => {
-								console.log(res);
-							})
-							.catch((err) => {
-								console.log(err);
-							});
+						// axios
+						// 	.post(
+						// 		"/auth/login/",
+						// 		{
+						// 			username: "admin",
+						// 			password: "admin",
+						// 		},
+						// 		{
+						// 			withCredentials: true,
+						// 		}
+						// 	)
+						// 	.then((res) => {
+						// 		console.log(res);
+						// 	})
+						// 	.catch((err) => {
+						// 		console.log(err);
+						// 	});
 					}}
 					icon={<Login />}
 					filled

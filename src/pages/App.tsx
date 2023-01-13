@@ -18,7 +18,7 @@ function App() {
 		ctx.syncProfile();
 
 		setInterval(() => {
-			ctx.syncProfile();
+			// ctx.syncProfile();
 			// TODO Check page and redirect if needed
 		}, 10 * 1000);
 	}, []);

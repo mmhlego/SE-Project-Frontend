@@ -25,20 +25,19 @@ import ManageDiscountTokens from "./admin/ManageDiscountTokens";
 import ManageFestival from "./admin/ManageFestival";
 import ManageSellers from "./admin/ManageSellers";
 
-import ManageCarts from "./admin/ManageCarts";
-import ManageAdmins from "./owner/ManageAdmins";
-import ManageStoreKeepers from "./owner/ManageStoreKeepers";
-import SystemLog from "./owner/SystemLog";
-import ManagePrices from "./seller/ManagePrices";
-import StoreInfo from "./seller/StoreInfo";
-import ManageProductAmount from "./storeKeeper/ManageProductAmount";
 import AddProduct from "./admin/AddProduct";
-import EditProduct from "./admin/EditProduct";
+import ManageCarts from "./admin/ManageCarts";
 import ManageProducts from "./admin/ManageProducts";
 import DateStats from "./owner/DateStats";
+import ManageAdmins from "./owner/ManageAdmins";
+import ManageStoreKeepers from "./owner/ManageStoreKeepers";
 import ProductsStats from "./owner/ProductsStats";
 import SellersStats from "./owner/SellersStats";
+import SystemLog from "./owner/SystemLog";
+import ManagePrices from "./seller/ManagePrices";
 import SalesStats from "./seller/SalesStats";
+import StoreInfo from "./seller/StoreInfo";
+import ManageProductAmount from "./storeKeeper/ManageProductAmount";
 
 export type DashboardItemType = {
 	text: string;

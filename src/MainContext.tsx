@@ -1,20 +1,23 @@
-import { createContext, useEffect, useState } from "react";
-import axios from "axios";
-import User from "./model/User";
+import { useGetApi } from "hooks/useApi";
 import Cart from "model/Cart";
+import DataOrError from "model/DataOrError";
+import { createContext, useEffect, useState } from "react";
+import User from "./model/User";
 
 interface Context {
 	loggedIn: boolean | undefined;
-	profile: User | undefined;
-	currentCart: Cart | undefined;
+	profile: DataOrError<User>;
+	currentCart: DataOrError<Cart>;
 	syncProfile: () => void;
+	syncCart: () => void;
 }
 
 export const MainContext = createContext<Context>({
 	loggedIn: undefined,
-	profile: undefined,
-	currentCart: undefined,
+	profile: { loading: true },
+	currentCart: { loading: true },
 	syncProfile: () => {},
+	syncCart: () => {},
 });
 
 export const ContextProvider = ({
@@ -23,28 +26,14 @@ export const ContextProvider = ({
 	children: JSX.Element[] | JSX.Element;
 }) => {
 	const [loggedIn, setLoggedIn] = useState<boolean | undefined>(undefined);
-	const [profile, setProfile] = useState<User | undefined>(undefined);
-	const [currentCart, setCurrentCart] = useState<Cart | undefined>(undefined);
 
-	const syncProfile = async () => {
-		try {
-			await axios
-				.get("/profile/", {
-					withCredentials: true,
-				})
-				.then((res) => {
-					console.log(res.data);
-					setProfile(res.data as User);
-					setLoggedIn(true);
-				})
-				.catch((err) => {
-					console.log(err.response.status);
-					setLoggedIn(false);
-				});
-		} catch (error) {
-			setLoggedIn(false);
-		}
-	};
+	const [profile, syncProfile] = useGetApi<User>(
+		"/profile/",
+		() => setLoggedIn(true),
+		() => setLoggedIn(false)
+	);
+
+	const [currentCart, syncCart] = useGetApi<Cart>("/profile/cart");
 
 	useEffect(() => {}, []);
 
@@ -53,6 +42,7 @@ export const ContextProvider = ({
 		profile,
 		currentCart,
 		syncProfile,
+		syncCart,
 	};
 
 	return <MainContext.Provider value={ctx}>{children}</MainContext.Provider>;
