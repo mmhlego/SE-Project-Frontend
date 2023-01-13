@@ -126,8 +126,8 @@ export default function FaqPage() {
 				<SafeHome variant="Bold" />
 			</div>
 			<div className="border-[1.5px] border-gray-300 bg-gray-200 rounded-3xl flex flex-col gap-4 m-4 p-8">
-				{questions.map((qa) => (
-					<CollapsiblePanel2 text={qa.question}>
+				{questions.map((qa, _) => (
+					<CollapsiblePanel2 key={_} text={qa.question}>
 						{qa.answer}
 					</CollapsiblePanel2>
 				))}
