@@ -4,7 +4,8 @@ import { useContext } from "react";
 export default function Profile() {
 	const ctx = useContext(MainContext);
 
-	if (ctx.profile.loading) return <p>loading ...</p>;
+	if (ctx.profile.loading || "error" in ctx.profile)
+		return <p>loading ...</p>;
 
 	return (
 		<div>

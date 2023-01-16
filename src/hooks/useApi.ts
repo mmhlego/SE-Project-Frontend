@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import DataOrError from "model/DataOrError";
+import { DataOrError } from "model/DataOrError";
 import { useState } from "react";
 
 interface Props {
@@ -47,6 +47,7 @@ export function useGetApi<T>(
 ): [DataOrError<T>, (params?: any) => void] {
 	const [doe, callBase] = useApi<T>(onSuccess, onError);
 
+	// subPath?: string
 	const callApi = (params?: any) =>
 		callBase(
 			axios.get<T>(path, {

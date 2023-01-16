@@ -36,7 +36,7 @@ export default function CollapsiblePanel({
 				{text}
 			</div>
 			<div
-				className={`w-full px-3 py-1 mt-1 border-2 border-gray-300 rounded-lg cursor-pointer flex gap-2 flex-col overflow-hidden ${
+				className={`w-full px-3 pt-1 my-1 border-2 border-gray-300 rounded-lg cursor-pointer flex gap-2 flex-col overflow-hidden ${
 					closed
 						? "max-h-0 opacity-0 duration-300"
 						: "max-h-screen duration-700"

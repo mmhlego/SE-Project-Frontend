@@ -129,9 +129,9 @@ export default function Header() {
 
 			<div className="grid grid-flow-col items-center px-10 py-7">
 				<div className="flex gap-2">
-					{ctx.loggedIn ? (
+					{ctx.loggedIn && "data" in ctx.profile ? (
 						<>
-							{ctx.profile.data?.accessLevel === "customer" && (
+							{ctx.profile.data.accessLevel === "customer" && (
 								<Button
 									text="سبد خرید"
 									onClick={() => {}}

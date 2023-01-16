@@ -1,3 +1,5 @@
+import ProductPrice from "model/ProductPrice";
+
 export type color =
 	| "blue"
 	| "orange"
@@ -79,3 +81,42 @@ export const getBackgroundStyle = (color: color) => {
 	if (color === "gray-500") return "bg-gray-500";
 	return "bg-blue";
 };
+
+interface DiscountedPrice {
+	beforePrice: number;
+	text?: string;
+	hasDiscount: boolean;
+	afterPrice: number;
+}
+
+export function getDiscountedPrice(
+	productPrice: ProductPrice
+): DiscountedPrice {
+	// AMOUNT_XXX , PERCENT_XXXXXX
+	const basePrice = productPrice.price;
+	const discount = productPrice.discount;
+
+	if (discount.includes("PERCENT")) {
+		const percent = parseFloat(discount.substring(8));
+		return {
+			beforePrice: basePrice,
+			text: percent + "%",
+			hasDiscount: true,
+			afterPrice: ((100 - percent) / 100) * basePrice,
+		};
+	} else if (discount.includes("AMOUNT")) {
+		const amount = parseFloat(discount.substring(7));
+		return {
+			beforePrice: basePrice,
+			text: "-" + amount,
+			hasDiscount: true,
+			afterPrice: basePrice - amount,
+		};
+	}
+
+	return {
+		beforePrice: basePrice,
+		hasDiscount: false,
+		afterPrice: basePrice,
+	};
+}

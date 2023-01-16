@@ -97,7 +97,7 @@ export default function DashboardPage() {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const pages: DashboardItemType[] = (() => {
-		if (ctx.profile.data === undefined) return [];
+		if (ctx.profile.loading || "error" in ctx.profile) return [];
 
 		switch (ctx.profile.data.accessLevel) {
 			case "owner":
@@ -146,7 +146,7 @@ export default function DashboardPage() {
 		}
 	}, [ctx.loggedIn]);
 
-	if (ctx.profile.data === undefined)
+	if (!("data" in ctx.profile))
 		return (
 			<div className="p-32 flex justify-center">
 				<Loading />

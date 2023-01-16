@@ -1,6 +1,6 @@
 import { useGetApi } from "hooks/useApi";
 import Cart from "model/Cart";
-import DataOrError from "model/DataOrError";
+import { DataOrError } from "model/DataOrError";
 import { createContext, useEffect, useState } from "react";
 import User from "./model/User";
 

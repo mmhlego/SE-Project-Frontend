@@ -1,5 +1,10 @@
+import Loading from "components/Loading";
 import ProductItem from "components/ProductItem";
+import { useGetApi } from "hooks/useApi";
 import { ArrowLeft2 } from "iconsax-react";
+import Product from "model/Product";
+import Products from "model/Products";
+import { useEffect } from "react";
 import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -13,15 +18,42 @@ import Poster from "../assets/images/Poster.png";
 import Sale from "../assets/images/Sale.png";
 
 export default function HomePage() {
-	const p = {
+	const p: Product = {
 		id: "sample",
 		name: "گوشی شیائومی نوت 11",
-		category: "Phone",
+		category: "Digital",
 		image: "https://www.technolife.ir/image/color_image_TLP-3554_a7dae8_ca79bb9c-a389-45df-a811-6fedaf224c2e.png",
 		description: "Yek gooshi khoob",
 		likes: 10,
 		dislikes: 5,
 	};
+
+	const [highDiscountsDoe, getHighDiscounts] = useGetApi<Products>(
+		"https://localhost:5000/products"
+	);
+
+	const [bestSellerDoe, getBestSellers] = useGetApi<Products>(
+		"https://localhost:5000/products"
+	);
+
+	const [mostViewedDoe, getMostViewed] = useGetApi<Products>(
+		"https://localhost:5000/products"
+	);
+
+	useEffect(() => {
+		getBestSellers({
+			productsPerPage: 8,
+			page: 1,
+		});
+		getHighDiscounts({
+			productsPerPage: 8,
+			page: 1,
+		});
+		getMostViewed({
+			productsPerPage: 8,
+			page: 1,
+		});
+	}, []);
 
 	return (
 		<div className="flex flex-col gap-5 py-6">
@@ -51,12 +83,18 @@ export default function HomePage() {
 				</p>
 
 				<div dir="rtl" className="h-full overflow-x-scroll pb-3">
-					<div className="h-full flex flex-row-reverse gap-5 w-max">
-						<ProductItem product={p} />
-						<ProductItem product={p} />
-						<ProductItem product={p} />
-						<ProductItem product={p} />
-						<ProductItem product={p} />
+					<div
+						dir="ltr"
+						className="h-full flex flex-row-reverse gap-5 w-max"
+					>
+						{highDiscountsDoe.loading ||
+						!("data" in highDiscountsDoe) ? (
+							<Loading size={20} />
+						) : (
+							highDiscountsDoe.data.products.map((p, _) => (
+								<ProductItem key={_} product={p} />
+							))
+						)}
 					</div>
 				</div>
 
@@ -88,12 +126,17 @@ export default function HomePage() {
 				</p>
 
 				<div dir="rtl" className="h-full overflow-x-scroll pb-2 px-3">
-					<div className="h-full flex flex-row-reverse gap-5 w-max">
-						<ProductItem product={p} />
-						<ProductItem product={p} />
-						<ProductItem product={p} />
-						<ProductItem product={p} />
-						<ProductItem product={p} />
+					<div
+						dir="ltr"
+						className="h-full flex flex-row-reverse gap-5 w-max"
+					>
+						{bestSellerDoe.loading || !("data" in bestSellerDoe) ? (
+							<Loading size={20} />
+						) : (
+							bestSellerDoe.data.products.map((p, _) => (
+								<ProductItem key={_} product={p} />
+							))
+						)}
 					</div>
 				</div>
 			</div>
@@ -110,12 +153,17 @@ export default function HomePage() {
 				</p>
 
 				<div dir="rtl" className="h-full overflow-x-scroll pb-2 px-3">
-					<div className="h-full flex flex-row-reverse gap-5 w-max">
-						<ProductItem product={p} />
-						<ProductItem product={p} />
-						<ProductItem product={p} />
-						<ProductItem product={p} />
-						<ProductItem product={p} />
+					<div
+						dir="ltr"
+						className="h-full flex flex-row-reverse gap-5 w-max"
+					>
+						{mostViewedDoe.loading || !("data" in mostViewedDoe) ? (
+							<Loading size={20} />
+						) : (
+							mostViewedDoe.data.products.map((p, _) => (
+								<ProductItem key={_} product={p} />
+							))
+						)}
 					</div>
 				</div>
 			</div>

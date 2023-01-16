@@ -194,7 +194,7 @@ export default function TestPage() {
 					product={{
 						id: "sample",
 						name: "گوشی شیائومی نوت 11",
-						category: "Phone",
+						category: "Digital",
 						image: "https://www.technolife.ir/image/color_image_TLP-3554_a7dae8_ca79bb9c-a389-45df-a811-6fedaf224c2e.png",
 						description: "Yek gooshi khoob",
 						likes: 10,
