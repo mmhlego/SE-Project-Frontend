@@ -1,7 +1,7 @@
 import Logo from "assets/Logo";
-import axios from "axios";
 import Button from "components/Button";
 import InputField from "components/InputField";
+import { usePostApi } from "hooks/useApi";
 import {
 	ArrowCircleRight2,
 	EyeSlash,
@@ -11,19 +11,39 @@ import {
 } from "iconsax-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { z } from "zod";
+
+type LoginStatus = {
+	status: "Success" | "Failed" | "Restricted";
+};
 
 export default function LoginPage() {
 	const navigate = useNavigate();
 
+	const [loginDoe, tryLogin] = usePostApi<LoginStatus>(
+		"https://localhost:5000/auth/login",
+		(res) => {
+			console.log(res.status);
+
+			switch (res.status) {
+				case "Success":
+					alert("logged in");
+					navigate("/");
+					break;
+				case "Failed":
+					alert("Wrong username / password");
+					break;
+				case "Restricted":
+					alert("Restricted");
+					break;
+			}
+		},
+		(err) => {
+			console.log(err);
+			alert("Failed");
+		}
+	);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	// const validator = z
-	// 	.object({
-	// 		username: z.string(),
-	// 		password: z.string(),
-	// 	})
-	// 	.refine((data) => data.username === password);
 
 	return (
 		<div className="w-screen h-screen bg-blue/50 flex justify-center items-center">
@@ -57,9 +77,6 @@ export default function LoginPage() {
 							<Profile variant="Bold" size={20} color="#2388ff" />
 						}
 						className="w-full min-w-0"
-						// validator={(newVal) =>
-						// 	z.string().min(8).safeParse(newVal).success
-						// }
 					/>
 
 					<InputField
@@ -75,9 +92,6 @@ export default function LoginPage() {
 						}
 						isPassword
 						className="w-full min-w-0"
-						// validator={(newVal) =>
-						// 	z.string().min(8).safeParse(newVal).success
-						// }
 					/>
 
 					<a dir="rtl" href="/auth/forgot">
@@ -89,43 +103,10 @@ export default function LoginPage() {
 						onClick={async () => {
 							// TODO Check first
 
-							type LoginStatus = {
-								status: "Success" | "Failed" | "Restricted";
-							};
-
-							await axios
-								.post(
-									"/auth/login/",
-									{
-										username: username,
-										password: password,
-									},
-									{
-										withCredentials: true,
-									}
-								)
-								.then((res) => {
-									const status = res.data as LoginStatus;
-
-									console.log(status.status);
-
-									switch (status.status) {
-										case "Success":
-											alert("logged in");
-											navigate("/");
-											break;
-										case "Failed":
-											alert("Wrong username / password");
-											break;
-										case "Restricted":
-											alert("Restricted");
-											break;
-									}
-								})
-								.catch((err) => {
-									console.log(err.response.status);
-									alert("Failed");
-								});
+							tryLogin({
+								username: username,
+								password: password,
+							});
 						}}
 						filled
 						icon={<LoginIcon />}

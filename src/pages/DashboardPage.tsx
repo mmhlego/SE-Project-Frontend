@@ -125,11 +125,6 @@ export default function DashboardPage() {
 			content: <Profile />,
 		},
 		...pages, // Change this item for different profiles
-		{
-			text: "خروج",
-			icon: <Logout variant="Bold" />,
-			content: <p>خروج</p>,
-		},
 	];
 
 	useEffect(() => {
@@ -184,6 +179,17 @@ export default function DashboardPage() {
 							setElement={setElement}
 						/>
 					))}
+
+					<div
+						className="w-full py-3 flex flex-row-reverse gap-2 cursor-pointer duration-300 hover:text-red"
+						onClick={() => {
+							// TODO call log out api
+							navigate("/");
+						}}
+					>
+						<Logout variant="Bold" />
+						خروج
+					</div>
 				</div>
 			</div>
 		</div>

@@ -3,8 +3,8 @@ export default interface Comment {
 	username: string;
 	userImage?: string;
 	productId: string;
-	SendDate: string;
-	Text: string;
+	sendDate: string;
+	text: string;
 	likes?: number;
 	dislikes?: number;
 }

@@ -76,3 +76,21 @@ export function usePostApi<T>(
 
 	return [doe, callApi];
 }
+
+export function usePutApi<T>(
+	path: string,
+	onSuccess?: (res: T) => any,
+	onError?: (error: AxiosError) => any
+): [DataOrError<T>, (data: any, params?: any) => void] {
+	const [doe, callBase] = useApi<T>(onSuccess, onError);
+
+	const callApi = (data: any, params?: any) =>
+		callBase(
+			axios.put<T>(path, data, {
+				params: params,
+				withCredentials: true,
+			})
+		);
+
+	return [doe, callApi];
+}

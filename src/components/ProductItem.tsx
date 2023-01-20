@@ -1,8 +1,8 @@
 import { useGetApi } from "hooks/useApi";
 import { DataOrError } from "model/DataOrError";
+import Pagination from "model/Pagination";
 import Product from "model/Product";
 import ProductPrice from "model/ProductPrice";
-import ProductPrices from "model/ProductPrices";
 import { useEffect, useState } from "react";
 import { getDiscountedPrice } from "utils";
 import Loading from "./Loading";
@@ -12,8 +12,19 @@ interface PriceSectionProps {
 	bestPrice: DataOrError<ProductPrice>;
 }
 function PriceSection({ bestPrice }: PriceSectionProps) {
-	if (!("data" in bestPrice)) {
-		return <Loading size={4} />;
+	if (bestPrice.loading) {
+		return <Loading />;
+	}
+
+	if ("error" in bestPrice) {
+		return (
+			<p
+				className="text-blue text-xl font-medium text-center pt-3"
+				dir="rtl"
+			>
+				ناموجود
+			</p>
+		);
 	}
 
 	if (!getDiscountedPrice(bestPrice.data).hasDiscount) {
@@ -53,7 +64,7 @@ interface Props {
 }
 
 export default function ProductItem({ product, className }: Props) {
-	const [prices, loadPrices] = useGetApi<ProductPrices>(
+	const [prices, loadPrices] = useGetApi<Pagination<ProductPrice>>(
 		"https://localhost:5000/prices"
 	);
 	const [bestPrice, setBestPrice] = useState<DataOrError<ProductPrice>>({
@@ -66,14 +77,17 @@ export default function ProductItem({ product, className }: Props) {
 
 	useEffect(() => {
 		if (!prices.loading && "data" in prices) {
-			if (prices.data.prices.length === 0) {
+			if (prices.data.data.length === 0) {
 				setBestPrice({ loading: false, error: new Error("No prices") });
 			}
 
-			let best = prices.data.prices[0];
+			let best = prices.data.data[0];
 
-			prices.data.prices.forEach((p) => {
-				if (p.price < best.price) {
+			prices.data.data.forEach((p) => {
+				if (
+					getDiscountedPrice(p).afterPrice <
+					getDiscountedPrice(best).afterPrice
+				) {
 					best = p;
 				}
 			});
@@ -81,6 +95,11 @@ export default function ProductItem({ product, className }: Props) {
 			setBestPrice({
 				loading: false,
 				data: best,
+			});
+		} else {
+			setBestPrice({
+				loading: false,
+				error: new Error("No Sellers"),
 			});
 		}
 	}, [prices]);
@@ -91,17 +110,17 @@ export default function ProductItem({ product, className }: Props) {
 			onClick={() => window.open(`/products/${product.id}`, "_blank")}
 		>
 			<p
-				className={
-					"text-end text-red font-bold text-transparent " +
-					("data" in bestPrice && bestPrice.data.discount !== "")
-						? "text-transparent"
-						: ""
-				}
+				className={`text-end font-bold text-red ${
+					"data" in bestPrice &&
+					getDiscountedPrice(bestPrice.data).hasDiscount
+						? ""
+						: "text-transparent"
+				}`}
 			>
 				فروش ویژه
 			</p>
 			<img
-				className="max-w-[160px] aspect-square m-5 self-center"
+				className="w-40 h-40 aspect-square m-5 self-center"
 				src={product.image}
 			/>
 			<p className="text-right font-bold">{product.name}</p>

@@ -4,7 +4,7 @@ import { useState } from "react";
 interface Props {
 	text: string;
 	disabled?: boolean;
-	children: JSX.Element[];
+	children: JSX.Element[] | JSX.Element;
 }
 
 export default function CollapsiblePanel({
@@ -42,20 +42,27 @@ export default function CollapsiblePanel({
 						: "max-h-screen duration-700"
 				}`}
 			>
-				{children.map((child, index) => {
-					return (
-						<div
-							className={`w-full pt-2 pb-3 border-gray-300 flex justify-end ${
-								index < children.length - 1
-									? "border-b-[1px]"
-									: ""
-							}`}
-							key={index}
-						>
-							{child}
-						</div>
-					);
-				})}
+				{"length" in children &&
+					children.map((child, index) => {
+						return (
+							<div
+								className={`w-full pt-2 pb-3 border-gray-300 flex justify-end ${
+									index < children.length - 1
+										? "border-b-[1px]"
+										: ""
+								}`}
+								key={index}
+							>
+								{child}
+							</div>
+						);
+					})}
+
+				{!Array.isArray(children) && (
+					<div className="w-full pt-2 pb-3 border-gray-300 flex justify-end">
+						{children}
+					</div>
+				)}
 			</div>
 		</>
 	);

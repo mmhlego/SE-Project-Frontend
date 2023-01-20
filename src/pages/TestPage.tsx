@@ -9,6 +9,7 @@ import Header from "components/Header";
 import InputField from "components/InputField";
 import Loading from "components/Loading";
 import ProductItem from "components/ProductItem";
+import RadioSection from "components/RadioSection";
 import SearchField from "components/SearchField";
 import Toggle from "components/Toggle";
 import { usePostApi } from "hooks/useApi";
@@ -42,6 +43,29 @@ export default function TestPage() {
 	return (
 		<div className="w-full flex min-h-screen items-center gap-4 flex-col py-10">
 			<TestSection>
+				<RadioSection
+					name="SampleRadio"
+					options={[
+						{
+							label: "Option 1",
+							value: "Option 1",
+						},
+						{
+							label: "Option 2",
+							value: "Option 2",
+						},
+						{
+							label: "Option 3",
+							value: "Option 3",
+						},
+					]}
+					onSelect={(val: string) => {
+						console.log(val);
+					}}
+				/>
+			</TestSection>
+
+			<TestSection>
 				<AboutDeveloper
 					name="محمد مهدی حجازی"
 					role="مدیر پروژه"
@@ -53,10 +77,8 @@ export default function TestPage() {
 				<Button
 					text="ورود / ثبت نام"
 					onClick={() => {
-						// ctx.syncProfile();
-
 						axios
-							.get("/profile/", {
+							.get("https://localhost:5000/profile/", {
 								withCredentials: true,
 							})
 							.then((res) => {
@@ -78,24 +100,6 @@ export default function TestPage() {
 							username: "admin",
 							password: "admin",
 						});
-
-						// axios
-						// 	.post(
-						// 		"/auth/login/",
-						// 		{
-						// 			username: "admin",
-						// 			password: "admin",
-						// 		},
-						// 		{
-						// 			withCredentials: true,
-						// 		}
-						// 	)
-						// 	.then((res) => {
-						// 		console.log(res);
-						// 	})
-						// 	.catch((err) => {
-						// 		console.log(err);
-						// 	});
 					}}
 					icon={<Login />}
 					filled

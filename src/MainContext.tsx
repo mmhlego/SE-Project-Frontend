@@ -28,12 +28,14 @@ export const ContextProvider = ({
 	const [loggedIn, setLoggedIn] = useState<boolean | undefined>(undefined);
 
 	const [profile, syncProfile] = useGetApi<User>(
-		"/profile/",
+		"https://localhost:5000/profile/",
 		() => setLoggedIn(true),
 		() => setLoggedIn(false)
 	);
 
-	const [currentCart, syncCart] = useGetApi<Cart>("/profile/cart");
+	const [currentCart, syncCart] = useGetApi<Cart>(
+		"https://localhost:5000/profile/cart"
+	);
 
 	useEffect(() => {}, []);
 

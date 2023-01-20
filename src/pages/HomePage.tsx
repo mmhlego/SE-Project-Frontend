@@ -3,9 +3,9 @@ import ProductItem from "components/ProductItem";
 import { useGetApi } from "hooks/useApi";
 import { ArrowLeft2 } from "iconsax-react";
 import Product from "model/Product";
-import Products from "model/Products";
 import { useEffect } from "react";
-import { Navigation, Pagination } from "swiper";
+import Pagination from "model/Pagination";
+import { Navigation, Pagination as SwiperPagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -28,15 +28,15 @@ export default function HomePage() {
 		dislikes: 5,
 	};
 
-	const [highDiscountsDoe, getHighDiscounts] = useGetApi<Products>(
+	const [highDiscountsDoe, getHighDiscounts] = useGetApi<Pagination<Product>>(
 		"https://localhost:5000/products"
 	);
 
-	const [bestSellerDoe, getBestSellers] = useGetApi<Products>(
+	const [bestSellerDoe, getBestSellers] = useGetApi<Pagination<Product>>(
 		"https://localhost:5000/products"
 	);
 
-	const [mostViewedDoe, getMostViewed] = useGetApi<Products>(
+	const [mostViewedDoe, getMostViewed] = useGetApi<Pagination<Product>>(
 		"https://localhost:5000/products"
 	);
 
@@ -59,7 +59,7 @@ export default function HomePage() {
 		<div className="flex flex-col gap-5 py-6">
 			<Swiper
 				navigation
-				modules={[Navigation, Pagination]}
+				modules={[Navigation, SwiperPagination]}
 				pagination
 				loop
 				className="w-full"
@@ -91,7 +91,7 @@ export default function HomePage() {
 						!("data" in highDiscountsDoe) ? (
 							<Loading size={20} />
 						) : (
-							highDiscountsDoe.data.products.map((p, _) => (
+							highDiscountsDoe.data.data.map((p, _) => (
 								<ProductItem key={_} product={p} />
 							))
 						)}
@@ -133,7 +133,7 @@ export default function HomePage() {
 						{bestSellerDoe.loading || !("data" in bestSellerDoe) ? (
 							<Loading size={20} />
 						) : (
-							bestSellerDoe.data.products.map((p, _) => (
+							bestSellerDoe.data.data.map((p, _) => (
 								<ProductItem key={_} product={p} />
 							))
 						)}
@@ -160,7 +160,7 @@ export default function HomePage() {
 						{mostViewedDoe.loading || !("data" in mostViewedDoe) ? (
 							<Loading size={20} />
 						) : (
-							mostViewedDoe.data.products.map((p, _) => (
+							mostViewedDoe.data.data.map((p, _) => (
 								<ProductItem key={_} product={p} />
 							))
 						)}
