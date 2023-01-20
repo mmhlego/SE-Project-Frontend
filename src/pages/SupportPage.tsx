@@ -1,14 +1,8 @@
 import Button from "components/Button";
 import InputField from "components/InputField";
+import PageNavigator from "components/PageNavigator";
 import Textarea from "components/Textarea";
-import {
-	CallCalling,
-	Sms,
-	Location,
-	ArrowLeft2,
-	SafeHome,
-	Send,
-} from "iconsax-react";
+import { CallCalling, Location, Send, Sms } from "iconsax-react";
 import { useState } from "react";
 
 export default function SupportPage() {
@@ -16,12 +10,9 @@ export default function SupportPage() {
 
 	return (
 		<>
-			<div className="flex justify-end gap-2 mr-8 mt-6">
-				<p className="font-light">پشتیبانی</p>
-				<ArrowLeft2 />
-				<SafeHome variant="Bold" />
-			</div>
-			<div className="grid grid-cols-[30%_auto] gap-8 p-8">
+			<PageNavigator text="درباره ما" />
+
+			<div className="grid grid-cols-[30%_auto] gap-5 px-5 pb-8">
 				<div className="flex flex-col gap-y-4 border-[1.5px] border-gray-300 rounded-3xl p-4">
 					<p
 						className="font-semibold flex justify-start gap-2"

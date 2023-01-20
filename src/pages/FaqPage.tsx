@@ -1,5 +1,5 @@
 import CollapsiblePanel2 from "components/CollapsiblePanel2";
-import { ArrowLeft2, SafeHome } from "iconsax-react";
+import PageNavigator from "components/PageNavigator";
 
 export default function FaqPage() {
 	const questions = [
@@ -120,12 +120,15 @@ export default function FaqPage() {
 
 	return (
 		<>
-			<div className="flex justify-end gap-2 mr-6 mt-10">
-				<p className="font-light">پرسش های متداول</p>
+			{/* <div className="flex justify-end gap-2 mr-6 mt-10">
+				<p className="text-gray-400">پرسش های متداول</p>
 				<ArrowLeft2 />
-				<SafeHome variant="Bold" />
-			</div>
-			<div className="border-[1.5px] border-gray-300 bg-gray-200 rounded-3xl flex flex-col gap-4 m-4 p-8">
+				<SafeHome variant="Bold" className="w-5" />
+			</div> */}
+
+			<PageNavigator text="پرسش های متداول" />
+
+			<div className="border-[1.5px] border-gray-300 bg-gray-200 rounded-3xl flex flex-col gap-4 mx-4 mb-6 p-8">
 				{questions.map((qa, _) => (
 					<CollapsiblePanel2 key={_} text={qa.question}>
 						{qa.answer}

@@ -171,7 +171,7 @@ export default function Header() {
 			</div>
 
 			<div className="relative bg-gray-100 px-10 flex flex-row-reverse justify-between items-center z-10">
-				<div className="flex flex-row-reverse gap-1">
+				<div className="flex flex-row-reverse gap-1 py-2">
 					{menuDropdowns.map((dropdown, _) => (
 						<Dropdown
 							key={_}
@@ -181,12 +181,12 @@ export default function Header() {
 						/>
 					))}
 				</div>
-				<Button
+				{/* <Button
 					text="فروش ویژه"
 					onClick={() => {}}
 					color="orange"
 					filled
-				/>
+				/> */}
 			</div>
 		</div>
 	);

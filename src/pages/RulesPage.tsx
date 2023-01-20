@@ -1,16 +1,13 @@
-import { ArrowLeft, ArrowLeft2, SafeHome } from "iconsax-react";
+import PageNavigator from "components/PageNavigator";
 
 export default function RulesPage() {
 	return (
 		<>
-			<div className="flex justify-end gap-2 mr-6 mt-10">
-				<p className="font-light">قوانین و مقررات</p>
-				<ArrowLeft2 />
-				<SafeHome variant="Bold" />
-			</div>
-			<p className="mr-6 mt-4" dir="rtl">
-				قوانین و مقررات
-			</p>
+			<PageNavigator
+				text="قوانین و مقررات"
+				bottomText="قوانین و مقررات"
+			/>
+
 			<div
 				className="border-[1.5px] border-gray-300 rounded-3xl flex flex-col gap-4 m-4 p-8 leading-8"
 				dir="rtl"

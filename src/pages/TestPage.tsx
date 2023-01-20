@@ -1,4 +1,5 @@
 import axios from "axios";
+import AboutDeveloper from "components/AboutDeveloper";
 import CheckBox from "components/CheckBox";
 import CollapsiblePanel from "components/CollapsiblePanel";
 import CollapsiblePanel2 from "components/CollapsiblePanel2";
@@ -40,6 +41,14 @@ export default function TestPage() {
 
 	return (
 		<div className="w-full flex min-h-screen items-center gap-4 flex-col py-10">
+			<TestSection>
+				<AboutDeveloper
+					name="محمد مهدی حجازی"
+					role="مدیر پروژه"
+					team="Manager"
+				/>
+			</TestSection>
+
 			<TestSection>
 				<Button
 					text="ورود / ثبت نام"

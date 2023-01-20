@@ -10,6 +10,6 @@ export default interface Cart {
 }
 
 interface ProductAmounts {
-	productId: string;
+	productId: string; // This is productPriceId
 	amount: number;
 }
