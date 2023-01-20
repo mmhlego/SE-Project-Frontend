@@ -108,6 +108,7 @@ export default function ProductItem({ product, className }: Props) {
 		<div
 			className={`flex flex-col border-2 border-gray-300 rounded-md p-4 gap-y-3 bg-white cursor-pointer ${className}`}
 			onClick={() => window.open(`/products/${product.id}`, "_blank")}
+			dir="ltr"
 		>
 			<p
 				className={`text-end font-bold text-red ${

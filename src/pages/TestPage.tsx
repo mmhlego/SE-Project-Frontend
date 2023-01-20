@@ -8,14 +8,14 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import InputField from "components/InputField";
 import Loading from "components/Loading";
+import PageController from "components/PageController";
 import ProductItem from "components/ProductItem";
 import RadioSection from "components/RadioSection";
 import SearchField from "components/SearchField";
 import Toggle from "components/Toggle";
 import { usePostApi } from "hooks/useApi";
 import { Login, Profile, ShoppingCart } from "iconsax-react";
-import { MainContext } from "MainContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Button from "../components/Button";
 import TestSection from "../components/TestSection";
 
@@ -38,10 +38,21 @@ export default function TestPage() {
 		}
 	);
 
-	const ctx = useContext(MainContext);
+	const [page, setPage] = useState(5);
 
 	return (
 		<div className="w-full flex min-h-screen items-center gap-4 flex-col py-10">
+			<TestSection>
+				<PageController
+					pagination={{
+						page: page,
+						totalPages: 10,
+						perPage: 50,
+						data: [],
+					}}
+					setPage={setPage}
+				/>
+			</TestSection>
 			<TestSection>
 				<RadioSection
 					name="SampleRadio"

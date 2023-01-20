@@ -2,6 +2,7 @@ import Button from "components/Button";
 import CheckBox from "components/CheckBox";
 import CollapsiblePanel from "components/CollapsiblePanel";
 import Loading from "components/Loading";
+import PageController from "components/PageController";
 import ProductItem from "components/ProductItem";
 import RadioSection from "components/RadioSection";
 import { useGetApi } from "hooks/useApi";
@@ -21,13 +22,7 @@ interface ProductsRequestBody {
 
 export default function ProductsPage() {
 	const [products, loadProducts] = useGetApi<Pagination<Product>>(
-		"https://localhost:5000/products",
-		() => {
-			console.log("loaded");
-		},
-		() => {
-			console.log("Error");
-		}
+		"https://localhost:5000/products"
 	);
 
 	// ============== Filter Details ==============
@@ -36,12 +31,11 @@ export default function ProductsPage() {
 		Categories | undefined
 	>(undefined);
 	const [onlyAvailable, setOnlyAvailable] = useState(false);
-	const [page, setPage] = useState(1);
 
-	const loadPage = () => {
+	const loadPage = (loadPage: number = 1) => {
 		loadProducts({
 			productsPerPage: 50,
-			page: page,
+			page: loadPage,
 			category: selectedCategory,
 			available: onlyAvailable,
 		});
@@ -54,11 +48,29 @@ export default function ProductsPage() {
 	return (
 		<div className="grid grid-cols-[75%_auto] py-5">
 			{!products.loading && "data" in products ? (
-				<div className="grid gap-3 px-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-fit">
-					{products.data?.data.map((p, _) => (
-						<ProductItem key={_} product={p} />
-					))}
-				</div>
+				products.data.data.length === 0 ? (
+					<p className="text-center mt-10 font-medium text-2xl">
+						کالایی یافت نشد
+					</p>
+				) : (
+					<div className="h-full flex flex-col justify-between">
+						<div
+							className="grid gap-3 px-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-fit mb-5"
+							dir="rtl"
+						>
+							{products.data?.data.map((p, _) => (
+								<ProductItem key={_} product={p} />
+							))}
+						</div>
+
+						<PageController
+							pagination={products.data}
+							setPage={(newPage) => {
+								loadPage(newPage);
+							}}
+						/>
+					</div>
+				)
 			) : (
 				<div className="w-full py-10">
 					<Loading className="mx-auto" size={32} />
@@ -109,7 +121,7 @@ export default function ProductsPage() {
 						text="فیلتر کن"
 						onClick={() => {
 							loadPage();
-							window.scrollTo(0, 0);
+							window.scrollTo(0, 240);
 						}}
 						icon={<Filter variant="Bold" />}
 						filled
