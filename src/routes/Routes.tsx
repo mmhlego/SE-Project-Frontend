@@ -13,6 +13,7 @@ import ProductsPage from "pages/ProductsPage";
 import RegisterPage from "pages/RegisterPage";
 import RulesPage from "pages/RulesPage";
 import SupportPage from "pages/SupportPage";
+import VerifyPage from "pages/VerifyPage";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import TestPage from "../pages/TestPage";
 
@@ -80,6 +81,10 @@ export const router = createBrowserRouter([
 	{
 		path: "/auth/forgot",
 		element: <ForgotPasswordPage />,
+	},
+	{
+		path: "/auth/verify",
+		element: <VerifyPage />,
 	},
 	{
 		path: "/payment",
