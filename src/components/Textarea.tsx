@@ -1,13 +1,19 @@
 interface Props {
 	rows?: number;
+	title?: string;
 	className?: string;
 	setText?: (val: string) => void;
 }
 
-export default function Textarea({ rows = 3, className, setText }: Props) {
+export default function Textarea({
+	rows = 3,
+	title = "متن پیام",
+	className,
+	setText,
+}: Props) {
 	return (
 		<div className={`flex flex-col items-end ${className}`}>
-			<p className="font-semibold">متن پیام</p>
+			<p className="font-semibold">{title}</p>
 			<textarea
 				name="comment"
 				rows={rows}

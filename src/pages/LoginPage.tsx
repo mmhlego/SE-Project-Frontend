@@ -1,6 +1,7 @@
 import Logo from "assets/Logo";
 import Button from "components/Button";
 import InputField from "components/InputField";
+import Loading from "components/Loading";
 import { usePostApi } from "hooks/useApi";
 import {
 	ArrowCircleRight2,
@@ -9,7 +10,8 @@ import {
 	NoteFavorite,
 	Profile,
 } from "iconsax-react";
-import { useState } from "react";
+import { MainContext } from "MainContext";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 
 type LoginStatus = {
@@ -18,6 +20,7 @@ type LoginStatus = {
 
 export default function LoginPage() {
 	const navigate = useNavigate();
+	const ctx = useContext(MainContext);
 
 	const [loginDoe, tryLogin] = usePostApi<LoginStatus>(
 		"https://localhost:5000/auth/login",
@@ -26,24 +29,40 @@ export default function LoginPage() {
 
 			switch (res.status) {
 				case "Success":
-					alert("logged in");
-					navigate("/");
+					ctx.syncProfile();
+					ctx.showAlert({
+						text: "با موفقیت وارد شدید.",
+						status: "Success",
+						onAccept() {
+							navigate("/");
+						},
+					});
 					break;
 				case "Failed":
-					alert("Wrong username / password");
+					ctx.showAlert({
+						text: "نام کاربری یا رمز عبور نادرست میباشد.",
+						status: "Error",
+					});
 					break;
 				case "Restricted":
-					alert("Restricted");
+					ctx.showAlert({
+						text: "کاربر مسدود شده است. در صورت نیاز به راهنمایی لطفا با پشتیبانی تماس بگیرید",
+						status: "Warning",
+					});
 					break;
 			}
 		},
-		(err) => {
-			console.log(err);
-			alert("Failed");
+		() => {
+			ctx.showAlert({
+				text: "خطایی در ارتباط با سرور پیش آمده است.",
+				status: "ConnectionLoss",
+			});
 		}
 	);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+
+	console.log(loginDoe);
 
 	return (
 		<div className="w-screen h-screen bg-blue/50 flex justify-center items-center">
@@ -98,20 +117,24 @@ export default function LoginPage() {
 						رمز عبور خود را فراموش کرده ام!
 					</a>
 
-					<Button
-						text="ورود"
-						onClick={async () => {
-							// TODO Check first
+					{loginDoe.loading ? (
+						<Loading />
+					) : (
+						<Button
+							text="ورود"
+							onClick={async () => {
+								// TODO Check first
 
-							tryLogin({
-								username: username,
-								password: password,
-							});
-						}}
-						filled
-						icon={<LoginIcon />}
-						className="px-10"
-					/>
+								tryLogin({
+									username: username,
+									password: password,
+								});
+							}}
+							filled
+							icon={<LoginIcon />}
+							className="px-10"
+						/>
+					)}
 				</div>
 			</div>
 		</div>

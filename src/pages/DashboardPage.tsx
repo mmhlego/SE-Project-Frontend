@@ -1,4 +1,5 @@
 import Loading from "components/Loading";
+import { useGetApi } from "hooks/useApi";
 import {
 	ArrowDown2,
 	Element3,
@@ -96,6 +97,11 @@ export default function DashboardPage() {
 	const navigate = useNavigate();
 	const [searchParams, setSearchParams] = useSearchParams();
 
+	const [_, logout] = useGetApi("https://localhost:5000/auth/logout", () => {
+		ctx.syncProfile();
+		navigate("/");
+	});
+
 	const pages: DashboardItemType[] = (() => {
 		if (ctx.profile.loading || "error" in ctx.profile) return [];
 
@@ -182,10 +188,15 @@ export default function DashboardPage() {
 
 					<div
 						className="w-full py-3 flex flex-row-reverse gap-2 cursor-pointer duration-300 hover:text-red"
-						onClick={() => {
-							// TODO call log out api
-							navigate("/");
-						}}
+						onClick={() =>
+							ctx.showAlert({
+								status: "Question",
+								text: "آیا مطمئن هستید؟",
+								onAccept() {
+									logout();
+								},
+							})
+						}
 					>
 						<Logout variant="Bold" />
 						خروج

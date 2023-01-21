@@ -14,19 +14,14 @@ import MiniPoster1 from "../assets/images/MiniPoster1.png";
 import MiniPoster2 from "../assets/images/MiniPoster2.png";
 import MiniPoster3 from "../assets/images/MiniPoster3.png";
 import MiniPoster4 from "../assets/images/MiniPoster4.png";
-import Poster from "../assets/images/Poster.png";
+// import Poster from "../assets/images/Poster.png";
 import Sale from "../assets/images/Sale.png";
+import Poster from "model/Poster";
 
 export default function HomePage() {
-	const p: Product = {
-		id: "sample",
-		name: "گوشی شیائومی نوت 11",
-		category: "Digital",
-		image: "https://www.technolife.ir/image/color_image_TLP-3554_a7dae8_ca79bb9c-a389-45df-a811-6fedaf224c2e.png",
-		description: "Yek gooshi khoob",
-		likes: 10,
-		dislikes: 5,
-	};
+	const [postersDoe, getPosters] = useGetApi<Pagination<Poster>>(
+		"https://localhost:5000/posters"
+	);
 
 	const [highDiscountsDoe, getHighDiscounts] = useGetApi<Pagination<Product>>(
 		"https://localhost:5000/products"
@@ -41,6 +36,10 @@ export default function HomePage() {
 	);
 
 	useEffect(() => {
+		getPosters({
+			postersPerPage: 10,
+			page: 1,
+		});
 		getBestSellers({
 			productsPerPage: 8,
 			page: 1,
@@ -57,26 +56,21 @@ export default function HomePage() {
 
 	return (
 		<div className="flex flex-col gap-5 py-6">
-			<Swiper
-				navigation
-				modules={[Navigation, SwiperPagination]}
-				pagination
-				loop
-				className="w-full"
-			>
-				<SwiperSlide>
-					<img className="w-full" src={Poster} />
-				</SwiperSlide>
-				<SwiperSlide>
-					<img className="w-full" src={Poster} />
-				</SwiperSlide>
-				<SwiperSlide>
-					<img className="w-full" src={Poster} />
-				</SwiperSlide>
-				<SwiperSlide>
-					<img className="w-full" src={Poster} />
-				</SwiperSlide>
-			</Swiper>
+			{postersDoe.loading === false && "data" in postersDoe && (
+				<Swiper
+					navigation
+					modules={[Navigation, SwiperPagination]}
+					pagination
+					loop
+					className="w-full"
+				>
+					{postersDoe.data.data.map((poster, _) => (
+						<SwiperSlide key={_}>
+							<img className="w-full" src={poster.imageUrl} />
+						</SwiperSlide>
+					))}
+				</Swiper>
+			)}
 			<div className="bg-sky-100 mx-10 grid grid-rows-[15%_auto] grid-cols-[80%_auto] rounded-2xl pb-5">
 				<p className="col-span-2 text-2xl text-end font-bold p-4 text-blue">
 					تخفیف ویژه
@@ -112,14 +106,20 @@ export default function HomePage() {
 				</div>
 			</div>
 			<div className="grid grid-cols-4 mx-10 gap-4">
-				<img className="w-full" src={MiniPoster4} />
-				<img className="w-full" src={MiniPoster3} />
-				<img className="w-full" src={MiniPoster2} />
-				<img className="w-full" src={MiniPoster1} />
+				<img className="w-full cursor-pointer" src={MiniPoster4} />
+				<img className="w-full cursor-pointer" src={MiniPoster3} />
+				<img className="w-full cursor-pointer" src={MiniPoster2} />
+				<img className="w-full cursor-pointer" src={MiniPoster1} />
 			</div>
-			<div className="mx-10">
-				<img className="rounded-2xl w-full" src={Poster} />
-			</div>
+			{postersDoe.loading === false && "data" in postersDoe && (
+				<div className="mx-10">
+					<img
+						className="rounded-2xl w-full"
+						src={postersDoe.data.data[0].imageUrl}
+					/>
+				</div>
+			)}
+
 			<div className="bg-sky-100 mx-10 grid grid-rows-[15%_auto] rounded-2xl pb-2">
 				<p className="text-2xl text-end font-bold p-4 text-blue">
 					محصولات پرفروش

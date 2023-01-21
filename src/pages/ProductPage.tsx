@@ -3,23 +3,30 @@ import CommentItem from "components/CommentItem";
 import Loading from "components/Loading";
 import ProductItem from "components/ProductItem";
 import Tag from "components/Tag";
-import { useGetApi } from "hooks/useApi";
+import Textarea from "components/Textarea";
+import { useDeleteApi, useGetApi, usePostApi, usePutApi } from "hooks/useApi";
 import {
 	ArrowLeft2,
 	Book,
 	Book1,
 	CloseCircle,
+	Copy,
+	Dislike,
 	DollarSquare,
+	Like1,
+	Save2,
+	Send,
 	Shop,
 	ShoppingCart,
 	TickCircle,
 } from "iconsax-react";
+import { MainContext } from "MainContext";
 import Comment from "model/Comment";
 import { DataOrError } from "model/DataOrError";
 import Pagination from "model/Pagination";
 import Product from "model/Product";
 import ProductPrice from "model/ProductPrice";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { getDiscountedPrice } from "utils";
 
@@ -85,9 +92,8 @@ function SellerSelect({ price, selectPrice }: SellerSelectProps) {
 				<p className="font-bold">فروشنده:</p>
 				{price.seller.name}
 			</div>
-
+			``
 			<hr className="w-full bg-gray-200" />
-
 			<p className="flex gap-2">
 				{price.amount > 0 ? (
 					<>
@@ -101,9 +107,7 @@ function SellerSelect({ price, selectPrice }: SellerSelectProps) {
 					</>
 				)}
 			</p>
-
 			<hr className="w-full bg-gray-300" />
-
 			<div className="flex flex-col gap-1 justify-between">
 				<p className="font-bold flex gap-2">
 					<DollarSquare color="#FF9A23" variant="Bold" />
@@ -114,7 +118,6 @@ function SellerSelect({ price, selectPrice }: SellerSelectProps) {
 					<p>{price.price} تومان</p>
 				</div>
 			</div>
-
 			<Button
 				text="انتخاب فروشنده"
 				onClick={() => {
@@ -132,9 +135,30 @@ function SellerSelect({ price, selectPrice }: SellerSelectProps) {
 }
 
 interface CommentSectionProps {
+	productId: string;
 	commentsDoe: DataOrError<Pagination<Comment>>;
+	updateComments: () => void;
 }
-function CommentsSection({ commentsDoe }: CommentSectionProps) {
+function CommentsSection({
+	productId,
+	commentsDoe,
+	updateComments,
+}: CommentSectionProps) {
+	const ctx = useContext(MainContext);
+	const [commentText, setCommentText] = useState("");
+
+	const [_, sendComment] = usePostApi(
+		"https://localhost:5000/comments",
+		() => {
+			setCommentText("");
+			updateComments();
+			ctx.showAlert({
+				status: "Success",
+				text: "دیدگاه شما با موفقیت ثبت شد",
+			});
+		}
+	);
+
 	if (commentsDoe.loading) {
 		return <Loading />;
 	}
@@ -142,8 +166,6 @@ function CommentsSection({ commentsDoe }: CommentSectionProps) {
 	if ("error" in commentsDoe) {
 		return <p>اروری رخ داده است</p>;
 	}
-
-	console.log(commentsDoe.data.data);
 
 	return (
 		<div className="py-10" id="comments" dir="rtl">
@@ -156,12 +178,50 @@ function CommentsSection({ commentsDoe }: CommentSectionProps) {
 					<CommentItem key={_} comment={cmt} />
 				))}
 			</div>
+			{ctx.loggedIn && (
+				<div className="grid grid-cols-[auto_75%] gap-x-8 px-16 pt-8">
+					<div className="flex flex-col gap-3">
+						<p className="font-semibold text-lg">ثبت دیدگاه</p>
+						<p className="text-center">
+							کاربر گرامی شما می توانید از این قسمت نظر خود را
+							نسبت به ان محصول وارد نمایید
+						</p>
+					</div>
+					<div className="flex flex-col items-end gap-3">
+						<Textarea
+							title=""
+							rows={5}
+							setText={setCommentText}
+							className="w-full"
+						/>
+
+						<Button
+							text="ثبت دیدگاه"
+							filled
+							onClick={() => {
+								if (commentText === "") {
+									console.log("Empty");
+									return;
+								}
+
+								sendComment({
+									productId,
+									text: commentText,
+								});
+							}}
+							className="px-10"
+						/>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
 
 export default function ProductPage() {
-	const productId = useLocation().pathname.split("/")[2];
+	const location = useLocation();
+	const productId = location.pathname.split("/")[2];
+	const ctx = useContext(MainContext);
 
 	const [selectedPrice, setSelectedPrice] = useState<
 		DataOrError<ProductPrice>
@@ -177,11 +237,28 @@ export default function ProductPage() {
 		}
 	);
 
+	const [likes, putLikes] = usePutApi(
+		`https://localhost:5000/products/${productId}/likes`,
+		() => getProduct()
+	);
+
+	const [subscription, getSubscription] = useGetApi<Product>(
+		`https://localhost:5000/profile/subscription`
+	);
+
+	const [_2, subscribe] = usePostApi<any>(
+		`https://localhost:5000/profile/subscribe`,
+		() => getSubscription({ productId })
+	);
+
+	const [_1, unsubscribe] = useDeleteApi<any>(
+		`https://localhost:5000/profile/subscribe`,
+		() => getSubscription({ productId })
+	);
+
 	const [pricesDoe, getPrices] = useGetApi<Pagination<ProductPrice>>(
 		"https://localhost:5000/prices",
 		(res) => {
-			console.log("Prices", res);
-
 			if (res.data.length > 0)
 				setSelectedPrice({
 					loading: false,
@@ -210,6 +287,9 @@ export default function ProductPage() {
 
 	useEffect(() => {
 		getProduct();
+		getSubscription({
+			productId,
+		});
 		getSimilarProducts({
 			page: 1,
 			productsPerPage: 10,
@@ -239,9 +319,71 @@ export default function ProductPage() {
 						src={productDoe.data.image}
 					/>
 
-					<hr className="w-full bg-gray-200" />
-
 					<div dir="rtl" className="w-full flex flex-col gap-2 px-3">
+						{ctx.loggedIn && (
+							<div className="flex justify-center gap-3">
+								<div
+									className="bg-green/20 rounded-md p-1 flex gap-2 cursor-pointer box-border border-2 border-transparent duration-300 hover:border-green"
+									onClick={() => putLikes({ like: true })}
+								>
+									<p>{productDoe.data.likes}</p>
+									<Like1 variant="Bold" color="#06c574" />
+								</div>
+								<div
+									className="bg-red/20 rounded-md p-1 flex gap-2 cursor-pointer box-border border-2 border-transparent duration-300 hover:border-red"
+									onClick={() => putLikes({ like: false })}
+								>
+									<Dislike variant="Bold" color="#ef3b50" />
+									<p>{productDoe.data.dislikes}</p>
+								</div>
+
+								{subscription.loading === false &&
+									("data" in subscription ? (
+										<div
+											className="bg-blue/20 rounded-md p-1 flex gap-2 cursor-pointer box-border border-2 border-transparent duration-300 hover:border-blue"
+											onClick={() =>
+												unsubscribe({
+													productId,
+												})
+											}
+										>
+											<Save2
+												variant="Bold"
+												color="#2388FF"
+											/>
+											<p>حذف نشان</p>
+										</div>
+									) : (
+										<div
+											className="bg-blue/20 rounded-md p-1 flex gap-2 cursor-pointer box-border border-2 border-transparent duration-300 hover:border-blue"
+											onClick={() =>
+												subscribe(null, { productId })
+											}
+										>
+											<Save2
+												variant="Linear"
+												color="#2388FF"
+											/>
+											<p>نشان کردن</p>
+										</div>
+									))}
+
+								<div
+									className="bg-orange/20 rounded-md p-1 flex gap-2 cursor-pointer box-border border-2 border-transparent duration-300 hover:border-orange"
+									onClick={() => {
+										navigator.clipboard.writeText(
+											document.URL
+										);
+										console.log("Copied");
+									}}
+								>
+									<Copy variant="Linear" color="#ff9a23" />
+								</div>
+							</div>
+						)}
+
+						<hr className="w-full bg-gray-200" />
+
 						<div className="flex gap-2">
 							<Shop color="#2388FF" variant="Bold" />
 							<p className="font-bold">فروشنده:</p>
@@ -288,16 +430,27 @@ export default function ProductPage() {
 							<PriceSection selectedPrice={selectedPrice} />
 						</div>
 
-						<Button
-							text="افزودن به سبدخرید"
-							onClick={() => {
-								//TODO
-							}}
-							filled
-							color="blue"
-							icon={<ShoppingCart variant="Bold" />}
-							className="w-full flex-row-reverse gap-3"
-						/>
+						{!selectedPrice.loading && "data" in selectedPrice ? (
+							<Button
+								text="افزودن به سبد خرید"
+								onClick={() => {
+									//TODO
+								}}
+								filled
+								color="blue"
+								icon={<ShoppingCart variant="Bold" />}
+								className="w-full flex-row-reverse gap-3"
+							/>
+						) : (
+							<Button
+								text="ناموجود"
+								onClick={() => {}}
+								color="blue"
+								disabled
+								icon={<ShoppingCart variant="Bold" />}
+								className="w-full flex-row-reverse gap-3"
+							/>
+						)}
 					</div>
 				</div>
 				<div className="bg-sky-100 flex flex-col gap-4 items-center rounded-xl px-5 pb-5">
@@ -414,7 +567,11 @@ export default function ProductPage() {
 					</p>
 					<p className="py-4">{productDoe.data.description}</p>
 				</div>
-				<CommentsSection commentsDoe={commentsDoe} />
+				<CommentsSection
+					productId={productId}
+					commentsDoe={commentsDoe}
+					updateComments={() => getComments({ productId: productId })}
+				/>
 			</div>
 		</div>
 	);

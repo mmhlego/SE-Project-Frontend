@@ -1,14 +1,7 @@
 import Button from "components/Button";
 import Loading from "components/Loading";
 import { useGetApi } from "hooks/useApi";
-import {
-	CloseCircle,
-	CloudConnection,
-	CloudCross,
-	TickCircle,
-	Warning2,
-} from "iconsax-react";
-import { DataOrError } from "model/DataOrError";
+import { CloseCircle, CloudCross, TickCircle, Warning2 } from "iconsax-react";
 import { ReactNode, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
