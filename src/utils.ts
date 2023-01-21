@@ -31,6 +31,13 @@ export type CartStatus =
 	| "Sending"
 	| "Received";
 
+export type AlertInterface = {
+	text: string;
+	status: "Success" | "Warning" | "Error" | "ConnectionLoss" | "Question";
+	onAccept?: () => void;
+	onReject?: () => void;
+};
+
 export const getBorderStyle = (color: color) => {
 	if (color === "orange") return "border-orange";
 	if (color === "black") return "border-black";

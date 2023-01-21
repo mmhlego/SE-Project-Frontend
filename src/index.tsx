@@ -1,5 +1,4 @@
 import { ContextProvider } from "MainContext";
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./pages/App";
 import "./styles/tailwind.scss";

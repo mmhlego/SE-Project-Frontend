@@ -19,7 +19,7 @@ function PriceSection({ bestPrice }: PriceSectionProps) {
 	if ("error" in bestPrice) {
 		return (
 			<p
-				className="text-blue text-xl font-medium text-center pt-3"
+				className="text-red text-xl font-medium text-center pt-3"
 				dir="rtl"
 			>
 				ناموجود
@@ -79,6 +79,7 @@ export default function ProductItem({ product, className }: Props) {
 		if (!prices.loading && "data" in prices) {
 			if (prices.data.data.length === 0) {
 				setBestPrice({ loading: false, error: new Error("No prices") });
+				return;
 			}
 
 			let best = prices.data.data[0];

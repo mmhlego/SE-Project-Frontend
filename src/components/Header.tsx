@@ -1,17 +1,15 @@
 import Logo from "assets/Logo";
 import {
-	Book,
 	Book1,
+	Box,
 	CallCalling,
 	Car,
-	Health,
 	Heart,
-	HeartCircle,
-	HeartSlash,
 	Home,
 	Login,
 	Mobile,
 	Profile as ProfileIcon,
+	Shop,
 	ShoppingCart,
 } from "iconsax-react";
 import { MainContext } from "MainContext";
@@ -48,6 +46,65 @@ function HeaderPage({ text, pathname }: PageProps) {
 	);
 }
 
+function ProductsDropDown() {
+	const categories = [
+		{
+			text: "همه محصولات",
+			url: "http://localhost:3000/products/",
+			icon: <Box size={22} />,
+		},
+		{
+			text: "کالای دیجیتال",
+			url: "http://localhost:3000/products/?category=Digital",
+			icon: <Mobile size={22} />,
+		},
+		{
+			text: "مد وپوشاک",
+			url: "http://localhost:3000/products/?category=Fashion",
+			icon: <ProfileIcon size={22} />,
+		},
+		{
+			text: "خودرو",
+			url: "http://localhost:3000/products/?category=Cars",
+			icon: <Car size={22} />,
+		},
+		{
+			text: "زیبایی و سلامت",
+			url: "http://localhost:3000/products/?category=HealthAndBeauty",
+			icon: <Heart size={22} />,
+		},
+		{
+			text: "لوازم خانگی",
+			url: "http://localhost:3000/products/?category=HomeAppliances",
+			icon: <Home size={22} />,
+		},
+		{
+			text: "کتاب",
+			url: "http://localhost:3000/products/?category=Books",
+			icon: <Book1 size={22} />,
+		},
+	];
+
+	return (
+		<div
+			className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-4 gap-4"
+			dir="rtl"
+		>
+			{categories.map((category, i) => (
+				<a
+					className="flex gap-5 p-4 border-2 border-gray-200 rounded-lg duration-300 hover:border-blue"
+					href={category.url}
+					target="_blank"
+					key={i}
+				>
+					{category.icon}
+					{category.text}
+				</a>
+			))}
+		</div>
+	);
+}
+
 export default function Header() {
 	const ctx = useContext(MainContext);
 
@@ -68,35 +125,45 @@ export default function Header() {
 
 	const menuDropdowns = [
 		{
-			text: "کالای دیجیتال",
-			children: <p>sample</p>,
-			icon: <Mobile size={22} />,
+			text: "محصولات",
+			children: <ProductsDropDown />,
+			icon: <Box size={22} />,
 		},
 		{
-			text: "مد وپوشاک",
+			text: "فروشندگان",
 			children: <p>sample</p>,
-			icon: <ProfileIcon size={22} />,
+			icon: <Shop size={22} />,
 		},
-		{
-			text: "خودرو",
-			children: <p>sample</p>,
-			icon: <Car size={22} />,
-		},
-		{
-			text: "زیبایی و سلامت",
-			children: <p>sample</p>,
-			icon: <Heart size={22} />,
-		},
-		{
-			text: "لوازم خانگی",
-			children: <p>sample</p>,
-			icon: <Home size={22} />,
-		},
-		{
-			text: "کتاب",
-			children: <p>sample</p>,
-			icon: <Book1 size={22} />,
-		},
+		// {
+		// 	text: "کالای دیجیتال",
+		// 	children: <p>sample</p>,
+		// 	icon: <Mobile size={22} />,
+		// },
+		// {
+		// 	text: "مد وپوشاک",
+		// 	children: <p>sample</p>,
+		// 	icon: <ProfileIcon size={22} />,
+		// },
+		// {
+		// 	text: "خودرو",
+		// 	children: <p>sample</p>,
+		// 	icon: <Car size={22} />,
+		// },
+		// {
+		// 	text: "زیبایی و سلامت",
+		// 	children: <p>sample</p>,
+		// 	icon: <Heart size={22} />,
+		// },
+		// {
+		// 	text: "لوازم خانگی",
+		// 	children: <p>sample</p>,
+		// 	icon: <Home size={22} />,
+		// },
+		// {
+		// 	text: "کتاب",
+		// 	children: <p>sample</p>,
+		// 	icon: <Book1 size={22} />,
+		// },
 	];
 
 	const navigate = useNavigate();

@@ -28,8 +28,10 @@ export default function Dropdown({ text, icon, children }: Props) {
 			{icon}
 
 			<div
-				className={`absolute bottom-0 right-0 translate-y-[100%] w-screen pr-10 pl-14 pt-1 ${
-					menuHovered || panelHovered ? "" : "invisible"
+				className={`absolute bottom-0 right-0 translate-y-[100%] w-screen pr-10 pl-14 pt-1 ease duration-300 ${
+					menuHovered || panelHovered
+						? "opacity-100"
+						: "opacity-0 pointer-events-none"
 				}`}
 			>
 				<div

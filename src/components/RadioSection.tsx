@@ -4,8 +4,9 @@ interface Props {
 	name: string;
 	options: {
 		label: string;
-		value: string;
+		value: any;
 	}[];
+	initial?: number;
 	onSelect?: (val: string) => void;
 	className?: string;
 }
@@ -13,10 +14,11 @@ interface Props {
 export default function RadioSection({
 	name,
 	options,
+	initial = -1,
 	onSelect,
 	className,
 }: Props) {
-	const [selected, setSelected] = useState(-1);
+	const [selected, setSelected] = useState(initial);
 
 	return (
 		<div className={`flex flex-col w-full items-end ${className}`}>
