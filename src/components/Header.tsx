@@ -9,8 +9,10 @@ import {
 	Login,
 	Mobile,
 	Profile as ProfileIcon,
+	Profile2User,
 	Shop,
 	ShoppingCart,
+	Star1,
 } from "iconsax-react";
 import { MainContext } from "MainContext";
 import { useContext } from "react";
@@ -131,39 +133,32 @@ export default function Header() {
 		},
 		{
 			text: "فروشندگان",
-			children: <p>sample</p>,
+			children: (
+				<div
+					className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-4 gap-4"
+					dir="rtl"
+				>
+					<a
+						className="flex gap-5 p-4 border-2 border-gray-200 rounded-lg duration-300 hover:border-blue"
+						href="/sellers"
+						target="_blank"
+					>
+						<Profile2User />
+						همه فروشندگان
+					</a>
+
+					<a
+						className="flex gap-5 p-4 border-2 border-gray-200 rounded-lg duration-300 hover:border-blue"
+						href="/sellers"
+						target="_blank"
+					>
+						<Star1 />
+						فروشندگان برتر
+					</a>
+				</div>
+			),
 			icon: <Shop size={22} />,
 		},
-		// {
-		// 	text: "کالای دیجیتال",
-		// 	children: <p>sample</p>,
-		// 	icon: <Mobile size={22} />,
-		// },
-		// {
-		// 	text: "مد وپوشاک",
-		// 	children: <p>sample</p>,
-		// 	icon: <ProfileIcon size={22} />,
-		// },
-		// {
-		// 	text: "خودرو",
-		// 	children: <p>sample</p>,
-		// 	icon: <Car size={22} />,
-		// },
-		// {
-		// 	text: "زیبایی و سلامت",
-		// 	children: <p>sample</p>,
-		// 	icon: <Heart size={22} />,
-		// },
-		// {
-		// 	text: "لوازم خانگی",
-		// 	children: <p>sample</p>,
-		// 	icon: <Home size={22} />,
-		// },
-		// {
-		// 	text: "کتاب",
-		// 	children: <p>sample</p>,
-		// 	icon: <Book1 size={22} />,
-		// },
 	];
 
 	const navigate = useNavigate();

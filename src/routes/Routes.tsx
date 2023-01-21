@@ -12,6 +12,8 @@ import ProductPage from "pages/ProductPage";
 import ProductsPage from "pages/ProductsPage";
 import RegisterPage from "pages/RegisterPage";
 import RulesPage from "pages/RulesPage";
+import SellerPage from "pages/SellerPage";
+import SellersPage from "pages/SellersPage";
 import SupportPage from "pages/SupportPage";
 import VerifyPage from "pages/VerifyPage";
 import { createBrowserRouter, Outlet } from "react-router-dom";
@@ -39,6 +41,14 @@ export const router = createBrowserRouter([
 			{
 				path: "/products/:id",
 				element: <ProductPage />,
+			},
+			{
+				path: "/sellers",
+				element: <SellersPage />,
+			},
+			{
+				path: "/sellers/:id",
+				element: <SellerPage />,
 			},
 			{
 				path: "/dashboard",

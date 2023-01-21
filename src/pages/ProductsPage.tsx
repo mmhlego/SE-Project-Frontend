@@ -10,20 +10,17 @@ import { Filter } from "iconsax-react";
 import Pagination from "model/Pagination";
 import Product, { Categories } from "model/Product";
 import { useEffect, useState } from "react";
-
-interface ProductsRequestBody {
-	productsPerPage: number;
-	page: number;
-	priceFrom?: number;
-	priceTo?: number;
-	available?: boolean;
-	category?: Categories;
-}
+import { useSearchParams } from "react-router-dom";
 
 export default function ProductsPage() {
 	const [products, loadProducts] = useGetApi<Pagination<Product>>(
 		"https://localhost:5000/products"
 	);
+
+	// ============== Search Params ===============
+
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [initialCategory, setInitialCategory] = useState(-1);
 
 	// ============== Filter Details ==============
 
@@ -31,17 +28,53 @@ export default function ProductsPage() {
 		Categories | undefined
 	>(undefined);
 	const [onlyAvailable, setOnlyAvailable] = useState(false);
+	const [priceFrom, setPriceFrom] = useState<number | undefined>(undefined);
+	const [priceTo, setPriceTo] = useState<number | undefined>(undefined);
 
-	const loadPage = (loadPage: number = 1) => {
+	const loadPage = (page: number = 1) => {
 		loadProducts({
 			productsPerPage: 50,
-			page: loadPage,
+			page,
 			category: selectedCategory,
 			available: onlyAvailable,
+			priceFrom,
+			priceTo,
 		});
 	};
 
-	useEffect(loadPage, []);
+	useEffect(() => {
+		if (searchParams.has("category")) {
+			const defaultCategory = searchParams.get("category")! as Categories;
+
+			setSelectedCategory(defaultCategory);
+			switch (defaultCategory) {
+				case "Digital":
+					setInitialCategory(1);
+					break;
+				case "Fashion":
+					setInitialCategory(2);
+					break;
+				case "Cars":
+					setInitialCategory(3);
+					break;
+				case "HealthAndBeauty":
+					setInitialCategory(4);
+					break;
+				case "HomeAppliances":
+					setInitialCategory(5);
+					break;
+				case "Books":
+					setInitialCategory(6);
+					break;
+			}
+		} else {
+			setInitialCategory(0);
+		}
+	}, []);
+
+	useEffect(() => {
+		loadPage();
+	}, [initialCategory]);
 
 	// ============================================
 
@@ -79,31 +112,47 @@ export default function ProductsPage() {
 
 			<div>
 				<div className="sticky top-4">
-					<CollapsiblePanel text="دسته بندی محصول">
-						<RadioSection
-							name="ProductsCategory"
-							options={[
-								{ label: "کالای دیجیتال", value: "Digital" },
-								{
-									label: "مد و پوشاک",
-									value: "Fashion",
-								},
-								{ label: "خودرو", value: "Cars" },
-								{
-									label: "زیبایی و سلامت",
-									value: "HealthAndBeauty",
-								},
-								{
-									label: "لوازم خانگی",
-									value: "HomeAppliances",
-								},
-								{ label: "کتاب", value: "Books" },
-							]}
-							onSelect={(val) =>
-								setSelectedCategory(val as Categories)
-							}
-						/>
-					</CollapsiblePanel>
+					{initialCategory !== -1 && (
+						<CollapsiblePanel text="دسته بندی محصول">
+							<RadioSection
+								name="ProductsCategory"
+								options={[
+									{
+										label: "همه دسته بندی ها",
+										value: undefined,
+									},
+									{
+										label: "کالای دیجیتال",
+										value: "Digital",
+									},
+									{
+										label: "مد و پوشاک",
+										value: "Fashion",
+									},
+									{ label: "خودرو", value: "Cars" },
+									{
+										label: "زیبایی و سلامت",
+										value: "HealthAndBeauty",
+									},
+									{
+										label: "لوازم خانگی",
+										value: "HomeAppliances",
+									},
+									{ label: "کتاب", value: "Books" },
+								]}
+								initial={initialCategory}
+								onSelect={(val) => {
+									if (val) {
+										setSearchParams({ category: val });
+									} else {
+										searchParams.delete("category");
+										setSearchParams(searchParams);
+									}
+									setSelectedCategory(val as Categories);
+								}}
+							/>
+						</CollapsiblePanel>
+					)}
 
 					<CollapsiblePanel text="بازه قیمت محصول">
 						<CheckBox initial text="" />
