@@ -63,10 +63,6 @@ export default function Profile() {
 
 	// ==========================================
 
-	console.log(ctx.profile.data.birthDate);
-	console.log(ctx.profile.data.birthDate);
-	console.log(ctx.profile.data.birthDate);
-
 	return (
 		<div className="w-full flex flex-col items-center p-5 gap-5">
 			{ctx.profile.data.profileImage ? (
