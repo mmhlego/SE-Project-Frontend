@@ -1,5 +1,3 @@
-import { CartStatus } from "utils";
-
 export default interface Cart {
 	id: string;
 	customerId?: string;
@@ -13,3 +11,11 @@ interface ProductAmounts {
 	productId: string; // This is productPriceId
 	amount: number;
 }
+
+export type CartStatus =
+	| "Filling"
+	| "Pending"
+	| "Approved"
+	| "Rejected"
+	| "Sending"
+	| "Received";

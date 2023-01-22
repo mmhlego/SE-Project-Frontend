@@ -19,6 +19,7 @@ import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
+import Loading from "./Loading";
 import SearchField from "./SearchField";
 
 interface PageProps {
@@ -198,7 +199,12 @@ export default function Header() {
 									text="سبد خرید"
 									onClick={() => {}}
 									icon={<ShoppingCart variant="Bold" />}
-									notification={0}
+									notification={
+										"data" in ctx.currentCart
+											? ctx.currentCart.data.products
+													.length
+											: 0
+									}
 									color="black"
 									accent="blue"
 								/>
@@ -207,7 +213,7 @@ export default function Header() {
 							<Button
 								text="پروفایل کاربری"
 								onClick={() => {
-									navigate("/dashboard?tab=داشبورد");
+									navigate("/dashboard?tab=پروفایل");
 								}}
 								icon={<ProfileIcon variant="Bold" />}
 								color="blue"

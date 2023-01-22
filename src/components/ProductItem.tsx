@@ -122,7 +122,7 @@ export default function ProductItem({ product, className }: Props) {
 				فروش ویژه
 			</p>
 			<img
-				className="w-40 h-40 aspect-square m-5 self-center"
+				className="w-40 h-40 aspect-square m-5 self-center object-cover"
 				src={product.image}
 			/>
 			<p className="text-right font-bold">{product.name}</p>

@@ -16,21 +16,6 @@ export type color =
 	| "gray-400"
 	| "gray-500";
 
-export type AccessLevel =
-	| "customer"
-	| "seller"
-	| "storeKeeper"
-	| "admin"
-	| "owner";
-
-export type CartStatus =
-	| "Filling"
-	| "Pending"
-	| "Approved"
-	| "Rejected"
-	| "Sending"
-	| "Received";
-
 export type AlertInterface = {
 	text: string;
 	status: "Success" | "Warning" | "Error" | "ConnectionLoss" | "Question";

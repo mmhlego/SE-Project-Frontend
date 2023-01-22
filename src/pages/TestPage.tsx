@@ -13,6 +13,7 @@ import PageController from "components/PageController";
 import ProductItem from "components/ProductItem";
 import RadioSection from "components/RadioSection";
 import SearchField from "components/SearchField";
+import SellerItem from "components/SellerItem";
 import Toggle from "components/Toggle";
 import { Login, Profile, ShoppingCart } from "iconsax-react";
 import { MainContext } from "MainContext";
@@ -27,6 +28,29 @@ export default function TestPage() {
 
 	return (
 		<div className="w-full flex min-h-screen items-center gap-4 flex-col py-10">
+			<TestSection>
+				<SellerItem
+					seller={{
+						id: "d2422126-10f8-44ed-aabd-64d96ffc89fe",
+						name: "customer207777843",
+						image: "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg",
+						information: "Seller information",
+						address: "Tabriz ...",
+						likes: 15,
+						dislikes: 10,
+						restricted: true,
+					}}
+				/>
+
+				<SellerItem
+					seller={{
+						id: "d2422126-10f8-44ed-aabd-64d96ffc89fe",
+						name: "customer207777843",
+						information: "Seller information",
+						address: "Tabriz ...",
+					}}
+				/>
+			</TestSection>
 			<Alert
 				text="این یک متن تست است این یک متن تست است این یک متن تست است این یک متن تست است  "
 				status="ConnectionLoss"

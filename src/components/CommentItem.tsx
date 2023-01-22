@@ -37,7 +37,7 @@ export default function CommentItem({ comment: cmt }: Props) {
 					<Profile className="w-10 h-10" />
 				) : (
 					<img
-						className="w-10 h-10 rounded-full object-fill"
+						className="w-10 h-10 rounded-full object-cover"
 						src={comment.userImage}
 					/>
 				)}

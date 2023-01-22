@@ -1,5 +1,3 @@
-import { AccessLevel } from "utils";
-
 export default interface User {
 	id: string;
 	username: string;
@@ -12,3 +10,10 @@ export default interface User {
 	accessLevel: AccessLevel;
 	restricted: boolean;
 }
+
+export type AccessLevel =
+	| "customer"
+	| "seller"
+	| "storeKeeper"
+	| "admin"
+	| "owner";

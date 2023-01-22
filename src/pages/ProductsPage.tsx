@@ -12,7 +12,6 @@ import Pagination from "model/Pagination";
 import Product, { Categories } from "model/Product";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { number } from "zod";
 
 export default function ProductsPage() {
 	const [products, loadProducts] = useGetApi<Pagination<Product>>(
@@ -35,7 +34,7 @@ export default function ProductsPage() {
 
 	const loadPage = (page: number = 1) => {
 		loadProducts({
-			productsPerPage: 50,
+			productsPerPage: 24,
 			page,
 			category: selectedCategory,
 			available: onlyAvailable,

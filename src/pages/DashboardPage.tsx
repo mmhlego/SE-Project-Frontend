@@ -23,11 +23,10 @@ import Profile from "./dashboard/Profile";
 
 interface MIProps {
 	menuItem: DashboardItemType;
-	setSelected: React.Dispatch<React.SetStateAction<string>>;
 	setElement: React.Dispatch<React.SetStateAction<JSX.Element>>;
 }
 
-function MenuItem({ menuItem, setSelected, setElement }: MIProps) {
+function MenuItem({ menuItem, setElement }: MIProps) {
 	const [opened, setOpened] = useState(false);
 	const [isSelected, setIsSelected] = useState(false);
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -37,7 +36,6 @@ function MenuItem({ menuItem, setSelected, setElement }: MIProps) {
 	const toggleOpen = () => setOpened((prev) => !prev);
 	const setCurrent = () => {
 		setElement(menuItem.content as JSX.Element);
-		setSelected(menuItem.text);
 		setSearchParams({ tab: menuItem.text });
 	};
 
@@ -80,7 +78,6 @@ function MenuItem({ menuItem, setSelected, setElement }: MIProps) {
 						<MenuItem
 							key={i}
 							menuItem={mi}
-							setSelected={setSelected}
 							setElement={setElement}
 						/>
 					))}
@@ -91,7 +88,6 @@ function MenuItem({ menuItem, setSelected, setElement }: MIProps) {
 
 export default function DashboardPage() {
 	const [element, setElement] = useState(<></>);
-	const [selected, setSelected] = useState("");
 	const ctx = useContext(MainContext);
 
 	const navigate = useNavigate();
@@ -120,11 +116,11 @@ export default function DashboardPage() {
 	})();
 
 	const menuItems: DashboardItemType[] = [
-		{
-			text: "داشبورد",
-			icon: <Element3 variant="Bold" />,
-			content: <DefaultDashboard />,
-		},
+		// {
+		// 	text: "داشبورد",
+		// 	icon: <Element3 variant="Bold" />,
+		// 	content: <DefaultDashboard />,
+		// },
 		{
 			text: "پروفایل",
 			icon: <ProfileImage variant="Bold" />,
@@ -136,8 +132,7 @@ export default function DashboardPage() {
 	useEffect(() => {
 		const tab = searchParams.get("tab");
 
-		if (tab !== null) setSelected(tab);
-		else setSearchParams({ tab: "داشبورد" });
+		if (tab === null) setSearchParams({ tab: "پروفایل" });
 	}, []);
 
 	useEffect(() => {
@@ -159,7 +154,7 @@ export default function DashboardPage() {
 			<div className="rounded-xl border-gray-300 border-[1px]">
 				{element}
 			</div>
-			<div className="bg-[#E4F0FF] rounded-xl flex flex-col items-center border-gray-300 border-[1px]">
+			<div className="bg-[#E4F0FF] rounded-xl flex flex-col items-center border-gray-300 border-[1px] h-fit sticky top-5">
 				<div className="flex flex-col xl:flex-row-reverse items-center gap-3 m-5">
 					{ctx.profile.data.profileImage ? (
 						<img
@@ -181,7 +176,6 @@ export default function DashboardPage() {
 						<MenuItem
 							key={i}
 							menuItem={mi}
-							setSelected={setSelected}
 							setElement={setElement}
 						/>
 					))}

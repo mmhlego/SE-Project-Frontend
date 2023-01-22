@@ -315,7 +315,7 @@ export default function ProductPage() {
 				</p>
 				<div className="col-span-1 row-span-2 w-full h-fit border-2 border-gray-200 rounded-xl flex flex-col items-center py-3 gap-2">
 					<img
-						className="w-5/6 aspect-square"
+						className="w-5/6 aspect-square object-contain"
 						src={productDoe.data.image}
 					/>
 
