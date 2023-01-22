@@ -2,8 +2,8 @@ import { CloseCircle, TickCircle } from "iconsax-react";
 import { useState } from "react";
 
 interface Props {
-	name: string;
-	placeholder: string;
+	name?: string;
+	placeholder?: string;
 	disabled?: boolean;
 	isPassword?: boolean;
 	icon?: JSX.Element;

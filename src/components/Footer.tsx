@@ -43,7 +43,7 @@ export default function Footer() {
 					</div>
 
 					<div className="flex flex-col gap-4">
-						<a href="#">تخفیف ها و جشنواره</a>
+						<a href="/products">تخفیف ها و جشنواره</a>
 						<a href="/FAQ">پرسش های متداول</a>
 						<a href="/rules">قوانین و مقررات</a>
 					</div>

@@ -94,7 +94,7 @@ function ProductsDropDown() {
 		>
 			{categories.map((category, i) => (
 				<a
-					className="flex gap-5 p-4 border-2 border-gray-200 rounded-lg duration-300 hover:border-blue"
+					className="flex gap-5 p-4 border-2 border-gray-200 rounded-lg duration-300 hover:border-blue hover:bg-blue/10"
 					href={category.url}
 					target="_blank"
 					key={i}
@@ -139,7 +139,7 @@ export default function Header() {
 					dir="rtl"
 				>
 					<a
-						className="flex gap-5 p-4 border-2 border-gray-200 rounded-lg duration-300 hover:border-blue"
+						className="flex gap-5 p-4 border-2 border-gray-200 rounded-lg duration-300 hover:border-blue hover:bg-blue/10"
 						href="/sellers"
 						target="_blank"
 					>
@@ -148,7 +148,7 @@ export default function Header() {
 					</a>
 
 					<a
-						className="flex gap-5 p-4 border-2 border-gray-200 rounded-lg duration-300 hover:border-blue"
+						className="flex gap-5 p-4 border-2 border-gray-200 rounded-lg duration-300 hover:border-blue hover:bg-blue/10"
 						href="/sellers"
 						target="_blank"
 					>

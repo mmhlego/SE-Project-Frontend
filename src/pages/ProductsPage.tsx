@@ -1,6 +1,7 @@
 import Button from "components/Button";
 import CheckBox from "components/CheckBox";
 import CollapsiblePanel from "components/CollapsiblePanel";
+import InputField from "components/InputField";
 import Loading from "components/Loading";
 import PageController from "components/PageController";
 import ProductItem from "components/ProductItem";
@@ -11,6 +12,7 @@ import Pagination from "model/Pagination";
 import Product, { Categories } from "model/Product";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { number } from "zod";
 
 export default function ProductsPage() {
 	const [products, loadProducts] = useGetApi<Pagination<Product>>(
@@ -155,8 +157,34 @@ export default function ProductsPage() {
 					)}
 
 					<CollapsiblePanel text="بازه قیمت محصول">
-						<CheckBox initial text="" />
-						<CheckBox initial text="" />
+						<div
+							className="w-full flex items-center justify-center gap-3"
+							dir="rtl"
+						>
+							<p>شروع قیمت از:</p>
+							<InputField
+								rtl
+								placeholder="100000 تومان"
+								setText={(val) => {
+									if (val) setPriceFrom(parseInt(val));
+									else setPriceFrom(undefined);
+								}}
+							/>
+						</div>
+						<div
+							className="w-full flex items-center justify-center gap-3"
+							dir="rtl"
+						>
+							<p>حداکثر قیمت تا:</p>
+							<InputField
+								rtl
+								placeholder="100000 تومان"
+								setText={(val) => {
+									if (val) setPriceTo(parseInt(val));
+									else setPriceTo(undefined);
+								}}
+							/>
+						</div>
 					</CollapsiblePanel>
 
 					<div className="w-full py-5 px-4 border-2 rounded-lg flex justify-center duration-300 border-black hover:border-blue/80">

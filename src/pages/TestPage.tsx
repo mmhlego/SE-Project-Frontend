@@ -1,5 +1,6 @@
 import axios from "axios";
 import AboutDeveloper from "components/AboutDeveloper";
+import Alert from "components/Alert";
 import CheckBox from "components/CheckBox";
 import CollapsiblePanel from "components/CollapsiblePanel";
 import CollapsiblePanel2 from "components/CollapsiblePanel2";
@@ -13,35 +14,23 @@ import ProductItem from "components/ProductItem";
 import RadioSection from "components/RadioSection";
 import SearchField from "components/SearchField";
 import Toggle from "components/Toggle";
-import { usePostApi } from "hooks/useApi";
 import { Login, Profile, ShoppingCart } from "iconsax-react";
-import { useState } from "react";
+import { MainContext } from "MainContext";
+import { useContext, useState } from "react";
 import Button from "../components/Button";
 import TestSection from "../components/TestSection";
 
 export default function TestPage() {
 	const [search, setSearch] = useState("");
-
-	interface Response {
-		result: "Success" | "Error" | "Restricted";
-	}
-
-	const [doe, callApi] = usePostApi<Response>(
-		"/auth/login/",
-		(res) => {
-			console.log("Success");
-
-			console.log(res);
-		},
-		() => {
-			console.log("Error");
-		}
-	);
-
 	const [page, setPage] = useState(5);
+	const ctx = useContext(MainContext);
 
 	return (
 		<div className="w-full flex min-h-screen items-center gap-4 flex-col py-10">
+			<Alert
+				text="این یک متن تست است این یک متن تست است این یک متن تست است این یک متن تست است  "
+				status="ConnectionLoss"
+			/>
 			<TestSection>
 				<PageController
 					pagination={{
@@ -107,9 +96,15 @@ export default function TestPage() {
 				<Button
 					text="ورود / ثبت نام"
 					onClick={() => {
-						callApi({
-							username: "admin",
-							password: "admin",
+						ctx.showAlert({
+							text: "sample Alert",
+							status: "Question",
+							onAccept() {
+								console.log("Accepted");
+							},
+							onReject() {
+								console.log("Rejected");
+							},
 						});
 					}}
 					icon={<Login />}
