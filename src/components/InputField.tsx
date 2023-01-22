@@ -46,7 +46,7 @@ export default function InputField({
 
 	return (
 		<div className={`flex flex-col items-end relative ${className}`}>
-			<p className="font-semibold"> {name}</p>
+			<p className="w-full font-semibold text-right">{name}</p>
 			<input
 				type={isPassword ? "password" : "text"}
 				className={`w-full duration-300 border-2 p-3 mt-1 rounded-lg text-right outline-none bg-white ${

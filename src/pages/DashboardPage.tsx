@@ -160,12 +160,7 @@ export default function DashboardPage() {
 				{element}
 			</div>
 			<div className="bg-[#E4F0FF] rounded-xl flex flex-col items-center border-gray-300 border-[1px]">
-				<div className="flex items-center gap-3 m-5">
-					<p className="text-center" dir="rtl">
-						{"خوش آمدید "}
-						{ctx.profile.data.firstName}
-					</p>
-
+				<div className="flex flex-col xl:flex-row-reverse items-center gap-3 m-5">
 					{ctx.profile.data.profileImage ? (
 						<img
 							className="w-20 h-20 object-cover rounded-full"
@@ -174,6 +169,11 @@ export default function DashboardPage() {
 					) : (
 						<ProfileImage variant="Bold" size={80} color="black" />
 					)}
+
+					<p className="text-center" dir="rtl">
+						{"خوش آمدید "}
+						{ctx.profile.data.firstName}
+					</p>
 				</div>
 				<hr className="bg-gray-300 w-full h-0.5" />
 				<div className="px-3 w-full">
