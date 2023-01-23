@@ -151,7 +151,7 @@ export default function DashboardPage() {
 
 	return (
 		<div className="p-8 grid grid-cols-[75%_auto] gap-5">
-			<div className="rounded-xl border-gray-300 border-[1px]">
+			<div className="rounded-xl border-gray-300 border-[1px] overflow-hidden">
 				{element}
 			</div>
 			<div className="bg-[#E4F0FF] rounded-xl flex flex-col items-center border-gray-300 border-[1px] h-fit sticky top-5">

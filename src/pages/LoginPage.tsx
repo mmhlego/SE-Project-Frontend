@@ -25,8 +25,6 @@ export default function LoginPage() {
 	const [loginDoe, tryLogin] = usePostApi<LoginStatus>(
 		"https://localhost:5000/auth/login",
 		(res) => {
-			console.log(res.status);
-
 			switch (res.status) {
 				case "Success":
 					ctx.syncProfile();
@@ -61,8 +59,6 @@ export default function LoginPage() {
 	);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-
-	console.log(loginDoe);
 
 	return (
 		<div className="w-screen h-screen bg-blue/50 flex justify-center items-center">

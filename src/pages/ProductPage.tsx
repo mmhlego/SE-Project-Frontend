@@ -82,6 +82,8 @@ interface SellerSelectProps {
 	selectPrice: (p: DataOrError<ProductPrice>) => void;
 }
 function SellerSelect({ price, selectPrice }: SellerSelectProps) {
+	console.log(price);
+
 	return (
 		<div
 			dir="rtl"
@@ -92,7 +94,6 @@ function SellerSelect({ price, selectPrice }: SellerSelectProps) {
 				<p className="font-bold">فروشنده:</p>
 				{price.seller.name}
 			</div>
-			``
 			<hr className="w-full bg-gray-200" />
 			<p className="flex gap-2">
 				{price.amount > 0 ? (
