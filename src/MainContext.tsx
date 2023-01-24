@@ -34,12 +34,16 @@ export const ContextProvider = ({
 
 	const [profile, syncProfile] = useGetApi<User>(
 		"https://localhost:5000/profile/",
-		() => setLoggedIn(true),
+		(res) => {
+			setLoggedIn(true);
+
+			if (res.accessLevel === "customer") syncCart();
+		},
 		() => setLoggedIn(false)
 	);
 
 	const [currentCart, syncCart] = useGetApi<Cart>(
-		"https://localhost:5000/profile/cart"
+		"https://localhost:5000/profile/carts/current"
 	);
 
 	const [alert, setAlert] = useState<AlertInterface | undefined>(undefined);

@@ -1,4 +1,5 @@
 import Logo from "assets/Logo";
+import { useGetApi } from "hooks/useApi";
 import {
 	Book1,
 	Box,
@@ -7,6 +8,7 @@ import {
 	Heart,
 	Home,
 	Login,
+	Logout,
 	Mobile,
 	Profile as ProfileIcon,
 	Profile2User,
@@ -111,6 +113,11 @@ function ProductsDropDown() {
 export default function Header() {
 	const ctx = useContext(MainContext);
 
+	const [_, logout] = useGetApi("https://localhost:5000/auth/logout", () => {
+		ctx.syncProfile();
+		navigate("/");
+	});
+
 	const menuPages = [
 		{
 			text: "صفحه اصلی",
@@ -197,7 +204,11 @@ export default function Header() {
 							{ctx.profile.data.accessLevel === "customer" && (
 								<Button
 									text="سبد خرید"
-									onClick={() => {}}
+									onClick={() =>
+										navigate(
+											"/dashboard?tab=%D8%B3%D8%A8%D8%AF+%D8%AE%D8%B1%DB%8C%D8%AF"
+										)
+									}
 									icon={<ShoppingCart variant="Bold" />}
 									notification={
 										"data" in ctx.currentCart
@@ -218,6 +229,21 @@ export default function Header() {
 								icon={<ProfileIcon variant="Bold" />}
 								color="blue"
 							/>
+
+							<Button
+								text="خروج"
+								onClick={() => {
+									ctx.showAlert({
+										status: "Question",
+										text: "آیا مطمئن هستید؟",
+										onAccept() {
+											logout();
+										},
+									});
+								}}
+								icon={<Logout variant="Bold" />}
+								color="red"
+							/>
 						</>
 					) : (
 						<>
@@ -235,7 +261,10 @@ export default function Header() {
 
 				<SearchField text={""} />
 
-				<Logo className="h-12 justify-self-end" />
+				<Logo
+					className="h-12 justify-self-end cursor-pointer"
+					onClick={() => navigate("/")}
+				/>
 			</div>
 
 			<div className="relative bg-gray-100 px-10 flex flex-row-reverse justify-between items-center z-10">

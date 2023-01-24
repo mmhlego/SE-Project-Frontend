@@ -7,7 +7,7 @@ export default interface Cart {
 	updateDate?: string;
 }
 
-interface ProductAmounts {
+export interface ProductAmounts {
 	productId: string; // This is productPriceId
 	amount: number;
 }

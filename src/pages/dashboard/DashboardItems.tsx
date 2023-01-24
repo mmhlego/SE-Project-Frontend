@@ -124,7 +124,7 @@ export const AdminItems: DashboardItemType[] = [
 		icon: <></>,
 		content: [
 			{
-				text: "مشتریان", // TODO
+				text: "مشتریان",
 				icon: <Profile2User variant="Bold" />,
 				content: <ManageCustomers />,
 			},

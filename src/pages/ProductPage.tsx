@@ -6,6 +6,7 @@ import Tag from "components/Tag";
 import Textarea from "components/Textarea";
 import { useDeleteApi, useGetApi, usePostApi, usePutApi } from "hooks/useApi";
 import {
+	AddCircle,
 	ArrowLeft2,
 	Book,
 	Book1,
@@ -14,8 +15,8 @@ import {
 	Dislike,
 	DollarSquare,
 	Like1,
+	MinusCirlce,
 	Save2,
-	Send,
 	Shop,
 	ShoppingCart,
 	TickCircle,
@@ -29,6 +30,137 @@ import ProductPrice from "model/ProductPrice";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { getDiscountedPrice } from "utils";
+
+interface ButtonsProps {
+	selectedPrice: ProductPrice;
+}
+function Buttons({ selectedPrice }: ButtonsProps) {
+	const ctx = useContext(MainContext);
+
+	const [_, addToCart] = usePutApi(
+		"https://localhost:5000/profile/carts/current",
+		() => {
+			ctx.syncCart();
+		}
+	);
+
+	const [amount, setAmount] = useState<number | undefined>(undefined);
+
+	const getAmountInCart = () => {
+		if (!("data" in ctx.profile) || !("data" in ctx.currentCart)) {
+			// console.log(getAmountInCart(ctx.currentCart.data));
+			setAmount(undefined);
+			return;
+		}
+
+		console.log("price", selectedPrice);
+		console.log("cart", ctx.currentCart.data);
+
+		const product = ctx.currentCart.data.products.filter(
+			(p) => p.productId === selectedPrice.productId
+		)[0];
+
+		if (product === undefined) {
+			setAmount(0);
+		} else {
+			setAmount(product.amount);
+		}
+	};
+
+	useEffect(() => {
+		ctx.syncProfile();
+	}, []);
+
+	useEffect(() => {
+		getAmountInCart();
+	}, [ctx.currentCart]);
+
+	useEffect(() => {
+		console.log("Amount", amount);
+	}, [amount]);
+
+	if (selectedPrice.amount === 0) {
+		<Button
+			text="ناموجود"
+			onClick={() => {}}
+			color="blue"
+			disabled
+			icon={<ShoppingCart variant="Bold" />}
+			className="w-full flex-row-reverse gap-3"
+		/>;
+	}
+
+	if (amount === undefined)
+		return (
+			<Button
+				text="افزودن به سبد خرید"
+				onClick={() => {
+					ctx.showAlert({
+						status: "Warning",
+						text: "برای افزودن محصول باید به عنوان مشتری وارد بشوید.",
+					});
+				}}
+				filled
+				color="blue"
+				icon={<ShoppingCart variant="Bold" />}
+				className="w-full flex-row-reverse gap-3"
+			/>
+		);
+
+	if (amount === 0)
+		return (
+			<Button
+				text="افزودن به سبد خرید"
+				onClick={() => {
+					addToCart({
+						productId: selectedPrice.id,
+						amount: 1,
+					});
+				}}
+				filled
+				color="blue"
+				icon={<ShoppingCart variant="Bold" />}
+				className="w-full flex-row-reverse gap-3"
+			/>
+		);
+
+	return (
+		<div className="w-full flex items-center gap-3">
+			<Button
+				text=""
+				onClick={() => {
+					addToCart({
+						productId: selectedPrice.id,
+						amount: -1,
+					});
+				}}
+				filled
+				color="red"
+				icon={<MinusCirlce variant="Bold" />}
+				className="w-full h-fit"
+			/>
+
+			<p className="h-full px-4 text-center text-xl font-medium border-b-2 border-gray-300">
+				{amount}
+			</p>
+
+			<Button
+				text=""
+				onClick={() => {
+					addToCart({
+						productId: selectedPrice.id,
+						amount: 1,
+					});
+				}}
+				disabled={selectedPrice.amount <= amount}
+				filled
+				color="green"
+				icon={<AddCircle variant="Bold" />}
+				className="w-full h-fit"
+			/>
+		</div>
+	);
+}
 
 interface PriceSectionProps {
 	selectedPrice: DataOrError<ProductPrice>;
@@ -82,8 +214,6 @@ interface SellerSelectProps {
 	selectPrice: (p: DataOrError<ProductPrice>) => void;
 }
 function SellerSelect({ price, selectPrice }: SellerSelectProps) {
-	console.log(price);
-
 	return (
 		<div
 			dir="rtl"
@@ -175,9 +305,15 @@ function CommentsSection({
 			</p>
 
 			<div className="px-16 flex flex-col">
-				{commentsDoe.data.data.map((cmt, _) => (
-					<CommentItem key={_} comment={cmt} />
-				))}
+				{commentsDoe.data.data.length === 0 ? (
+					<p className="w-full text-center font-semibold text-xl">
+						دیدگاهی برای این کالا ثبت نشده است.
+					</p>
+				) : (
+					commentsDoe.data.data.map((cmt, _) => (
+						<CommentItem key={_} comment={cmt} />
+					))
+				)}
 			</div>
 			{ctx.loggedIn && (
 				<div className="grid grid-cols-[auto_75%] gap-x-8 px-16 pt-8">
@@ -201,7 +337,10 @@ function CommentsSection({
 							filled
 							onClick={() => {
 								if (commentText === "") {
-									console.log("Empty");
+									ctx.showAlert({
+										status: "Warning",
+										text: "متن دیدگاه خالی است.",
+									});
 									return;
 								}
 
@@ -232,9 +371,14 @@ export default function ProductPage() {
 
 	const [productDoe, getProduct] = useGetApi<Product>(
 		`https://localhost:5000/products/${productId}`,
-		() => {
+		(res) => {
 			getPrices({ productId: productId });
 			getComments({ productId: productId });
+			getSimilarProducts({
+				page: 1,
+				productsPerPage: 10,
+				category: res.category,
+			});
 		}
 	);
 
@@ -290,10 +434,6 @@ export default function ProductPage() {
 		getProduct();
 		getSubscription({
 			productId,
-		});
-		getSimilarProducts({
-			page: 1,
-			productsPerPage: 10,
 		});
 	}, []);
 
@@ -432,16 +572,7 @@ export default function ProductPage() {
 						</div>
 
 						{!selectedPrice.loading && "data" in selectedPrice ? (
-							<Button
-								text="افزودن به سبد خرید"
-								onClick={() => {
-									//TODO
-								}}
-								filled
-								color="blue"
-								icon={<ShoppingCart variant="Bold" />}
-								className="w-full flex-row-reverse gap-3"
-							/>
+							<Buttons selectedPrice={selectedPrice.data} />
 						) : (
 							<Button
 								text="ناموجود"
@@ -525,7 +656,11 @@ export default function ProductPage() {
 					{"data" in similarProductsDoe ? (
 						<>
 							{similarProductsDoe.data.data.map((p, _) => (
-								<ProductItem key={_} product={p} />
+								<ProductItem
+									className="shrink-0"
+									key={_}
+									product={p}
+								/>
 							))}
 						</>
 					) : (
