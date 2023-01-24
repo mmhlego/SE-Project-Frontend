@@ -6,29 +6,27 @@ import {
 	DollarSquare,
 	Driver,
 	Edit,
+	Flag,
 	Graph,
 	Messages,
 	MessageText,
 	Profile2User,
+	Receipt,
 	Save2,
 	Shop,
 	ShoppingCart,
 	Ticket,
 } from "iconsax-react";
-
 import Carts from "./customer/Carts";
 import Subscriptions from "./customer/Subscriptions";
 import Wallet from "./customer/Wallet";
-
 import ManageComments from "./admin/ManageComments";
 import ManageCustomers from "./admin/ManageCustomers";
 import ManageDiscountTokens from "./admin/ManageDiscountTokens";
 import ManageSellers from "./admin/ManageSellers";
-
 import AddProduct from "./admin/AddProduct";
 import ManageCarts from "./admin/ManageCarts";
 import ManagePosters from "./admin/ManagePosters";
-import ManageProducts from "./admin/ManageProducts";
 import DateStats from "./owner/DateStats";
 import ManageAdmins from "./owner/ManageAdmins";
 import ManageStoreKeepers from "./owner/ManageStoreKeepers";
@@ -37,8 +35,7 @@ import SellersStats from "./owner/SellersStats";
 import SystemLog from "./owner/SystemLog";
 import ManagePrices from "./seller/ManagePrices";
 import SalesStats from "./seller/SalesStats";
-import StoreInfo from "./seller/StoreInfo";
-import ManageProductAmount from "./storeKeeper/ManageProductAmount";
+import Address from "./customer/Address";
 
 export type DashboardItemType = {
 	text: string;
@@ -48,14 +45,24 @@ export type DashboardItemType = {
 
 export const CustomerItems: DashboardItemType[] = [
 	{
-		text: "سفارشات",
+		text: "سبد خرید", // TODO
 		icon: <ShoppingCart variant="Bold" />,
+		content: <Carts />,
+	},
+	{
+		text: "تاریخچه سفارشات", // TODO
+		icon: <Receipt variant="Bold" />,
 		content: <Carts />,
 	},
 	{
 		text: "کیف پول",
 		icon: <DollarSquare variant="Bold" />,
 		content: <Wallet />,
+	},
+	{
+		text: "مدیریت آدرس",
+		icon: <Flag variant="Bold" />,
+		content: <Address />,
 	},
 	{
 		text: "محصولات ذخیره شده",
@@ -65,70 +72,59 @@ export const CustomerItems: DashboardItemType[] = [
 ];
 
 export const SellerItems: DashboardItemType[] = [
+	// {
+	// 	text: "اطلاعات فروشگاه",
+	// 	icon: <Shop variant="Bold" />,
+	// 	content: <StoreInfo />,
+	// },
+	// {
+	// 	text: "محصولات",
+	// 	icon: <></>,
+	// 	content: [
 	{
-		text: "اطلاعات فروشگاه",
-		icon: <Shop variant="Bold" />,
-		content: <StoreInfo />,
+		text: "افزودن محصول جدید", // TODO
+		icon: <AddSquare variant="Bold" />,
+		content: <AddProduct />,
+	},
+	// 		{
+	// 			text: "ویرایش اطلاعات محصول",
+	// 			icon: <Edit variant="Bold" />,
+	// 			content: <ManageProducts />,
+	// 		},
+	// 	],
+	// },
+	{
+		text: "فروش محصولات", // TODO
+		icon: <DollarSquare variant="Bold" />,
+		content: <ManagePrices />,
 	},
 	{
-		text: "محصولات",
-		icon: <></>,
-		content: [
-			{
-				text: "افزودن محصول جدید",
-				icon: <AddSquare variant="Bold" />,
-				content: <AddProduct />,
-			},
-			{
-				text: "ویرایش اطلاعات محصول",
-				icon: <Edit variant="Bold" />,
-				content: <ManageProducts />,
-			},
-		],
-	},
-	{
-		text: "فروش",
-		icon: <></>,
-		content: [
-			{
-				text: "فروش محصولات",
-				icon: <DollarSquare variant="Bold" />,
-				content: <ManagePrices />,
-			},
-			{
-				text: "آمار فروش",
-				icon: <Graph variant="Bold" />,
-				content: <SalesStats />,
-			},
-		],
+		text: "آمار فروش",
+		icon: <Graph variant="Bold" />,
+		content: <SalesStats />,
 	},
 ];
 
 export const StoreKeeperItems: DashboardItemType[] = [
 	{
-		text: "سبد های خرید",
+		text: "سبد های خرید", // TODO Accept / Reject
 		icon: <ShoppingCart variant="Bold" />,
 		content: <ManageCarts />,
 	},
-	{
-		text: "ویرایش موجودی محصولات",
-		icon: <Edit variant="Bold" />,
-		content: <ManageProductAmount />,
-	},
+	// {
+	// 	text: "ویرایش موجودی محصولات",
+	// 	icon: <Edit variant="Bold" />,
+	// 	content: <ManageProductAmount />,
+	// },
 ];
 
 export const AdminItems: DashboardItemType[] = [
-	{
-		text: "سبد های خرید",
-		icon: <ShoppingCart variant="Bold" />,
-		content: <ManageCarts />,
-	},
 	{
 		text: "مدیریت کاربران",
 		icon: <></>,
 		content: [
 			{
-				text: "مشتریان",
+				text: "مشتریان", // TODO
 				icon: <Profile2User variant="Bold" />,
 				content: <ManageCustomers />,
 			},
@@ -139,22 +135,22 @@ export const AdminItems: DashboardItemType[] = [
 			},
 		],
 	},
+	// {
+	// 	text: "محصولات",
+	// 	icon: <></>,
+	// 	content: [
 	{
-		text: "محصولات",
-		icon: <></>,
-		content: [
-			{
-				text: "افزودن محصول جدید",
-				icon: <AddSquare variant="Bold" />,
-				content: <AddProduct />,
-			},
-			{
-				text: "ویرایش اطلاعات محصول",
-				icon: <Edit variant="Bold" />,
-				content: <ManageProducts />,
-			},
-		],
+		text: "افزودن محصول جدید",
+		icon: <AddSquare variant="Bold" />,
+		content: <AddProduct />,
 	},
+	// 		{
+	// 			text: "ویرایش اطلاعات محصول",
+	// 			icon: <Edit variant="Bold" />,
+	// 			content: <ManageProducts />,
+	// 		},
+	// 	],
+	// },
 	{
 		text: "مدیریت نظرات",
 		icon: <Messages variant="Bold" />,

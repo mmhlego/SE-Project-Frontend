@@ -61,7 +61,7 @@ export default function LoginPage() {
 	const [password, setPassword] = useState("");
 
 	return (
-		<div className="w-screen h-screen bg-blue/50 flex justify-center items-center">
+		<div className="w-full h-screen bg-blue/50 flex justify-center items-center overflow-hidden">
 			<div className="bg-white rounded-lg overflow-hidden grid sm:grid-cols-2 w-full sm:w-4/5 md:w-3/4 xl:w-1/2">
 				<div className="p-5 flex flex-col items-center gap-5 text-center justify-evenly">
 					<Logo />
@@ -119,8 +119,6 @@ export default function LoginPage() {
 						<Button
 							text="ورود"
 							onClick={async () => {
-								// TODO Check first
-
 								tryLogin({
 									username: username,
 									password: password,

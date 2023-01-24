@@ -1,11 +1,6 @@
 import Loading from "components/Loading";
 import { useGetApi } from "hooks/useApi";
-import {
-	ArrowDown2,
-	Element3,
-	Logout,
-	Profile as ProfileImage,
-} from "iconsax-react";
+import { ArrowDown2, Logout, Profile as ProfileImage } from "iconsax-react";
 import { MainContext } from "MainContext";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -18,7 +13,6 @@ import {
 	SellerItems,
 	StoreKeeperItems,
 } from "./dashboard/DashboardItems";
-import DefaultDashboard from "./dashboard/DefaultDashboard";
 import Profile from "./dashboard/Profile";
 
 interface MIProps {

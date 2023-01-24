@@ -12,11 +12,9 @@ function App() {
 
 		setInterval(() => {
 			ctx.syncProfile();
-			// TODO Check page and redirect if needed
 		}, 30 * 1000);
 	}, []);
 
-	//	TODO
 	useEffect(() => {
 		document.body.style.overflowY = ctx.alert ? "hidden" : "scroll";
 	}, [ctx.alert]);
