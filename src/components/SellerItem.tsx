@@ -7,7 +7,13 @@ import { useEffect } from "react";
 import Loading from "./Loading";
 
 function SellerScore({ seller }: { seller: Seller }) {
-	if (!seller.likes || !seller.dislikes)
+	console.log(seller.likes, seller.dislikes);
+
+	if (
+		seller.likes === undefined ||
+		seller.dislikes === undefined ||
+		(seller.likes === 0 && seller.dislikes === 0)
+	)
 		return <p className="text-sm italic">امتیازی ثبت نشده است</p>;
 
 	var stars = Math.round(
@@ -50,7 +56,7 @@ export default function SellerItem({ seller, className }: Props) {
 	return (
 		<div
 			className={`flex flex-col border-2 border-gray-300 rounded-md bg-white cursor-pointer ${className}`}
-			onClick={() => window.open(`/products/${seller.id}`, "_blank")}
+			onClick={() => window.open(`/sellers/${seller.id}`, "_blank")}
 			dir="rtl"
 		>
 			<div className="flex gap-1 p-2">

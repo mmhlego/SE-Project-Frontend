@@ -116,7 +116,7 @@ function SellerSelect({ price, selectPrice }: SellerSelectProps) {
 				</p>
 				<div className="flex gap-2 justify-end">
 					{<Tag text={getDiscountedPrice(price).text} color="red" />}
-					<p>{price.price} تومان</p>
+					<p>{getDiscountedPrice(price).afterPrice} تومان</p>
 				</div>
 			</div>
 			<Button

@@ -1,5 +1,5 @@
 import { useGetApi, usePutApi } from "hooks/useApi";
-import { Dislike, Like, Like1, Profile } from "iconsax-react";
+import { Dislike, Like1, Profile } from "iconsax-react";
 import Comment from "model/Comment";
 import { useState } from "react";
 

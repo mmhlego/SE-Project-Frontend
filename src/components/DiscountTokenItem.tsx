@@ -32,7 +32,7 @@ export default function DiscountTokenItem({ token, className }: Props) {
 		>
 			<Section>
 				<p dir="rtl" className="break-words">
-					{getDiscountedPrice(token)}
+					{getDiscountText(token)}
 				</p>
 			</Section>
 			<Section>
@@ -59,7 +59,7 @@ export default function DiscountTokenItem({ token, className }: Props) {
 	);
 }
 
-export function getDiscountedPrice(token: DiscountToken): string {
+function getDiscountText(token: DiscountToken): string {
 	if (token.discount.includes("PERCENT")) {
 		const percent = parseFloat(token.discount.substring(8));
 		return `${percent}% تخفیف`;

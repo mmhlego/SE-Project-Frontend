@@ -109,9 +109,9 @@ export default function LoginPage() {
 						className="w-full min-w-0"
 					/>
 
-					<a dir="rtl" href="/auth/forgot">
+					{/* <a dir="rtl" href="/auth/forgot">
 						رمز عبور خود را فراموش کرده ام!
-					</a>
+					</a> */}
 
 					{loginDoe.loading ? (
 						<Loading />

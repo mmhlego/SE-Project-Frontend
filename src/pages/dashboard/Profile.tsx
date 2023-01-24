@@ -37,10 +37,10 @@ export default function Profile() {
 	);
 
 	const validateFields = (): string | true => {
-		if (newFirstName && !z.string().min(1).safeParse(newEmail).success)
+		if (newFirstName && !z.string().min(1).safeParse(newFirstName).success)
 			return "نام نامعتبر میباشد.";
 
-		if (newLastName && !z.string().min(1).safeParse(newEmail).success)
+		if (newLastName && !z.string().min(1).safeParse(newLastName).success)
 			return "نام خانوادگی نامعتبر میباشد.";
 
 		if (newEmail && !z.string().email().safeParse(newEmail).success)

@@ -110,7 +110,7 @@ function RowItem({ comment, updateComments }: RowItemProps) {
 				<p>{new Date(comment.sendDate).toLocaleDateString()}</p>
 				<p>{new Date(comment.sendDate).toLocaleTimeString()}</p>
 				<Button
-					text="حذف کامنت"
+					text="حذف دیدگاه"
 					className="w-full"
 					filled
 					color="red"

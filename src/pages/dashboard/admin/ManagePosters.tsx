@@ -158,7 +158,7 @@ export default function ManagePosters() {
 		);
 
 	return (
-		<div className="w-full h-fit flex flex-col items-center pb-3 gap-3">
+		<div className="w-full h-fit flex flex-col items-center gap-3">
 			{postersDoe.data.data.length === 0 ? (
 				<p className="text-center mt-10 font-medium text-2xl">
 					کاربری یافت نشد

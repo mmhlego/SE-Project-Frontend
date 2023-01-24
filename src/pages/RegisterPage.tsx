@@ -2,6 +2,8 @@ import Logo from "assets/Logo";
 import Button from "components/Button";
 import CheckBox from "components/CheckBox";
 import InputField from "components/InputField";
+import Loading from "components/Loading";
+import { usePostApi } from "hooks/useApi";
 import {
 	ArrowCircleRight2,
 	EyeSlash,
@@ -10,19 +12,95 @@ import {
 	NoteFavorite,
 	Profile,
 } from "iconsax-react";
-import { useState } from "react";
+import { MainContext } from "MainContext";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import { validatePassword } from "utils";
+import { z } from "zod";
+
+type RegisterStatus = {
+	status: "Success" | "Failed" | "Exists";
+};
 
 export default function RegisterPage() {
 	const navigate = useNavigate();
+	const ctx = useContext(MainContext);
+
+	const [registerDoe, registerCustomer] = usePostApi<RegisterStatus>(
+		"https://localhost:5000/auth/register",
+		(res) => {
+			switch (res.status) {
+				case "Success":
+					ctx.syncProfile();
+					ctx.showAlert({
+						text: "با موفقیت ثبت نام شدید.",
+						status: "Success",
+						onAccept() {
+							navigate("/auth/login");
+						},
+					});
+					break;
+				case "Failed":
+					ctx.showAlert({
+						text: "خطایی رخ داده است.",
+						status: "Error",
+					});
+					break;
+				case "Exists":
+					ctx.showAlert({
+						text: "کاربر قبلا ایجاد شده است.",
+						status: "Warning",
+					});
+					break;
+			}
+		},
+		() => {
+			ctx.showAlert({
+				text: "خطایی در ارتباط با سرور پیش آمده است.",
+				status: "ConnectionLoss",
+			});
+		}
+	);
 
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [rPassword, setRPassword] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLasName] = useState("");
-	const [phone, setPhone] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState("");
 	const [email, setEmail] = useState("");
+	const [birthDate, setBirthDate] = useState("");
+	const [checked, setChecked] = useState(false);
+
+	const validateFields = (): string | true => {
+		if (!z.string().min(8).safeParse(username).success)
+			return "نام کاربری نامعتبر میباشد.";
+
+		const vp = validatePassword(password);
+		if (vp !== true) return vp;
+
+		if (rPassword !== password)
+			return "تکرار رمز عبور با رمز عبور همخوانی ندارد.";
+
+		if (!z.string().min(2).safeParse(firstName).success)
+			return "نام نامعتبر میباشد.";
+
+		if (!z.string().min(2).safeParse(lastName).success)
+			return "نام خانوادگی نامعتبر میباشد.";
+
+		if (!z.string().length(11).safeParse(phoneNumber).success)
+			return "شماره تلفن وارد شده نامعتبر میباشد.";
+
+		if (!z.string().email().safeParse(email).success)
+			return "ایمیل وارد شده نامعتبر میباشد.";
+
+		if (!z.date().safeParse(new Date(birthDate)).success)
+			return "تارخ تولد وارد شده نامعتبر میباشد.";
+
+		if (!checked) return "تیک 'با قوانین سایت موافقم' انتخاب نشده است.";
+
+		return true;
+	};
 
 	return (
 		<div className="w-full sm:h-screen bg-blue/50 flex justify-center items-center">
@@ -110,8 +188,8 @@ export default function RegisterPage() {
 						<InputField
 							name="شماره تلفن"
 							placeholder="لطفا شماره تلفن خود را وارد نمایید"
-							setText={setPhone}
 							icon={<Mobile size={20} color="#2388ff" />}
+							setText={setPhoneNumber}
 							className="w-full min-w-0"
 						/>
 
@@ -122,18 +200,52 @@ export default function RegisterPage() {
 							className="w-full min-w-0"
 						/>
 
+						<InputField
+							name="تاریخ تولد"
+							placeholder="لطفا تاریخ تولد خود را وارد نمایید"
+							setText={setBirthDate}
+							className="w-full min-w-0"
+						/>
+
 						<CheckBox
 							text="شرایط و قوانین سون شاپ را مطالعه نموده و با ان موافقم"
 							className="text-right"
+							onClick={setChecked}
 						/>
 
-						<Button
-							text="ثبت نام"
-							onClick={() => {}}
-							filled
-							icon={<NoteFavorite variant="Bold" />}
-							className="px-10 gap-2"
-						/>
+						{registerDoe.loading ? (
+							<Loading />
+						) : (
+							<Button
+								text="ثبت نام"
+								onClick={() => {
+									const validationResult = validateFields();
+
+									if (validationResult === true) {
+										registerCustomer({
+											type: "customer",
+											username,
+											password,
+											firstName,
+											lastName,
+											phoneNumber,
+											email,
+											birthDate: new Date(
+												birthDate
+											).toISOString(),
+										});
+									} else {
+										ctx.showAlert({
+											status: "Error",
+											text: validationResult,
+										});
+									}
+								}}
+								filled
+								icon={<NoteFavorite variant="Bold" />}
+								className="px-10 gap-2"
+							/>
+						)}
 					</div>
 				</div>
 			</div>

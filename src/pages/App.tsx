@@ -10,16 +10,16 @@ function App() {
 	useEffect(() => {
 		ctx.syncProfile();
 
-		// setInterval(() => {
-		// 	ctx.syncProfile();
-		// 	// TODO Check page and redirect if needed
-		// }, 20 * 1000);
+		setInterval(() => {
+			ctx.syncProfile();
+			// TODO Check page and redirect if needed
+		}, 30 * 1000);
 	}, []);
 
 	//	TODO
-	// useEffect(() => {
-	// 	document.body.style.overflow = ctx.alert ? "hidden" : "scroll";
-	// }, [ctx.alert]);
+	useEffect(() => {
+		document.body.style.overflowY = ctx.alert ? "hidden" : "scroll";
+	}, [ctx.alert]);
 
 	return (
 		<>
