@@ -15,8 +15,8 @@ export default function CollapsiblePanel2({ text, children }: Props) {
 		<div
 			className={`w-full flex flex-col p-5 border-2 cursor-pointer rounded-lg duration-500 ${
 				closed
-					? "bg-white border-gray-300"
-					: "bg-[#E4F0FF] border-[#1EBCC5]"
+					? "bg-white border-gray-300 gap-0"
+					: "bg-[#E4F0FF] border-[#1EBCC5] gap-5"
 			}`}
 			onClick={toggleClosed}
 		>
@@ -32,7 +32,7 @@ export default function CollapsiblePanel2({ text, children }: Props) {
 				className={`flex gap-2 flex-col overflow-hidden ${
 					closed
 						? "max-h-0 opacity-0 duration-500"
-						: "max-h-screen duration-500 pt-5"
+						: "max-h-screen duration-500"
 				}`}
 				dir="rtl"
 			>

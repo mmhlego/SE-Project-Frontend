@@ -16,8 +16,6 @@ function SellerScore({ seller }: { seller: Seller }) {
 	stars = Math.min(stars, 5);
 	stars = Math.max(stars, 0);
 
-	console.log(stars);
-
 	return (
 		<div className="w-full flex gap-1 flex-row-reverse">
 			{Array(stars)

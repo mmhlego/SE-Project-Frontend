@@ -14,7 +14,6 @@ import MiniPoster1 from "../assets/images/MiniPoster1.png";
 import MiniPoster2 from "../assets/images/MiniPoster2.png";
 import MiniPoster3 from "../assets/images/MiniPoster3.png";
 import MiniPoster4 from "../assets/images/MiniPoster4.png";
-// import Poster from "../assets/images/Poster.png";
 import Sale from "../assets/images/Sale.png";
 import Poster from "model/Poster";
 

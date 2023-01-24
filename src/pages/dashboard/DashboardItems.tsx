@@ -2,7 +2,9 @@ import {
 	AddSquare,
 	Box,
 	Calendar,
+	Cards,
 	DollarSquare,
+	Driver,
 	Edit,
 	Graph,
 	Messages,
@@ -12,7 +14,6 @@ import {
 	Shop,
 	ShoppingCart,
 	Ticket,
-	TicketDiscount,
 } from "iconsax-react";
 
 import Carts from "./customer/Carts";
@@ -22,11 +23,11 @@ import Wallet from "./customer/Wallet";
 import ManageComments from "./admin/ManageComments";
 import ManageCustomers from "./admin/ManageCustomers";
 import ManageDiscountTokens from "./admin/ManageDiscountTokens";
-import ManageFestival from "./admin/ManageFestival";
 import ManageSellers from "./admin/ManageSellers";
 
 import AddProduct from "./admin/AddProduct";
 import ManageCarts from "./admin/ManageCarts";
+import ManagePosters from "./admin/ManagePosters";
 import ManageProducts from "./admin/ManageProducts";
 import DateStats from "./owner/DateStats";
 import ManageAdmins from "./owner/ManageAdmins";
@@ -165,9 +166,9 @@ export const AdminItems: DashboardItemType[] = [
 		content: <ManageDiscountTokens />,
 	},
 	{
-		text: "جشنواره",
-		icon: <TicketDiscount variant="Bold" />,
-		content: <ManageFestival />,
+		text: "پوستر ها",
+		icon: <Driver variant="Bold" />,
+		content: <ManagePosters />,
 	},
 ];
 

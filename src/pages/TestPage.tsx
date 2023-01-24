@@ -5,6 +5,7 @@ import CheckBox from "components/CheckBox";
 import CollapsiblePanel from "components/CollapsiblePanel";
 import CollapsiblePanel2 from "components/CollapsiblePanel2";
 import ComboBox from "components/ComboBox";
+import DiscountTokenItem from "components/DiscountTokenItem";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import InputField from "components/InputField";
@@ -28,6 +29,16 @@ export default function TestPage() {
 
 	return (
 		<div className="w-full flex min-h-screen items-center gap-4 flex-col py-10">
+			<TestSection>
+				<DiscountTokenItem
+					token={{
+						id: "sample id",
+						discount: "AMOUNT_100000",
+						expirationDate: "2023-01-06T21:41:34.161",
+						isEvent: false,
+					}}
+				/>
+			</TestSection>
 			<TestSection>
 				<SellerItem
 					seller={{

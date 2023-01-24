@@ -1,8 +1,9 @@
 interface Props {
 	className?: string;
+	onClick?: () => void;
 }
 
-export default function Logo({ className }: Props) {
+export default function Logo({ className, onClick }: Props) {
 	return (
 		<svg
 			width="200"
@@ -11,6 +12,7 @@ export default function Logo({ className }: Props) {
 			className={className}
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			onClick={() => onClick && onClick()}
 		>
 			<rect width="200" height="67" />
 			<path
