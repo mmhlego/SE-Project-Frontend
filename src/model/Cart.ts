@@ -16,7 +16,7 @@ export interface ProductAmounts {
 export type CartStatus =
 	| "Filling"
 	| "Pending"
-	| "Approved"
+	| "Accepted"
 	| "Rejected"
 	| "Sending"
 	| "Received";

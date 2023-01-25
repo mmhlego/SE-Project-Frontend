@@ -34,6 +34,7 @@ import ProductsStats from "./owner/ProductsStats";
 import SellersStats from "./owner/SellersStats";
 import SystemLog from "./owner/SystemLog";
 import SalesStats from "./seller/SalesStats";
+import SellProduct from "./seller/SellProduct";
 
 export type DashboardItemType = {
 	text: string;
@@ -91,11 +92,11 @@ export const SellerItems: DashboardItemType[] = [
 	// 		},
 	// 	],
 	// },
-	// {
-	// 	text: "فروش محصولات", // TODO
-	// 	icon: <DollarSquare variant="Bold" />,
-	// 	content: <ManagePrices />,
-	// },
+	{
+		text: "فروش محصولات",
+		icon: <DollarSquare variant="Bold" />,
+		content: <SellProduct />,
+	},
 	{
 		text: "آمار فروش",
 		icon: <Graph variant="Bold" />,
@@ -105,7 +106,7 @@ export const SellerItems: DashboardItemType[] = [
 
 export const StoreKeeperItems: DashboardItemType[] = [
 	{
-		text: "سبد های خرید", // TODO Accept / Reject
+		text: "سبد های خرید",
 		icon: <ShoppingCart variant="Bold" />,
 		content: <ManageCarts />,
 	},

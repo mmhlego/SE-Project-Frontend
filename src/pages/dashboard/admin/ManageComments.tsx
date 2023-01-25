@@ -20,8 +20,6 @@ function RowItem({ comment, updateComments }: RowItemProps) {
 	const ctx = useContext(MainContext);
 	const navigate = useNavigate();
 
-	console.log(comment.sendDate);
-
 	const url = `https://localhost:5000/comments/${comment.id}`;
 
 	const [_, deleteComment] = useDeleteApi(
@@ -135,10 +133,19 @@ export default function ManageComments() {
 		"https://localhost:5000/comments"
 	);
 
+	const [productId, setProductId] = useState("");
+	const [userId, setUserId] = useState("");
+	const [dateFrom, setDateFrom] = useState("");
+	const [dateTo, setDateTo] = useState("");
+
 	const loadPage = (page: number = 1) => {
 		getComments({
 			commentsPerPage: 10,
 			page,
+			productId: productId ? productId : undefined,
+			userId: userId ? userId : undefined,
+			dateFrom: dateFrom ? dateFrom : undefined,
+			dateTo: dateTo ? dateTo : undefined,
 		});
 	};
 
@@ -162,14 +169,55 @@ export default function ManageComments() {
 		getComments({
 			commentsPerPage: 10,
 			page: commentsDoe.data.page,
+			productId: productId ? productId : undefined,
+			userId: userId ? userId : undefined,
+			dateFrom: dateFrom ? dateFrom : undefined,
+			dateTo: dateTo ? dateTo : undefined,
 		});
+	};
+
+	const validateFields = (): string | true => {
+		if (productId && !z.string().length(36).safeParse(productId).success)
+			return "کد محصول نامعتبر میباشد.";
+
+		if (userId && !z.string().length(36).safeParse(userId).success)
+			return "کد کاربر نامعتبر میباشد.";
+
+		if (dateFrom && !z.date().safeParse(new Date(dateFrom)).success)
+			return "تارخ شروع نامعتبر میباشد.";
+
+		if (dateTo && !z.date().safeParse(new Date(dateTo)).success)
+			return "تارخ پایان نامعتبر میباشد.";
+
+		return true;
 	};
 
 	return (
 		<div className="w-full h-fit flex flex-col items-center pb-3 gap-3">
+			<div className="w-full h-fit p-5 border-b border-gray-300 grid grid-cols-5 items-end gap-4">
+				<Button
+					text="فیلتر کن"
+					filled
+					color="orange"
+					onClick={() => {
+						const vr = validateFields();
+
+						if (vr == true) {
+							loadPage();
+						} else {
+							ctx.showAlert({ status: "Error", text: vr });
+						}
+					}}
+					className="h-fit"
+				/>
+				<InputField name="تا تاریخ" setText={setDateTo} />
+				<InputField name="از تاریخ" setText={setDateFrom} />
+				<InputField name="کد کاربر" setText={setUserId} />
+				<InputField name="کد محصول" setText={setProductId} />
+			</div>
 			{commentsDoe.data.data.length === 0 ? (
 				<p className="text-center mt-10 font-medium text-2xl">
-					کاربری یافت نشد
+					دیدگاهی یافت نشد
 				</p>
 			) : (
 				<div className="flex flex-col w-full gap-3 pb-33">

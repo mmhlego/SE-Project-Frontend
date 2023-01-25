@@ -1,4 +1,5 @@
 import Button from "components/Button";
+import CartStatusBar from "components/CartStatusBar";
 import InputField from "components/InputField";
 import Loading from "components/Loading";
 import PageController from "components/PageController";
@@ -30,26 +31,10 @@ function RowItem({ cart, reload }: RowItemProps) {
 		}
 	);
 
-	const getStatus = () => {
-		switch (cart.status) {
-			case "Filling":
-				return "در حال پر کردن.";
-			case "Pending":
-				return "در انتظار تایید";
-			case "Approved":
-				return "تایید شده";
-			case "Rejected":
-				return "رد شده";
-			case "Sending":
-				return "در حال ارسال";
-			case "Received":
-				return "دریافت شده";
-		}
-	};
-
 	return (
 		<div className="w-full border-2 border-gray-200 bg-gray-100 rounded-lg p-5 grid grid-cols-3 gap-5">
-			<InputField name="وضعیت" placeholder={getStatus()} disabled />
+			{/* <InputField name="وضعیت" placeholder={getStatus()} disabled /> */}
+			<CartStatusBar status={cart.status} />
 
 			<InputField
 				name="تاریخ تغییر وضعیت"
