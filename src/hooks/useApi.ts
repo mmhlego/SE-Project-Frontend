@@ -23,7 +23,7 @@ function useApi<T>(
 
 		promise
 			.then((res) => {
-				console.log("Result", res.data);
+				// console.log("Result", res.data);
 				setDoe({
 					data: res.data,
 					loading: false,

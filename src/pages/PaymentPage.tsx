@@ -24,7 +24,7 @@ export default function PaymentPage() {
 	const [status, setStatus] = useState(1); // 1 2 3
 
 	return (
-		<div className="w-screen h-screen">
+		<div className="w-full h-screen">
 			<div className="bg-gradient-to-b from-blue to-white h-1/4 flex flex-col items-center gap-4">
 				<Logo className="mt-7" />
 				<div className="w-full flex justify-around font-semibold">

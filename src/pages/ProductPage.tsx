@@ -57,7 +57,7 @@ function Buttons({ selectedPrice }: ButtonsProps) {
 		console.log("cart", ctx.currentCart.data);
 
 		const product = ctx.currentCart.data.products.filter(
-			(p) => p.productId === selectedPrice.productId
+			(p) => p.productId === selectedPrice.id
 		)[0];
 
 		if (product === undefined) {

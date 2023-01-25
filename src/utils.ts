@@ -90,7 +90,7 @@ export function validatePassword(password: string): string | true {
 	return true;
 }
 
-interface DiscountedPrice {
+export interface DiscountedPrice {
 	beforePrice: number;
 	text?: string;
 	hasDiscount: boolean;
