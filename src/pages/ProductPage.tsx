@@ -47,9 +47,14 @@ function Buttons({ selectedPrice }: ButtonsProps) {
 	const [amount, setAmount] = useState<number | undefined>(undefined);
 
 	const getAmountInCart = () => {
-		if (!("data" in ctx.profile) || !("data" in ctx.currentCart)) {
+		if (!("data" in ctx.profile)) {
 			// console.log(getAmountInCart(ctx.currentCart.data));
 			setAmount(undefined);
+			return;
+		}
+
+		if (!("data" in ctx.currentCart)) {
+			setAmount(0);
 			return;
 		}
 

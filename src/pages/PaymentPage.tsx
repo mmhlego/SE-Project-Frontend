@@ -1,12 +1,16 @@
 import Button from "components/Button";
+import Loading from "components/Loading";
 import {
+	CloseCircle,
 	DiscountShape,
 	DollarSquare,
 	Shop,
 	ShoppingCart,
 	TruckFast,
 } from "iconsax-react";
-import { useState } from "react";
+import { MainContext } from "MainContext";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import Logo from "../assets/Logo";
 import Stage1 from "./payment/Stage1";
 import Stage2 from "./payment/Stage2";
@@ -21,7 +25,42 @@ function NumberCircle({ num }: { num: number }) {
 }
 
 export default function PaymentPage() {
+	const ctx = useContext(MainContext);
 	const [status, setStatus] = useState(1); // 1 2 3
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		ctx.syncProfile();
+	}, []);
+
+	if (ctx.profile.loading || ctx.currentCart.loading)
+		return (
+			<div className="h-full flex justify-center items-center">
+				<Loading />
+			</div>
+		);
+
+	if ("error" in ctx.profile || "error" in ctx.currentCart)
+		return (
+			<div className="h-full flex justify-center items-center">
+				خطایی رخ داده است
+			</div>
+		);
+
+	if (ctx.profile.data.accessLevel !== "customer")
+		return (
+			<div className="h-full flex justify-center items-center">
+				یک مشتری امکان مشاهده قیمت را دارد
+			</div>
+		);
+
+	const totalPrice = ctx.currentCart.data.totalprice;
+
+	// const [cartDoe, getCart] = useGetApi<Cart>(
+	// 	"https://localhost:5000/profile/carts/current"
+	// );
+
+	console.log(ctx.currentCart.data);
 
 	return (
 		<div className="w-full h-screen">
@@ -57,7 +96,7 @@ export default function PaymentPage() {
 					<>
 						<div className="flex flex-col gap-y-4 border-[1.5px] border-gray-300 rounded-3xl h-fit items-center p-4">
 							<div className="w-full flex justify-between">
-								<p>1</p>
+								<p>{ctx.currentCart.data.products.length}</p>
 								<p className="font-bold flex gap-2" dir="rtl">
 									<Shop variant="Bold" color="#2388FF" />
 									تعداد کالا :
@@ -65,7 +104,7 @@ export default function PaymentPage() {
 							</div>
 							<hr className="bg-gray-300 h-[1.5px] w-full" />
 							<div className="w-full flex justify-between">
-								<p>1</p>
+								<p dir="rtl">{totalPrice} تومان</p>
 								<p className="font-bold flex gap-2" dir="rtl">
 									<DollarSquare
 										variant="Bold"
@@ -76,14 +115,14 @@ export default function PaymentPage() {
 							</div>
 							<hr className="bg-gray-300 h-[1.5px] w-full" />
 							<div className="w-full flex justify-between">
-								<p>1</p>
+								<p dir="rtl">0</p>
 								<p className="font-bold flex gap-2" dir="rtl">
 									<DiscountShape color="#FF9A23" /> تخفیف :
 								</p>
 							</div>
 							<hr className="bg-gray-300 h-[1.5px] w-full" />
 							<div className="w-full flex justify-between">
-								<p>1</p>
+								<p dir="rtl">0 تومان</p>
 								<p className="font-bold flex gap-2" dir="rtl">
 									<TruckFast variant="Bold" color="#06C574" />
 									هزینه ارسال سفارش :
@@ -91,7 +130,9 @@ export default function PaymentPage() {
 							</div>
 							<hr className="bg-gray-300 h-[1.5px] w-full" />
 							<div className="w-full flex justify-between">
-								<p>1</p>
+								<p dir="rtl">
+									{ctx.currentCart.data.totalprice} تومان
+								</p>
 								<p className="font-bold" dir="rtl">
 									جمع سبد خرید :
 								</p>

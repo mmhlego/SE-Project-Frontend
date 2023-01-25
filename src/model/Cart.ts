@@ -5,6 +5,7 @@ export default interface Cart {
 	status: CartStatus;
 	description?: string;
 	updateDate?: string;
+	totalprice?: number;
 }
 
 export interface ProductAmounts {

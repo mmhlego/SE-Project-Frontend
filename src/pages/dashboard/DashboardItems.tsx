@@ -2,10 +2,8 @@ import {
 	AddSquare,
 	Box,
 	Calendar,
-	Cards,
 	DollarSquare,
 	Driver,
-	Edit,
 	Flag,
 	Graph,
 	Messages,
@@ -17,26 +15,25 @@ import {
 	ShoppingCart,
 	Ticket,
 } from "iconsax-react";
-import CurrentCart from "./customer/CurrentCart";
-import Subscriptions from "./customer/Subscriptions";
-import Wallet from "./customer/Wallet";
+import AddProduct from "./admin/AddProduct";
+import ManageCarts from "./admin/ManageCarts";
 import ManageComments from "./admin/ManageComments";
 import ManageCustomers from "./admin/ManageCustomers";
 import ManageDiscountTokens from "./admin/ManageDiscountTokens";
-import ManageSellers from "./admin/ManageSellers";
-import AddProduct from "./admin/AddProduct";
-import ManageCarts from "./admin/ManageCarts";
 import ManagePosters from "./admin/ManagePosters";
+import ManageSellers from "./admin/ManageSellers";
+import Address from "./customer/Address";
+import CartHistory from "./customer/CartHistory";
+import CurrentCart from "./customer/CurrentCart";
+import Subscriptions from "./customer/Subscriptions";
+import Wallet from "./customer/Wallet";
 import DateStats from "./owner/DateStats";
 import ManageAdmins from "./owner/ManageAdmins";
 import ManageStoreKeepers from "./owner/ManageStoreKeepers";
 import ProductsStats from "./owner/ProductsStats";
 import SellersStats from "./owner/SellersStats";
 import SystemLog from "./owner/SystemLog";
-import ManagePrices from "./seller/ManagePrices";
 import SalesStats from "./seller/SalesStats";
-import Address from "./customer/Address";
-import CartHistory from "./customer/CartHistory";
 
 export type DashboardItemType = {
 	text: string;
@@ -50,11 +47,11 @@ export const CustomerItems: DashboardItemType[] = [
 		icon: <ShoppingCart variant="Bold" />,
 		content: <CurrentCart />,
 	},
-	// {
-	// 	text: "تاریخچه سفارشات", // TODO
-	// 	icon: <Receipt variant="Bold" />,
-	// 	content: <CartHistory />,
-	// },
+	{
+		text: "تاریخچه سفارشات",
+		icon: <Receipt variant="Bold" />,
+		content: <CartHistory />,
+	},
 	{
 		text: "کیف پول",
 		icon: <DollarSquare variant="Bold" />,

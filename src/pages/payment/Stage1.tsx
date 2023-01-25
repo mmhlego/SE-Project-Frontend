@@ -2,11 +2,49 @@ import { Cities, City, Province, Provinces } from "assets/Cities";
 import Button from "components/Button";
 import ComboBox from "components/ComboBox";
 import InputField from "components/InputField";
+import Loading from "components/Loading";
+import { useGetApi } from "hooks/useApi";
 import { Add, Message } from "iconsax-react";
-import { useState } from "react";
+import { MainContext } from "MainContext";
+import Customer from "model/Customer";
+import { useContext, useEffect, useState } from "react";
 import { z } from "zod";
 
 export default function Stage1() {
+	const ctx = useContext(MainContext);
+
+	if (ctx.profile.loading)
+		return (
+			<div className="h-full flex justify-center items-center">
+				<Loading />
+			</div>
+		);
+
+	if ("error" in ctx.profile)
+		return (
+			<div className="h-full flex justify-center items-center">
+				خطایی رخ داده است
+			</div>
+		);
+
+	if (ctx.profile.data.accessLevel !== "customer")
+		return (
+			<div className="h-full flex justify-center items-center">
+				یک مشتری امکان پرداخت نهایی را دارد
+			</div>
+		);
+
+	const [customerDoe, getCustomerProfile] = useGetApi<Customer>(
+		`https://localhost:5000/customers/${ctx.profile.data.id}`,
+		(res) => {
+			console.log("Profile", res);
+		}
+	);
+
+	useEffect(() => {
+		getCustomerProfile();
+	}, []);
+
 	const [changeAddress, setChangeAddress] = useState(false);
 
 	return changeAddress ? (
@@ -16,14 +54,39 @@ export default function Stage1() {
 			<div className="p-6 grid grid-cols-2 gap-5 border-[1.5px] border-gray-300 rounded-3xl">
 				<a
 					className="text-blue flex gap-1"
-					href="#"
-					onClick={() => setChangeAddress(true)}
+					// href="#"
+					// onClick={() => setChangeAddress(true)}
 				>
-					ثبت آدرس جدید
-					<Add />
+					{/* ثبت آدرس جدید */}
+					{/* <Add /> */}
 				</a>
 				<p className="w-full text-right font-semibold">آدرس</p>
 				<hr className="bg-gray-300 h-[1.5px] col-span-2" />
+
+				<div className="flex gap-4 items-center col-span-2" dir="rtl">
+					<input
+						checked
+						onChange={() => {}}
+						id="default-radio-2"
+						type="radio"
+						className="w-5 h-5 focus:ring-blue-500 outline-none"
+					/>
+
+					<hr className="bg-gray-300 w-[1.5px] h-full" />
+
+					<div
+						className="flex flex-col gap-2 text-right font-medium my-2"
+						dir="rtl"
+					>
+						{customerDoe.loading ? (
+							<Loading />
+						) : "error" in customerDoe ? (
+							<p>خطایی رخ داده است</p>
+						) : (
+							<p>{customerDoe.data.address}</p>
+						)}
+					</div>
+				</div>
 			</div>
 
 			<div
