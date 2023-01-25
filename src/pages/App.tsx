@@ -12,7 +12,7 @@ function App() {
 
 		setInterval(() => {
 			ctx.syncProfile();
-		}, 30 * 1000);
+		}, 60 * 1000);
 	}, []);
 
 	useEffect(() => {

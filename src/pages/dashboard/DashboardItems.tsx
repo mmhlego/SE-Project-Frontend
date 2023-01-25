@@ -17,7 +17,7 @@ import {
 	ShoppingCart,
 	Ticket,
 } from "iconsax-react";
-import Carts from "./customer/Carts";
+import CurrentCart from "./customer/CurrentCart";
 import Subscriptions from "./customer/Subscriptions";
 import Wallet from "./customer/Wallet";
 import ManageComments from "./admin/ManageComments";
@@ -36,6 +36,7 @@ import SystemLog from "./owner/SystemLog";
 import ManagePrices from "./seller/ManagePrices";
 import SalesStats from "./seller/SalesStats";
 import Address from "./customer/Address";
+import CartHistory from "./customer/CartHistory";
 
 export type DashboardItemType = {
 	text: string;
@@ -45,15 +46,15 @@ export type DashboardItemType = {
 
 export const CustomerItems: DashboardItemType[] = [
 	{
-		text: "سبد خرید", // TODO
+		text: "سبد خرید",
 		icon: <ShoppingCart variant="Bold" />,
-		content: <Carts />,
+		content: <CurrentCart />,
 	},
-	{
-		text: "تاریخچه سفارشات", // TODO
-		icon: <Receipt variant="Bold" />,
-		content: <Carts />,
-	},
+	// {
+	// 	text: "تاریخچه سفارشات", // TODO
+	// 	icon: <Receipt variant="Bold" />,
+	// 	content: <CartHistory />,
+	// },
 	{
 		text: "کیف پول",
 		icon: <DollarSquare variant="Bold" />,
@@ -82,7 +83,7 @@ export const SellerItems: DashboardItemType[] = [
 	// 	icon: <></>,
 	// 	content: [
 	{
-		text: "افزودن محصول جدید", // TODO
+		text: "افزودن محصول جدید",
 		icon: <AddSquare variant="Bold" />,
 		content: <AddProduct />,
 	},
@@ -93,11 +94,11 @@ export const SellerItems: DashboardItemType[] = [
 	// 		},
 	// 	],
 	// },
-	{
-		text: "فروش محصولات", // TODO
-		icon: <DollarSquare variant="Bold" />,
-		content: <ManagePrices />,
-	},
+	// {
+	// 	text: "فروش محصولات", // TODO
+	// 	icon: <DollarSquare variant="Bold" />,
+	// 	content: <ManagePrices />,
+	// },
 	{
 		text: "آمار فروش",
 		icon: <Graph variant="Bold" />,
